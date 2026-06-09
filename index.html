@@ -263,6 +263,37 @@
     }
     html[lang="ja"] .algo-desc-text { font-family: 'Noto Sans JP', sans-serif; font-size: 12.5px; }
 
+    /* ── ALGORITHM KEY POINTS ───────────────── */
+    .algo-keypoints {
+      margin-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+    .algo-kp-row {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 16px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .algo-kp-key {
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding-top: 1px;
+      flex-shrink: 0;
+    }
+    .algo-kp-val {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--fg);
+      line-height: 1.6;
+    }
+    html[lang="ja"] .algo-kp-val { font-family: 'Noto Sans JP', sans-serif; font-size: 12.5px; }
+
     /* ── ALGORITHM FIGURES ───────────────────── */
     .algo-fig-block {
       padding: 0;
@@ -800,6 +831,16 @@
       <h2 data-i18n="s5.h2">A system that <em>computes its own image.</em></h2>
       <p data-i18n="algo.overview.1">Rain Blooms is built on an original cellular automaton — a computational system in which cells arranged on a grid are updated in parallel according to the states of neighboring cells. There is no central controller supervising the whole system. What appears on screen is generated from below, not shaped from above.</p>
       <p data-i18n="algo.overview.2">The automaton extends the classical model in three directions: neighbor cells are not limited to immediate surroundings but can be chosen randomly or according to a pattern; multiple species are defined with relations of attack, assimilation, and indifference; and each cell carries a vitality parameter that affects the outcome of conflict. Each of the five works runs the same rule structure against a distinct parameter configuration, producing a behaviorally distinct system.</p>
+
+      <div class="algo-keypoints">
+        <div class="algo-kp-row"><span class="algo-kp-key" data-i18n="kp.type">Type</span><span class="algo-kp-val" data-i18n="kp.typeVal">2D multivalued cellular automaton</span></div>
+        <div class="algo-kp-row"><span class="algo-kp-key" data-i18n="kp.neighborhood">Neighborhood</span><span class="algo-kp-val" data-i18n="kp.neighborhoodVal">Extended, non-fixed — chosen randomly or by pattern at initialization</span></div>
+        <div class="algo-kp-row"><span class="algo-kp-key" data-i18n="kp.species">Species</span><span class="algo-kp-val" data-i18n="kp.speciesVal">Multiple — relations of attack, assimilation, indifference</span></div>
+        <div class="algo-kp-row"><span class="algo-kp-key" data-i18n="kp.vitality">Vitality</span><span class="algo-kp-val" data-i18n="kp.vitalityVal">Per-cell parameter — increases or decreases through behavior, affects conflict outcomes</span></div>
+        <div class="algo-kp-row"><span class="algo-kp-key" data-i18n="kp.update">Update</span><span class="algo-kp-val" data-i18n="kp.updateVal">Synchronous, deterministic — identical parameters produce identical evolutions</span></div>
+        <div class="algo-kp-row"><span class="algo-kp-key" data-i18n="kp.audio">Audio</span><span class="algo-kp-val" data-i18n="kp.audioVal">Generated from the same process — frequency and parameters vary with hue, brightness, saturation of cell changes</span></div>
+        <div class="algo-kp-row"><span class="algo-kp-key" data-i18n="kp.scale">Scale</span><span class="algo-kp-val" data-i18n="kp.scaleVal">Kilobytes of code — portable to microcontroller, no external dependencies</span></div>
+      </div>
     </div>
     <div class="algo-header-right">
       <blockquote>
@@ -1332,6 +1373,13 @@ const T = {
     'hero.caption': 'Rain Blooms Lattice · aluminum frame & LED panel',
     'hero.desc.1': 'Rain Blooms Lattice is a physical edition of five works accompanying the on-chain release of Rain Blooms on Art Blocks Studio. Each piece runs the same algorithm that drives the digital edition — a cellular automaton designed by Kazuhiro Tanimoto to produce complex visual and audio behavior in real time — but executes it locally on a microcontroller embedded within an aluminum frame.',
     'hero.desc.2': 'The LED matrix panel, mounted horizontally at the top of the frame, is intended to be viewed from above. The work does not display a recording. It computes its image continuously, frame after frame, for as long as it is powered on.',
+    'kp.type': 'Type', 'kp.typeVal': '2D multivalued cellular automaton',
+    'kp.neighborhood': 'Neighborhood', 'kp.neighborhoodVal': 'Extended, non-fixed — chosen randomly or by pattern at initialization',
+    'kp.species': 'Species', 'kp.speciesVal': 'Multiple — relations of attack, assimilation, indifference',
+    'kp.vitality': 'Vitality', 'kp.vitalityVal': 'Per-cell parameter — increases or decreases through behavior, affects conflict outcomes',
+    'kp.update': 'Update', 'kp.updateVal': 'Synchronous, deterministic — identical parameters produce identical evolutions',
+    'kp.audio': 'Audio', 'kp.audioVal': 'Generated from the same process — frequency and parameters vary with hue, brightness, saturation of cell changes',
+    'kp.scale': 'Scale', 'kp.scaleVal': 'Kilobytes of code — portable to microcontroller, no external dependencies',
     'fig1.caption': 'Examples of neighborhood configurations. The central cell (crimson) is updated according to the states of surrounding cells (black). Beyond the classical Moore and von Neumann shapes, Rain Blooms admits randomly chosen and extended neighborhoods.',
     'fig2.caption': 'Iterated evolution of a simple cellular rule from a single seeded cell. Even at this small scale, structure that was not specified in the initial condition emerges through repetition of one local rule.',
     'algo.overview.1': 'Rain Blooms is built on an original cellular automaton — a computational system in which cells arranged on a grid are updated in parallel according to the states of neighboring cells. There is no central controller. What appears on screen is generated from below, not shaped from above.',
@@ -1438,6 +1486,13 @@ const T = {
     'hero.caption': 'Rain Blooms Lattice · アルミフレーム & LEDパネル',
     'hero.desc.1': 'Rain Blooms LatticeはArt Blocks StudioでのRain Bloomsのオンチェーンリリースに伴うフィジカルエディション、5点の作品です。各作品はデジタルエディションと同じアルゴリズムを実行します——谷本和弘がリアルタイムで複雑な映像と音響の挙動を生み出すために設計したセルオートマトン——ただしアルミフレームに内蔵されたマイコン上でローカルに実行されます。',
     'hero.desc.2': 'フレーム上部に水平に取り付けられたLEDマトリクスパネルは、上から覗き込むように鑑賞されることを想定しています。この作品は映像を再生しません。電源が入っている限り、フレームごとに継続的にイメージを計算し続けます。',
+    'kp.type': '種別', 'kp.typeVal': '2次元多値セルオートマトン',
+    'kp.neighborhood': '近傍', 'kp.neighborhoodVal': '拡張・非固定——初期化時にランダムまたはパターンで選択',
+    'kp.species': '種', 'kp.speciesVal': '複数——攻撃・同化・無関心の関係',
+    'kp.vitality': 'バイタリティ', 'kp.vitalityVal': 'セルごとのパラメーター——挙動を通じて増減し、種間競合の結果に影響',
+    'kp.update': '更新', 'kp.updateVal': '同期・決定論的——同一パラメーターは同一進化を生む',
+    'kp.audio': '音響', 'kp.audioVal': '同一プロセスから生成——セル変化の色相・明度・彩度に応じて周波数等のパラメーターが変化',
+    'kp.scale': 'スケール', 'kp.scaleVal': '数KB〜数十KBのコード——マイコンへの移植が可能、外部依存なし',
     'fig1.caption': '近傍配置の例。中心セル（深紅）は周囲のセル（黒）の状態に従って更新される。古典的なMooreおよびvon Neumann形状に加え、Rain Bloomsはランダムに選択された拡張近傍も採用する。',
     'fig2.caption': '単一のシードセルからの単純なセルルールの反復進化。この小さなスケールでも、初期条件で指定されていなかった構造が一つのローカルルールの繰り返しによって出現する。',
     'algo.overview.1': 'Rain Bloomsはオリジナルのセルオートマトンを基盤としている。グリッド上に配置されたセルが、隣接セルの状態に従って並列に更新される計算システムだ。中央コントローラーは存在しない。画面に現れるものは上から形作られるのではなく、下から生成される。',
