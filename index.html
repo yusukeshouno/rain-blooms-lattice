@@ -263,6 +263,100 @@
     }
     html[lang="ja"] .algo-desc-text { font-family: 'Noto Sans JP', sans-serif; font-size: 12.5px; }
 
+    /* ── ALGORITHM FIGURES ───────────────────── */
+    .algo-figs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--border);
+    }
+    .algo-fig-block {
+      padding: 52px;
+    }
+    .algo-fig-block + .algo-fig-block {
+      border-left: 1px solid var(--border);
+    }
+    .fig-tag {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+    /* FIG.1: 4 neighborhood grids in a row */
+    .fig1-grids {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+    .fig1-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+    .fig1-item svg { display: block; width: 100%; max-width: 72px; }
+    .fig1-item-label {
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+    }
+    /* FIG.2: evolution sequence */
+    .fig2-sequence {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .fig2-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+    }
+    .fig2-step canvas {
+      display: block;
+      width: 100%;
+      max-width: 72px;
+      aspect-ratio: 1;
+      image-rendering: pixelated;
+    }
+    .fig2-step-label {
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: 0.10em;
+      color: var(--muted);
+    }
+    .fig2-arrow {
+      font-size: 14px;
+      color: var(--border);
+      flex-shrink: 0;
+      padding: 0 4px;
+      padding-bottom: 14px; /* align with canvas center */
+    }
+    .fig-caption-text {
+      font-family: var(--sans);
+      font-size: 11.5px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.65;
+      font-style: italic;
+    }
+    @media (max-width: 900px) {
+      .algo-figs { grid-template-columns: 1fr; }
+      .algo-fig-block { padding: 40px 24px; }
+      .algo-fig-block + .algo-fig-block { border-left: none; border-top: 1px solid var(--border); }
+    }
+
     .hero-content {
       display: flex;
       flex-direction: column;
@@ -718,6 +812,106 @@
     </div>
   </div>
 
+  <!-- FIGURES: FIG.1 + FIG.2 -->
+  <div class="algo-figs">
+
+    <!-- FIG.1: Neighborhood configurations -->
+    <div class="algo-fig-block">
+      <span class="fig-tag">FIG. 1</span>
+      <div class="fig1-grids">
+
+        <!-- MOORE -->
+        <div class="fig1-item">
+          <svg viewBox="0 0 67 67" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="67" height="67" fill="#f8f8f8"/>
+            <!-- empty grid: all 49 cells light -->
+            <!-- Row 0 -->
+            <rect x="0.5" y="0.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="0.5" width="8" height="8" fill="#efefef"/><rect x="18.5" y="0.5" width="8" height="8" fill="#efefef"/><rect x="27.5" y="0.5" width="8" height="8" fill="#efefef"/><rect x="36.5" y="0.5" width="8" height="8" fill="#efefef"/><rect x="45.5" y="0.5" width="8" height="8" fill="#efefef"/><rect x="54.5" y="0.5" width="8" height="8" fill="#efefef"/>
+            <!-- Row 1 -->
+            <rect x="0.5" y="9.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="9.5" width="8" height="8" fill="#efefef"/><rect x="18.5" y="9.5" width="8" height="8" fill="#efefef"/><rect x="27.5" y="9.5" width="8" height="8" fill="#efefef"/><rect x="36.5" y="9.5" width="8" height="8" fill="#efefef"/><rect x="45.5" y="9.5" width="8" height="8" fill="#efefef"/><rect x="54.5" y="9.5" width="8" height="8" fill="#efefef"/>
+            <!-- Row 2: Moore active -->
+            <rect x="0.5" y="18.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="18.5" width="8" height="8" fill="#efefef"/><rect x="18.5" y="18.5" width="8" height="8" fill="#111"/><rect x="27.5" y="18.5" width="8" height="8" fill="#111"/><rect x="36.5" y="18.5" width="8" height="8" fill="#111"/><rect x="45.5" y="18.5" width="8" height="8" fill="#efefef"/><rect x="54.5" y="18.5" width="8" height="8" fill="#efefef"/>
+            <!-- Row 3: center -->
+            <rect x="0.5" y="27.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="27.5" width="8" height="8" fill="#efefef"/><rect x="18.5" y="27.5" width="8" height="8" fill="#111"/><rect x="27.5" y="27.5" width="8" height="8" fill="#8b1c1c"/><rect x="36.5" y="27.5" width="8" height="8" fill="#111"/><rect x="45.5" y="27.5" width="8" height="8" fill="#efefef"/><rect x="54.5" y="27.5" width="8" height="8" fill="#efefef"/>
+            <!-- Row 4: Moore active -->
+            <rect x="0.5" y="36.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="36.5" width="8" height="8" fill="#efefef"/><rect x="18.5" y="36.5" width="8" height="8" fill="#111"/><rect x="27.5" y="36.5" width="8" height="8" fill="#111"/><rect x="36.5" y="36.5" width="8" height="8" fill="#111"/><rect x="45.5" y="36.5" width="8" height="8" fill="#efefef"/><rect x="54.5" y="36.5" width="8" height="8" fill="#efefef"/>
+            <!-- Row 5 -->
+            <rect x="0.5" y="45.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="45.5" width="8" height="8" fill="#efefef"/><rect x="18.5" y="45.5" width="8" height="8" fill="#efefef"/><rect x="27.5" y="45.5" width="8" height="8" fill="#efefef"/><rect x="36.5" y="45.5" width="8" height="8" fill="#efefef"/><rect x="45.5" y="45.5" width="8" height="8" fill="#efefef"/><rect x="54.5" y="45.5" width="8" height="8" fill="#efefef"/>
+            <!-- Row 6 -->
+            <rect x="0.5" y="54.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="54.5" width="8" height="8" fill="#efefef"/><rect x="18.5" y="54.5" width="8" height="8" fill="#efefef"/><rect x="27.5" y="54.5" width="8" height="8" fill="#efefef"/><rect x="36.5" y="54.5" width="8" height="8" fill="#efefef"/><rect x="45.5" y="54.5" width="8" height="8" fill="#efefef"/><rect x="54.5" y="54.5" width="8" height="8" fill="#efefef"/>
+          </svg>
+          <span class="fig1-item-label">Moore</span>
+        </div>
+
+        <!-- VON NEUMANN -->
+        <div class="fig1-item">
+          <svg viewBox="0 0 67 67" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- all empty -->
+            <rect x="0.5" y="0.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="0.5" width="8" height="8" fill="#efefef"/><rect x="18.5" y="0.5" width="8" height="8" fill="#efefef"/><rect x="27.5" y="0.5" width="8" height="8" fill="#efefef"/><rect x="36.5" y="0.5" width="8" height="8" fill="#efefef"/><rect x="45.5" y="0.5" width="8" height="8" fill="#efefef"/><rect x="54.5" y="0.5" width="8" height="8" fill="#efefef"/>
+            <rect x="0.5" y="9.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="9.5" width="8" height="8" fill="#efefef"/><rect x="18.5" y="9.5" width="8" height="8" fill="#efefef"/><rect x="27.5" y="9.5" width="8" height="8" fill="#efefef"/><rect x="36.5" y="9.5" width="8" height="8" fill="#efefef"/><rect x="45.5" y="9.5" width="8" height="8" fill="#efefef"/><rect x="54.5" y="9.5" width="8" height="8" fill="#efefef"/>
+            <rect x="0.5" y="18.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="18.5" width="8" height="8" fill="#efefef"/><rect x="18.5" y="18.5" width="8" height="8" fill="#efefef"/><rect x="27.5" y="18.5" width="8" height="8" fill="#111"/><rect x="36.5" y="18.5" width="8" height="8" fill="#efefef"/><rect x="45.5" y="18.5" width="8" height="8" fill="#efefef"/><rect x="54.5" y="18.5" width="8" height="8" fill="#efefef"/>
+            <rect x="0.5" y="27.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="27.5" width="8" height="8" fill="#efefef"/><rect x="18.5" y="27.5" width="8" height="8" fill="#111"/><rect x="27.5" y="27.5" width="8" height="8" fill="#8b1c1c"/><rect x="36.5" y="27.5" width="8" height="8" fill="#111"/><rect x="45.5" y="27.5" width="8" height="8" fill="#efefef"/><rect x="54.5" y="27.5" width="8" height="8" fill="#efefef"/>
+            <rect x="0.5" y="36.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="36.5" width="8" height="8" fill="#efefef"/><rect x="18.5" y="36.5" width="8" height="8" fill="#efefef"/><rect x="27.5" y="36.5" width="8" height="8" fill="#111"/><rect x="36.5" y="36.5" width="8" height="8" fill="#efefef"/><rect x="45.5" y="36.5" width="8" height="8" fill="#efefef"/><rect x="54.5" y="36.5" width="8" height="8" fill="#efefef"/>
+            <rect x="0.5" y="45.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="45.5" width="8" height="8" fill="#efefef"/><rect x="18.5" y="45.5" width="8" height="8" fill="#efefef"/><rect x="27.5" y="45.5" width="8" height="8" fill="#efefef"/><rect x="36.5" y="45.5" width="8" height="8" fill="#efefef"/><rect x="45.5" y="45.5" width="8" height="8" fill="#efefef"/><rect x="54.5" y="45.5" width="8" height="8" fill="#efefef"/>
+            <rect x="0.5" y="54.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="54.5" width="8" height="8" fill="#efefef"/><rect x="18.5" y="54.5" width="8" height="8" fill="#efefef"/><rect x="27.5" y="54.5" width="8" height="8" fill="#efefef"/><rect x="36.5" y="54.5" width="8" height="8" fill="#efefef"/><rect x="45.5" y="54.5" width="8" height="8" fill="#efefef"/><rect x="54.5" y="54.5" width="8" height="8" fill="#efefef"/>
+          </svg>
+          <span class="fig1-item-label">Von Neumann</span>
+        </div>
+
+        <!-- RANDOM -->
+        <div class="fig1-item">
+          <svg viewBox="0 0 67 67" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.5" y="0.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="0.5" width="8" height="8" fill="#efefef"/><rect x="18.5" y="0.5" width="8" height="8" fill="#efefef"/><rect x="27.5" y="0.5" width="8" height="8" fill="#efefef"/><rect x="36.5" y="0.5" width="8" height="8" fill="#efefef"/><rect x="45.5" y="0.5" width="8" height="8" fill="#efefef"/><rect x="54.5" y="0.5" width="8" height="8" fill="#efefef"/>
+            <rect x="0.5" y="9.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="9.5" width="8" height="8" fill="#111"/><rect x="18.5" y="9.5" width="8" height="8" fill="#efefef"/><rect x="27.5" y="9.5" width="8" height="8" fill="#efefef"/><rect x="36.5" y="9.5" width="8" height="8" fill="#efefef"/><rect x="45.5" y="9.5" width="8" height="8" fill="#efefef"/><rect x="54.5" y="9.5" width="8" height="8" fill="#efefef"/>
+            <rect x="0.5" y="18.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="18.5" width="8" height="8" fill="#efefef"/><rect x="18.5" y="18.5" width="8" height="8" fill="#efefef"/><rect x="27.5" y="18.5" width="8" height="8" fill="#efefef"/><rect x="36.5" y="18.5" width="8" height="8" fill="#111"/><rect x="45.5" y="18.5" width="8" height="8" fill="#111"/><rect x="54.5" y="18.5" width="8" height="8" fill="#efefef"/>
+            <rect x="0.5" y="27.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="27.5" width="8" height="8" fill="#efefef"/><rect x="18.5" y="27.5" width="8" height="8" fill="#efefef"/><rect x="27.5" y="27.5" width="8" height="8" fill="#8b1c1c"/><rect x="36.5" y="27.5" width="8" height="8" fill="#efefef"/><rect x="45.5" y="27.5" width="8" height="8" fill="#efefef"/><rect x="54.5" y="27.5" width="8" height="8" fill="#efefef"/>
+            <rect x="0.5" y="36.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="36.5" width="8" height="8" fill="#111"/><rect x="18.5" y="36.5" width="8" height="8" fill="#efefef"/><rect x="27.5" y="36.5" width="8" height="8" fill="#efefef"/><rect x="36.5" y="36.5" width="8" height="8" fill="#efefef"/><rect x="45.5" y="36.5" width="8" height="8" fill="#efefef"/><rect x="54.5" y="36.5" width="8" height="8" fill="#efefef"/>
+            <rect x="0.5" y="45.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="45.5" width="8" height="8" fill="#efefef"/><rect x="18.5" y="45.5" width="8" height="8" fill="#efefef"/><rect x="27.5" y="45.5" width="8" height="8" fill="#efefef"/><rect x="36.5" y="45.5" width="8" height="8" fill="#efefef"/><rect x="45.5" y="45.5" width="8" height="8" fill="#111"/><rect x="54.5" y="45.5" width="8" height="8" fill="#efefef"/>
+            <rect x="0.5" y="54.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="54.5" width="8" height="8" fill="#efefef"/><rect x="18.5" y="54.5" width="8" height="8" fill="#efefef"/><rect x="27.5" y="54.5" width="8" height="8" fill="#efefef"/><rect x="36.5" y="54.5" width="8" height="8" fill="#efefef"/><rect x="45.5" y="54.5" width="8" height="8" fill="#efefef"/><rect x="54.5" y="54.5" width="8" height="8" fill="#efefef"/>
+          </svg>
+          <span class="fig1-item-label">Random</span>
+        </div>
+
+        <!-- EXTENDED -->
+        <div class="fig1-item">
+          <svg viewBox="0 0 67 67" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.5" y="0.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="0.5" width="8" height="8" fill="#efefef"/><rect x="18.5" y="0.5" width="8" height="8" fill="#efefef"/><rect x="27.5" y="0.5" width="8" height="8" fill="#efefef"/><rect x="36.5" y="0.5" width="8" height="8" fill="#efefef"/><rect x="45.5" y="0.5" width="8" height="8" fill="#efefef"/><rect x="54.5" y="0.5" width="8" height="8" fill="#efefef"/>
+            <!-- row 1: extended top (col 3) -->
+            <rect x="0.5" y="9.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="9.5" width="8" height="8" fill="#efefef"/><rect x="18.5" y="9.5" width="8" height="8" fill="#efefef"/><rect x="27.5" y="9.5" width="8" height="8" fill="#555"/><rect x="36.5" y="9.5" width="8" height="8" fill="#efefef"/><rect x="45.5" y="9.5" width="8" height="8" fill="#efefef"/><rect x="54.5" y="9.5" width="8" height="8" fill="#efefef"/>
+            <!-- row 2: Moore -->
+            <rect x="0.5" y="18.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="18.5" width="8" height="8" fill="#efefef"/><rect x="18.5" y="18.5" width="8" height="8" fill="#111"/><rect x="27.5" y="18.5" width="8" height="8" fill="#111"/><rect x="36.5" y="18.5" width="8" height="8" fill="#111"/><rect x="45.5" y="18.5" width="8" height="8" fill="#efefef"/><rect x="54.5" y="18.5" width="8" height="8" fill="#efefef"/>
+            <!-- row 3: center + Moore + extended L/R -->
+            <rect x="0.5" y="27.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="27.5" width="8" height="8" fill="#555"/><rect x="18.5" y="27.5" width="8" height="8" fill="#111"/><rect x="27.5" y="27.5" width="8" height="8" fill="#8b1c1c"/><rect x="36.5" y="27.5" width="8" height="8" fill="#111"/><rect x="45.5" y="27.5" width="8" height="8" fill="#555"/><rect x="54.5" y="27.5" width="8" height="8" fill="#efefef"/>
+            <!-- row 4: Moore -->
+            <rect x="0.5" y="36.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="36.5" width="8" height="8" fill="#efefef"/><rect x="18.5" y="36.5" width="8" height="8" fill="#111"/><rect x="27.5" y="36.5" width="8" height="8" fill="#111"/><rect x="36.5" y="36.5" width="8" height="8" fill="#111"/><rect x="45.5" y="36.5" width="8" height="8" fill="#efefef"/><rect x="54.5" y="36.5" width="8" height="8" fill="#efefef"/>
+            <!-- row 5: extended bottom -->
+            <rect x="0.5" y="45.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="45.5" width="8" height="8" fill="#efefef"/><rect x="18.5" y="45.5" width="8" height="8" fill="#efefef"/><rect x="27.5" y="45.5" width="8" height="8" fill="#555"/><rect x="36.5" y="45.5" width="8" height="8" fill="#efefef"/><rect x="45.5" y="45.5" width="8" height="8" fill="#efefef"/><rect x="54.5" y="45.5" width="8" height="8" fill="#efefef"/>
+            <rect x="0.5" y="54.5" width="8" height="8" fill="#efefef"/><rect x="9.5" y="54.5" width="8" height="8" fill="#efefef"/><rect x="18.5" y="54.5" width="8" height="8" fill="#efefef"/><rect x="27.5" y="54.5" width="8" height="8" fill="#efefef"/><rect x="36.5" y="54.5" width="8" height="8" fill="#efefef"/><rect x="45.5" y="54.5" width="8" height="8" fill="#efefef"/><rect x="54.5" y="54.5" width="8" height="8" fill="#efefef"/>
+          </svg>
+          <span class="fig1-item-label">Extended</span>
+        </div>
+
+      </div>
+      <p class="fig-caption-text" data-i18n="fig1.caption">Examples of neighborhood configurations. The central cell (crimson) is updated according to the states of surrounding cells (black). Beyond the classical Moore and von Neumann shapes, Rain Blooms admits randomly chosen and extended neighborhoods.</p>
+    </div>
+
+    <!-- FIG.2: Iterated evolution -->
+    <div class="algo-fig-block">
+      <span class="fig-tag">FIG. 2</span>
+      <div class="fig2-sequence">
+        <div class="fig2-step"><canvas id="fig2c0" width="88" height="88"></canvas><span class="fig2-step-label">t = 0</span></div>
+        <span class="fig2-arrow">→</span>
+        <div class="fig2-step"><canvas id="fig2c1" width="88" height="88"></canvas><span class="fig2-step-label">t = 1</span></div>
+        <span class="fig2-arrow">→</span>
+        <div class="fig2-step"><canvas id="fig2c2" width="88" height="88"></canvas><span class="fig2-step-label">t = 2</span></div>
+        <span class="fig2-arrow">→</span>
+        <div class="fig2-step"><canvas id="fig2c3" width="88" height="88"></canvas><span class="fig2-step-label">t = 3</span></div>
+      </div>
+      <p class="fig-caption-text" data-i18n="fig2.caption">Iterated evolution of a simple cellular rule from a single seeded cell. Even at this small scale, structure that was not specified in the initial condition emerges through repetition of one local rule.</p>
+    </div>
+
+  </div>
+
   <!-- Horizontal scroll: 5 works -->
   <div class="algo-scroll-wrap" id="algoScrollWrap">
     <div class="algo-track">
@@ -1143,6 +1337,8 @@ const T = {
     'hero.caption': 'Rain Blooms Lattice · aluminum frame & LED panel',
     'hero.desc.1': 'Rain Blooms Lattice is a physical edition of five works accompanying the on-chain release of Rain Blooms on Art Blocks Studio. Each piece runs the same algorithm that drives the digital edition — a cellular automaton designed by Kazuhiro Tanimoto to produce complex visual and audio behavior in real time — but executes it locally on a microcontroller embedded within an aluminum frame.',
     'hero.desc.2': 'The LED matrix panel, mounted horizontally at the top of the frame, is intended to be viewed from above. The work does not display a recording. It computes its image continuously, frame after frame, for as long as it is powered on.',
+    'fig1.caption': 'Examples of neighborhood configurations. The central cell (crimson) is updated according to the states of surrounding cells (black). Beyond the classical Moore and von Neumann shapes, Rain Blooms admits randomly chosen and extended neighborhoods.',
+    'fig2.caption': 'Iterated evolution of a simple cellular rule from a single seeded cell. Even at this small scale, structure that was not specified in the initial condition emerges through repetition of one local rule.',
     'algo.overview.1': 'Rain Blooms is built on an original cellular automaton — a computational system in which cells arranged on a grid are updated in parallel according to the states of neighboring cells. There is no central controller. What appears on screen is generated from below, not shaped from above.',
     'algo.overview.2': 'The automaton extends the classical model in three directions: neighbor cells are not limited to immediate surroundings but can be chosen randomly or according to a pattern; multiple species are defined with relations of attack, assimilation, and indifference; and each cell carries a vitality parameter that affects the outcome of conflict. Each of the five works runs the same rule structure against a distinct parameter configuration, producing a behaviorally distinct system.',
     'algo.desc.1': 'Organic upwelling. Extended neighborhoods and low vitality thresholds produce slow, geological formations — mass-like shapes that accumulate and drift without resolving.',
@@ -1247,6 +1443,8 @@ const T = {
     'hero.caption': 'Rain Blooms Lattice · アルミフレーム & LEDパネル',
     'hero.desc.1': 'Rain Blooms LatticeはArt Blocks StudioでのRain Bloomsのオンチェーンリリースに伴うフィジカルエディション、5点の作品です。各作品はデジタルエディションと同じアルゴリズムを実行します——谷本和弘がリアルタイムで複雑な映像と音響の挙動を生み出すために設計したセルオートマトン——ただしアルミフレームに内蔵されたマイコン上でローカルに実行されます。',
     'hero.desc.2': 'フレーム上部に水平に取り付けられたLEDマトリクスパネルは、上から覗き込むように鑑賞されることを想定しています。この作品は映像を再生しません。電源が入っている限り、フレームごとに継続的にイメージを計算し続けます。',
+    'fig1.caption': '近傍配置の例。中心セル（深紅）は周囲のセル（黒）の状態に従って更新される。古典的なMooreおよびvon Neumann形状に加え、Rain Bloomsはランダムに選択された拡張近傍も採用する。',
+    'fig2.caption': '単一のシードセルからの単純なセルルールの反復進化。この小さなスケールでも、初期条件で指定されていなかった構造が一つのローカルルールの繰り返しによって出現する。',
     'algo.overview.1': 'Rain Bloomsはオリジナルのセルオートマトンを基盤としている。グリッド上に配置されたセルが、隣接セルの状態に従って並列に更新される計算システムだ。中央コントローラーは存在しない。画面に現れるものは上から形作られるのではなく、下から生成される。',
     'algo.overview.2': 'オートマトンは古典的なモデルを3つの方向に拡張している。近傍セルは直近に限定されず、ランダムにまたはパターンに従って選択できる。攻撃・同化・無関心の関係を持つ複数の種が定義される。そして各セルは、種間の競合結果に影響するバイタリティパラメーターを持つ。5つの作品はそれぞれ同じルール構造を異なるパラメーター設定に対して実行し、挙動的に異なるシステムを生み出す。',
     'algo.desc.1': '有機的な湧き上がり。拡張近傍と低バイタリティ閾値により、ゆっくりとした地質学的な形成——塊状の形が蓄積し、解消されることなく漂流する。',
@@ -1477,6 +1675,47 @@ function initAll() {
 
   document.querySelectorAll('[data-section]').forEach(el=>observer.observe(el));
   initDragScroll(document.getElementById('algoScrollWrap'));
+
+  // FIG.2: Draw 4 evolution states using simple totalistic rule
+  // Rule: cell alive at t+1 if XOR of 4 von Neumann neighbors at t
+  drawFig2();
+}
+
+function drawFig2() {
+  const N = 11; // 11×11 grid
+  const CS = 8; // cell size in canvas px (canvas is 88px = 11×8)
+  const EMPTY = '#efefef', ALIVE = '#0a0a0a', CENTER = '#8b1c1c';
+
+  // Compute states 0–3 using XOR rule (Rule 90 in 2D)
+  function stepXOR(grid, n) {
+    const next = Array.from({length:n}, () => new Array(n).fill(0));
+    for (let y=0;y<n;y++) for (let x=0;x<n;x++) {
+      const l=grid[y][(x-1+n)%n], r=grid[y][(x+1)%n];
+      const u=grid[(y-1+n)%n][x], d=grid[(y+1)%n][x];
+      next[y][x] = (l^r^u^d) & 1;
+    }
+    return next;
+  }
+
+  // Initial state: single center cell
+  const states = [];
+  let g = Array.from({length:N}, () => new Array(N).fill(0));
+  const mid = Math.floor(N/2);
+  g[mid][mid] = 1;
+  states.push(g);
+  for (let t=1;t<=3;t++) { g = stepXOR(g, N); states.push(g); }
+
+  states.forEach((state, t) => {
+    const canvas = document.getElementById('fig2c'+t);
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for (let y=0;y<N;y++) for (let x=0;x<N;x++) {
+      const isCenter = (x===mid && y===mid && t===0);
+      ctx.fillStyle = isCenter ? CENTER : state[y][x] ? ALIVE : EMPTY;
+      ctx.fillRect(x*CS, y*CS, CS-1, CS-1);
+    }
+  });
 }
 
 window.addEventListener('DOMContentLoaded', () => {
