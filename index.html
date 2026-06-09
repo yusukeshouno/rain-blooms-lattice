@@ -264,16 +264,13 @@
     html[lang="ja"] .algo-desc-text { font-family: 'Noto Sans JP', sans-serif; font-size: 12.5px; }
 
     /* ── ALGORITHM FIGURES ───────────────────── */
-    .algo-figs {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border-bottom: 1px solid var(--border);
-    }
     .algo-fig-block {
-      padding: 52px;
+      padding: 0;
     }
     .algo-fig-block + .algo-fig-block {
-      border-left: 1px solid var(--border);
+      margin-top: 36px;
+      padding-top: 36px;
+      border-top: 1px solid var(--border);
     }
     .fig-tag {
       display: inline-block;
@@ -809,14 +806,10 @@
         <p data-i18n="s5.quote">"What I designed is not a final image, but a small system of local rules. Sound and image change together, in real time, from the interactions of those rules — not from a result decided in advance."</p>
         <cite>— Kazuhiro Tanimoto</cite>
       </blockquote>
-    </div>
-  </div>
 
-  <!-- FIGURES: FIG.1 + FIG.2 -->
-  <div class="algo-figs">
-
-    <!-- FIG.1: Neighborhood configurations -->
-    <div class="algo-fig-block">
+      <div style="margin-top:40px;border-top:1px solid var(--border);padding-top:36px;">
+      <!-- FIG.1: Neighborhood configurations -->
+      <div class="algo-fig-block" style="margin-top:40px;padding:0;border:none;">
       <span class="fig-tag">FIG. 1</span>
       <div class="fig1-grids">
 
@@ -909,8 +902,10 @@
       </div>
       <p class="fig-caption-text" data-i18n="fig2.caption">Iterated evolution of a simple cellular rule from a single seeded cell. Even at this small scale, structure that was not specified in the initial condition emerges through repetition of one local rule.</p>
     </div>
+      </div><!-- /fig-wrapper -->
 
-  </div>
+    </div><!-- /algo-header-right -->
+  </div><!-- /algo-header -->
 
   <!-- Horizontal scroll: 5 works -->
   <div class="algo-scroll-wrap" id="algoScrollWrap">
