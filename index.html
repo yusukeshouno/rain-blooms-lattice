@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rain Blooms Lattice — Kazuhiro Tanimoto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #ffffff;
+      --fg:     #0a0a0a;
+      --muted:  #939393;
+      --border: #e6e6e6;
+      --panel:  #f6f6f6;
+      --dark:   #060606;
+      --serif:  'Cormorant Garamond', 'Noto Serif JP', Georgia, serif;
+      --sans:   'DM Sans', 'Noto Sans JP', system-ui, sans-serif;
+      --mono:   'DM Mono', 'Courier New', monospace;
+      --nav-h:  52px;
+      --float-pad: 28px; /* padding around floating square */
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+    html[lang="ja"] body { font-family: 'Noto Sans JP', 'DM Sans', sans-serif; }
+    html[lang="ja"] p    { line-height: 1.95; }
+
+    /* ── NAV ─────────────────────────────────── */
+    nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 200;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 36px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--fg);
+    }
+    .nav-center {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-center a {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-center a:hover { color: var(--fg); }
+
+    /* Language toggle */
+    .lang-toggle {
+      display: flex;
+      border: 1px solid var(--border);
+    }
+    .lang-btn {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      background: none;
+      border: none;
+      padding: 6px 13px;
+      cursor: pointer;
+      color: var(--muted);
+      transition: background 0.15s, color 0.15s;
+    }
+    .lang-btn + .lang-btn { border-left: 1px solid var(--border); }
+    .lang-btn.active      { background: var(--fg); color: #fff; }
+    .lang-btn:not(.active):hover { background: var(--panel); color: var(--fg); }
+
+    /* ── HERO ────────────────────────────────── */
+    .hero {
+      margin-top: var(--nav-h);
+      min-height: calc(100svh - var(--nav-h));
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-visual {
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* Sculpture illustration wrapper */
+    .hero-sculpture {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-sculpture svg { max-width: 72%; max-height: 90%; }
+    /* Floating canvas in hero sculpture LED area */
+    #heroLedCanvas {
+      position: absolute;
+      display: block;
+      /* Will be positioned by JS over the LED area */
+    }
+    .hero-visual-label {
+      position: absolute;
+      bottom: 16px;
+      left: 20px;
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+    }
+
+    /* ── ALGORITHM / 5 WORKS ─────────────────── */
+    .algo-section {
+      border-bottom: 1px solid var(--border);
+    }
+    .algo-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      /* No horizontal padding on the container — each column handles its own */
+      padding: 64px 0 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .algo-header-left {
+      padding: 0 52px 52px 52px;
+    }
+    .algo-header-right {
+      padding: 0 52px 52px 52px;
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    /* Horizontal scroll of 5 works */
+    .algo-scroll-wrap {
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      cursor: grab;
+      user-select: none;
+    }
+    .algo-scroll-wrap:active { cursor: grabbing; }
+    .algo-scroll-wrap::-webkit-scrollbar { display: none; }
+    .algo-track {
+      display: flex;
+      width: max-content;
+    }
+    .algo-work {
+      flex-shrink: 0;
+      width: calc(100vw / 3.5);
+      background: var(--dark);
+      position: relative;
+      border-right: 1px solid rgba(255,255,255,0.04);
+      display: flex;
+      flex-direction: column;
+    }
+    .algo-work-canvas-area {
+      width: 100%;
+      aspect-ratio: 1;
+      position: relative;
+      flex-shrink: 0;
+    }
+    /* Floating square: canvas centered with padding so it floats in black */
+    .algo-work-canvas-area canvas {
+      position: absolute;
+      display: block;
+      width: calc(100% - var(--float-pad) * 2);
+      aspect-ratio: 1;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .algo-work-footer {
+      padding: 20px 24px 28px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      flex-shrink: 0;
+    }
+    .algo-work-meta {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .algo-work-num {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(255,255,255,0.85);
+    }
+    .algo-work-label {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+    .algo-work-desc {
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.45);
+      margin: 0;
+    }
+    html[lang="ja"] .algo-work-desc { font-family: 'Noto Sans JP', sans-serif; font-size: 11.5px; }
+    /* 5 algorithm descriptions */
+    .algo-descriptions {
+      margin-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+    .algo-desc-row {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 16px;
+      align-items: baseline;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .algo-desc-num {
+      font-family: var(--serif);
+      font-size: 15px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+    .algo-desc-text {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 300;
+      color: #3a3a3a;
+      line-height: 1.65;
+    }
+    html[lang="ja"] .algo-desc-text { font-family: 'Noto Sans JP', sans-serif; font-size: 12.5px; }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 52px 52px 48px;
+      border-left: 1px solid var(--border);
+    }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 44px;
+    }
+    .hero-title {
+      font-family: var(--sans);
+      font-size: clamp(64px, 7vw, 112px);
+      font-weight: 300;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+    }
+    .hero-title em { font-style: normal; font-weight: 300; }
+    .hero-sub {
+      font-family: var(--sans);
+      font-size: 13.5px;
+      font-weight: 300;
+      color: var(--muted);
+      margin-top: 24px;
+      max-width: 360px;
+      line-height: 1.75;
+    }
+    html[lang="ja"] .hero-sub { font-family: 'Noto Sans JP', sans-serif; }
+    .hero-desc {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 300;
+      color: #444;
+      line-height: 1.8;
+      margin-top: 20px;
+      max-width: 420px;
+    }
+    html[lang="ja"] .hero-desc { font-family: 'Noto Sans JP', sans-serif; font-size: 12.5px; }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--border);
+      padding-top: 28px;
+    }
+    .stat + .stat { border-left: 1px solid var(--border); padding-left: 20px; }
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .stat-value { font-family: var(--sans); font-size: 13px; font-weight: 400; }
+
+    /* ── STICKY SPLIT ────────────────────────── */
+    .split-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--border);
+    }
+    .split-left {
+      position: sticky;
+      top: var(--nav-h);
+      height: calc(100svh - var(--nav-h));
+      overflow: hidden;
+      border-right: 1px solid var(--border);
+    }
+    .split-image {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.45s ease;
+      background: #060606;
+    }
+    .split-image.active { opacity: 1; }
+
+    /* Floating square: padding so canvas floats in black */
+    .split-image canvas {
+      position: absolute;
+      display: block;
+      width: calc(100% - var(--float-pad) * 2);
+      aspect-ratio: 1;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .img-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .split-image-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 13px 24px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      font-size: 9px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+      background: #060606;
+    }
+
+    /* ── CONTENT SECTIONS ────────────────────── */
+    .content-section {
+      padding: 68px 52px;
+      border-bottom: 1px solid var(--border);
+    }
+    .content-section:last-child { border-bottom: none; }
+
+    .sec-label {
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 40px;
+    }
+    h2 {
+      font-family: var(--serif);
+      font-size: clamp(30px, 3vw, 46px);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      margin-bottom: 28px;
+    }
+    html[lang="ja"] h2 {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: clamp(22px, 2.4vw, 34px);
+      letter-spacing: 0;
+      font-weight: 300;
+    }
+    h2 em { font-style: italic; font-weight: 300; }
+    html[lang="ja"] h2 em { font-style: normal; }
+    p {
+      font-family: var(--sans);
+      margin-bottom: 16px;
+      font-size: 13.5px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: #2a2a2a;
+    }
+    html[lang="ja"] p { font-family: 'Noto Sans JP', sans-serif; font-size: 13px; }
+    p:last-child { margin-bottom: 0; }
+
+    .spec-row {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+      font-size: 13px;
+    }
+    .spec-row:first-child { border-top: 1px solid var(--border); }
+    .spec-key {
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding-top: 1px;
+    }
+    .spec-row span:last-child { font-family: var(--sans); font-weight: 300; color: var(--fg); }
+
+    .note-box {
+      background: var(--panel);
+      border-left: 2px solid var(--border);
+      padding: 20px 24px;
+      margin: 28px 0;
+    }
+    .note-box-label {
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--fg);
+      margin-bottom: 10px;
+    }
+    .note-box p { font-size: 13px; margin-bottom: 0; color: #444; }
+
+    blockquote {
+      border-left: 2px solid var(--fg);
+      padding: 22px 28px;
+      background: var(--panel);
+      margin: 28px 0;
+    }
+    blockquote p {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.6;
+      color: var(--fg);
+    }
+    html[lang="ja"] blockquote p {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 14px;
+      font-style: normal;
+    }
+    blockquote cite {
+      display: block;
+      margin-top: 16px;
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-style: normal;
+    }
+
+    .neighbor-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 28px 0;
+    }
+    .neighbor-item { text-align: center; }
+    .neighbor-canvas { display: block; margin: 0 auto 8px; }
+    .neighbor-label {
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── PRICING ─────────────────────────────── */
+    .pricing-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--border);
+    }
+    .pricing-left { padding: 68px 52px; border-right: 1px solid var(--border); }
+    .pricing-right { padding: 68px 52px; }
+
+    .size-diagram {
+      display: flex;
+      align-items: flex-end;
+      gap: 28px;
+      padding: 28px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin: 28px 0;
+    }
+    .size-item { display: flex; flex-direction: column; align-items: center; gap: 8px; flex: 1; }
+    .size-box { background: var(--fg); }
+    .size-label-mm { font-family: var(--mono); font-size: 10px; font-weight: 400; letter-spacing: 0.10em; color: var(--fg); }
+    .size-label-price { font-family: var(--serif); font-size: 18px; font-weight: 300; color: var(--fg); }
+
+    .price-table { width: 100%; border-collapse: collapse; }
+    .price-table thead th {
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: left;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .price-table tbody tr { border-bottom: 1px solid var(--border); }
+    .price-table tbody tr:last-child { border-bottom: none; }
+    .price-table td { padding: 20px 0; vertical-align: top; font-family: var(--sans); font-size: 13px; font-weight: 300; }
+    .price-table td:first-child { font-family: var(--mono); font-size: 12px; font-weight: 400; letter-spacing: 0.04em; }
+    .price-big { font-family: var(--serif); font-size: 26px; font-weight: 300; color: var(--fg); }
+    .price-small { font-family: var(--mono); font-size: 10px; font-weight: 400; color: var(--muted); margin-top: 4px; }
+
+    /* ── ENQUIRY ─────────────────────────────── */
+    .enquiry-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--border);
+    }
+    .enquiry-left { padding: 68px 52px; border-right: 1px solid var(--border); }
+    .enquiry-right { padding: 68px 52px; }
+
+    .field { margin-bottom: 28px; }
+    .field-label {
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 7px;
+    }
+    .field-val { font-family: var(--sans); font-size: 13.5px; font-weight: 300; line-height: 1.6; }
+    .field-val a { color: var(--fg); text-underline-offset: 3px; }
+    .field-val a:hover { color: var(--muted); }
+
+    .cta {
+      display: inline-block;
+      background: var(--fg);
+      color: #fff;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 14px 28px;
+      margin-top: 8px;
+      transition: background 0.2s;
+    }
+    .cta:hover { background: #333; }
+
+    /* ── FOOTER ──────────────────────────────── */
+    footer {
+      padding: 24px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+    }
+    .footer-copy { font-family: var(--mono); font-size: 9px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a { font-family: var(--mono); font-size: 9px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
+    .footer-links a:hover { color: var(--fg); }
+
+    /* ── MOBILE ──────────────────────────────── */
+    @media (max-width: 900px) {
+      nav { padding: 0 20px; }
+      .nav-center { display: none; }
+      .hero, .split-wrap, .pricing-section, .enquiry-section { grid-template-columns: 1fr; }
+      .split-left { position: relative; height: 80vw; border-right: none; border-bottom: 1px solid var(--border); }
+      .hero-content, .content-section, .pricing-left, .pricing-right, .enquiry-left, .enquiry-right { padding: 48px 24px; }
+      .hero-visual { min-height: 70vw; }
+      .hero-content { border-left: none; border-top: 1px solid var(--border); }
+      .pricing-left { border-right: none; border-bottom: 1px solid var(--border); }
+      .enquiry-left { border-right: none; border-bottom: 1px solid var(--border); }
+      .algo-header { grid-template-columns: 1fr; padding: 48px 24px 40px; }
+      .algo-header-right { border-left: none; border-top: 1px solid var(--border); padding: 28px 0 0; margin-top: 28px; }
+      .algo-work { width: min(80vw, 380px); }
+      .algo-scroll-hint { padding: 14px 24px; }
+      footer { flex-direction: column; gap: 14px; padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-brand">Rain Blooms Lattice</span>
+  <ul class="nav-center">
+    <li><a href="#algorithm" data-i18n="nav.algorithm">Algorithm</a></li>
+    <li><a href="#construction" data-i18n="nav.construction">Construction</a></li>
+    <li><a href="#interior" data-i18n="nav.interior">Interior</a></li>
+    <li><a href="#system" data-i18n="nav.system">System</a></li>
+    <li><a href="#pricing" data-i18n="nav.pricing">Pricing</a></li>
+    <li><a href="#enquiry" data-i18n="nav.enquiry">Enquiry</a></li>
+  </ul>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('ja')">JP</button>
+  </div>
+</nav>
+
+<!-- HERO: Physical appearance of the sculpture -->
+<section class="hero">
+  <div class="hero-visual">
+    <!-- Sculpture illustration: aluminum frame with floating LED panel showing live CA -->
+    <div class="hero-sculpture">
+      <svg id="sculptureSvg" viewBox="0 0 320 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- LED Panel top (192×192 area, centered at x=64) -->
+        <rect x="64" y="16" width="192" height="192" fill="#0e0e0e" stroke="#3a3a3a" stroke-width="1.5"/>
+        <!-- inner LED surface (will host canvas via foreignObject) -->
+        <rect x="72" y="24" width="176" height="176" fill="#080808"/>
+        <foreignObject x="72" y="24" width="176" height="176">
+          <canvas id="heroLedCanvas" xmlns="http://www.w3.org/1999/xhtml"
+            width="352" height="352"
+            style="width:176px;height:176px;display:block;"></canvas>
+        </foreignObject>
+        <!-- Frame corners on panel -->
+        <rect x="64" y="16" width="8" height="8" fill="#2a2a2a"/>
+        <rect x="248" y="16" width="8" height="8" fill="#2a2a2a"/>
+        <rect x="64" y="200" width="8" height="8" fill="#2a2a2a"/>
+        <rect x="248" y="200" width="8" height="8" fill="#2a2a2a"/>
+        <!-- Left leg -->
+        <rect x="84" y="208" width="16" height="252" fill="#2c2c2c" stroke="#3a3a3a" stroke-width="0.5"/>
+        <!-- Right leg -->
+        <rect x="220" y="208" width="16" height="252" fill="#2c2c2c" stroke="#3a3a3a" stroke-width="0.5"/>
+        <!-- Cross brace 1 -->
+        <rect x="84" y="288" width="152" height="10" fill="#242424" stroke="#3a3a3a" stroke-width="0.5"/>
+        <!-- Cross brace 2 -->
+        <rect x="84" y="368" width="152" height="10" fill="#242424" stroke="#3a3a3a" stroke-width="0.5"/>
+        <!-- Feet -->
+        <rect x="76" y="458" width="32" height="6" rx="1" fill="#333"/>
+        <rect x="212" y="458" width="32" height="6" rx="1" fill="#333"/>
+        <!-- Subtle dimension line -->
+        <line x1="52" y1="24" x2="52" y2="208" stroke="#444" stroke-width="0.5" stroke-dasharray="2 3"/>
+        <line x1="47" y1="24" x2="57" y2="24" stroke="#444" stroke-width="0.5"/>
+        <line x1="47" y1="208" x2="57" y2="208" stroke="#444" stroke-width="0.5"/>
+        <text x="44" y="120" fill="#555" font-family="DM Mono,monospace" font-size="7"
+          text-anchor="middle" transform="rotate(-90,44,120)" letter-spacing="1">LED</text>
+      </svg>
+    </div>
+    <div class="hero-visual-label" data-i18n="hero.caption">Rain Blooms Lattice · aluminum frame & LED panel</div>
+  </div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-eyebrow" data-i18n="hero.eyebrow">Art Blocks Studio · 2026 · Physical Edition · 5 works</div>
+      <h1 class="hero-title">Rain Blooms<br><em>Lattice</em>.</h1>
+      <p class="hero-sub" data-i18n="hero.sub">A small machine that quietly computes on its own — code on a circuit, not on a chain.</p>
+      <p class="hero-desc" data-i18n="hero.desc.1">Rain Blooms Lattice is a physical edition of five works accompanying the on-chain release of Rain Blooms on Art Blocks Studio. Each piece runs the same algorithm that drives the digital edition — a cellular automaton designed by Kazuhiro Tanimoto to produce complex visual and audio behavior in real time — but executes it locally on a microcontroller embedded within an aluminum frame.</p>
+      <p class="hero-desc" data-i18n="hero.desc.2">The LED matrix panel, mounted horizontally at the top of the frame, is intended to be viewed from above. The work does not display a recording. It computes its image continuously, frame after frame, for as long as it is powered on.</p>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-label" data-i18n="hero.stat.artist">Artist</div>
+        <div class="stat-value">Kazuhiro Tanimoto</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label" data-i18n="hero.stat.edition">Edition</div>
+        <div class="stat-value" data-i18n="hero.stat.editionVal">5 unique works</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label" data-i18n="hero.stat.medium">Medium</div>
+        <div class="stat-value" data-i18n="hero.stat.mediumVal">LED · Aluminum · Microcontroller</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ALGORITHM: 5 works horizontal scroll -->
+<section class="algo-section" id="algorithm">
+  <div class="algo-header">
+    <div class="algo-header-left">
+      <div class="sec-label">01 · <span data-i18n="nav.algorithm">Algorithm</span></div>
+      <h2 data-i18n="s5.h2">A system that <em>computes its own image.</em></h2>
+      <p data-i18n="algo.overview.1">Rain Blooms is built on an original cellular automaton — a computational system in which cells arranged on a grid are updated in parallel according to the states of neighboring cells. There is no central controller supervising the whole system. What appears on screen is generated from below, not shaped from above.</p>
+      <p data-i18n="algo.overview.2">The automaton extends the classical model in three directions: neighbor cells are not limited to immediate surroundings but can be chosen randomly or according to a pattern; multiple species are defined with relations of attack, assimilation, and indifference; and each cell carries a vitality parameter that affects the outcome of conflict. Each of the five works runs the same rule structure against a distinct parameter configuration, producing a behaviorally distinct system.</p>
+    </div>
+    <div class="algo-header-right">
+      <blockquote>
+        <p data-i18n="s5.quote">"What I designed is not a final image, but a small system of local rules. Sound and image change together, in real time, from the interactions of those rules — not from a result decided in advance."</p>
+        <cite>— Kazuhiro Tanimoto</cite>
+      </blockquote>
+    </div>
+  </div>
+
+  <!-- Horizontal scroll: 5 works -->
+  <div class="algo-scroll-wrap" id="algoScrollWrap">
+    <div class="algo-track">
+
+      <div class="algo-work">
+        <div class="algo-work-canvas-area"><canvas id="work1Canvas"></canvas></div>
+        <div class="algo-work-footer">
+          <div class="algo-work-meta">
+            <span class="algo-work-num">#1</span>
+            <span class="algo-work-label" data-i18n="algo.size.sm">192 mm</span>
+          </div>
+          <p class="algo-work-desc" data-i18n="algo.desc.1">Organic upwelling. Extended neighborhoods and low vitality thresholds produce slow, geological formations — mass-like shapes that accumulate and drift without resolving.</p>
+        </div>
+      </div>
+
+      <div class="algo-work">
+        <div class="algo-work-canvas-area"><canvas id="work2Canvas"></canvas></div>
+        <div class="algo-work-footer">
+          <div class="algo-work-meta">
+            <span class="algo-work-num">#2</span>
+            <span class="algo-work-label" data-i18n="algo.size.md">384 mm</span>
+          </div>
+          <p class="algo-work-desc" data-i18n="algo.desc.2">Linear inorganic. Tight species boundaries and regular neighborhood patterns generate sharp edges and crystalline geometries — structured fields that resist dissolution.</p>
+        </div>
+      </div>
+
+      <div class="algo-work">
+        <div class="algo-work-canvas-area"><canvas id="work3Canvas"></canvas></div>
+        <div class="algo-work-footer">
+          <div class="algo-work-meta">
+            <span class="algo-work-num">#3</span>
+            <span class="algo-work-label" data-i18n="algo.size.md">384 mm</span>
+          </div>
+          <p class="algo-work-desc" data-i18n="algo.desc.3">Collapse and reformation. A vitality-weighted configuration drives rapid species turnover — structures dissolve at their edges and rebuild continuously from the center outward.</p>
+        </div>
+      </div>
+
+      <div class="algo-work">
+        <div class="algo-work-canvas-area"><canvas id="work4Canvas"></canvas></div>
+        <div class="algo-work-footer">
+          <div class="algo-work-meta">
+            <span class="algo-work-num">#4</span>
+            <span class="algo-work-label" data-i18n="algo.size.lg">576 mm</span>
+          </div>
+          <p class="algo-work-desc" data-i18n="algo.desc.4">Proliferation. One species with an assimilation advantage expands outward in waves, absorbing adjacent cells and leaving dense, irregular traces across the field.</p>
+        </div>
+      </div>
+
+      <div class="algo-work">
+        <div class="algo-work-canvas-area"><canvas id="work5Canvas"></canvas></div>
+        <div class="algo-work-footer">
+          <div class="algo-work-meta">
+            <span class="algo-work-num">#5</span>
+            <span class="algo-work-label" data-i18n="algo.size.lg">576 mm</span>
+          </div>
+          <p class="algo-work-desc" data-i18n="algo.desc.5">Stable cycle. The system finds and maintains a persistent equilibrium — patterns that oscillate between states without reaching fixation, the grammar improvising the same sentence indefinitely.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- STICKY SPLIT -->
+<div class="split-wrap">
+  <div class="split-left" id="splitLeft">
+
+    <!-- 1: Construction – frame diagram (first visible) -->
+    <div class="split-image" data-img="construction">
+      <div class="img-placeholder" style="background:#131313;">
+        <svg viewBox="0 0 200 360" width="160" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- LED panel top -->
+          <rect x="18" y="8" width="164" height="164" fill="#111" stroke="#444" stroke-width="1.5"/>
+          <rect x="28" y="18" width="144" height="144" fill="#0a0a0a"/>
+          <rect x="28" y="18" width="144" height="144" fill="url(#pg)" opacity="0.7"/>
+          <defs>
+            <radialGradient id="pg" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#2a7a5a" stop-opacity="0.8"/>
+              <stop offset="50%" stop-color="#1a3860" stop-opacity="0.4"/>
+              <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <!-- left leg -->
+          <rect x="28" y="172" width="14" height="176" fill="#2e2e2e" stroke="#444" stroke-width="0.5"/>
+          <!-- right leg -->
+          <rect x="158" y="172" width="14" height="176" fill="#2e2e2e" stroke="#444" stroke-width="0.5"/>
+          <!-- cross braces -->
+          <rect x="28" y="232" width="144" height="9" fill="#252525" stroke="#444" stroke-width="0.5"/>
+          <rect x="28" y="300" width="144" height="9" fill="#252525" stroke="#444" stroke-width="0.5"/>
+          <!-- feet -->
+          <rect x="20" y="346" width="30" height="6" rx="1" fill="#3a3a3a"/>
+          <rect x="150" y="346" width="30" height="6" rx="1" fill="#3a3a3a"/>
+          <!-- dimension arrow left -->
+          <line x1="5" y1="8" x2="5" y2="172" stroke="#555" stroke-width="0.5" stroke-dasharray="2 2"/>
+          <line x1="1" y1="8" x2="9" y2="8" stroke="#555" stroke-width="0.5"/>
+          <line x1="1" y1="172" x2="9" y2="172" stroke="#555" stroke-width="0.5"/>
+          <text x="3" y="95" fill="#555" font-family="JetBrains Mono,monospace" font-size="6" text-anchor="middle" transform="rotate(-90,3,95)">192–576 mm</text>
+          <!-- label -->
+          <text x="100" y="358" fill="#444" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle" letter-spacing="1">ALUMINUM FRAME</text>
+        </svg>
+      </div>
+      <div class="split-image-caption" data-i18n="img.construction">Aluminum frame · floor-standing · three heights</div>
+    </div>
+
+    <!-- 4: Interior – board diagram -->
+    <div class="split-image" data-img="interior">
+      <div class="img-placeholder" style="background:#0d0d0d;">
+        <svg viewBox="0 0 300 240" width="260" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- PCB -->
+          <rect x="30" y="24" width="240" height="156" rx="4" fill="#0c1f0e" stroke="#1e5a22" stroke-width="1"/>
+          <!-- MCU chip -->
+          <rect x="102" y="72" width="76" height="56" rx="2" fill="#0a0a0a" stroke="#3a3a3a" stroke-width="1"/>
+          <text x="140" y="103" fill="#4a4a4a" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">MCU</text>
+          <!-- left pins -->
+          <line x1="30" y1="52" x2="10" y2="52" stroke="#3a8" stroke-width="1.5"/>
+          <line x1="30" y1="72" x2="10" y2="72" stroke="#3a8" stroke-width="1.5"/>
+          <line x1="30" y1="92" x2="10" y2="92" stroke="#3a8" stroke-width="1.5"/>
+          <line x1="30" y1="112" x2="10" y2="112" stroke="#3a8" stroke-width="1.5"/>
+          <line x1="30" y1="132" x2="10" y2="132" stroke="#3a8" stroke-width="1.5"/>
+          <line x1="30" y1="152" x2="10" y2="152" stroke="#3a8" stroke-width="1.5"/>
+          <!-- right pins -->
+          <line x1="270" y1="52" x2="290" y2="52" stroke="#3a8" stroke-width="1.5"/>
+          <line x1="270" y1="72" x2="290" y2="72" stroke="#3a8" stroke-width="1.5"/>
+          <line x1="270" y1="92" x2="290" y2="92" stroke="#3a8" stroke-width="1.5"/>
+          <line x1="270" y1="112" x2="290" y2="112" stroke="#3a8" stroke-width="1.5"/>
+          <!-- LED connector -->
+          <rect x="130" y="172" width="50" height="13" fill="#1a1a1a" stroke="#444" stroke-width="0.5"/>
+          <text x="155" y="182" fill="#4a4a4a" font-family="JetBrains Mono,monospace" font-size="6" text-anchor="middle">LED →</text>
+          <!-- power -->
+          <rect x="46" y="172" width="36" height="13" fill="#1a1a1a" stroke="#444" stroke-width="0.5"/>
+          <text x="64" y="182" fill="#4a4a4a" font-family="JetBrains Mono,monospace" font-size="6" text-anchor="middle">5V DC</text>
+          <!-- traces -->
+          <path d="M102 100 L76 100 L76 172" stroke="#1a5a20" stroke-width="0.5" opacity="0.5"/>
+          <path d="M178 100 L204 100 L204 52 L270 52" stroke="#1a5a20" stroke-width="0.5" opacity="0.5"/>
+          <path d="M140 128 L140 158 L155 158 L155 172" stroke="#1a5a20" stroke-width="0.5" opacity="0.5"/>
+          <!-- label -->
+          <text x="150" y="215" fill="#444" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle" letter-spacing="1">MICROCONTROLLER BOARD</text>
+        </svg>
+      </div>
+      <div class="split-image-caption" data-i18n="img.interior">Interior · microcontroller & LED driver board</div>
+    </div>
+
+    <!-- 4: System – block diagram -->
+    <div class="split-image" data-img="system">
+      <div class="img-placeholder" style="background:#0e0e0e;">
+        <svg viewBox="0 0 260 210" width="220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="70" y="8" width="120" height="40" rx="3" fill="#121f12" stroke="#2e6e2e" stroke-width="1"/>
+          <text x="130" y="32" fill="#4aaa4a" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">ALGORITHM</text>
+          <line x1="130" y1="48" x2="130" y2="66" stroke="#444" stroke-width="1"/>
+          <polygon points="125,63 135,63 130,70" fill="#444"/>
+          <rect x="70" y="70" width="120" height="40" rx="3" fill="#12121f" stroke="#2e2e6e" stroke-width="1"/>
+          <text x="130" y="94" fill="#4a4aaa" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">MICROCONTROLLER</text>
+          <line x1="130" y1="110" x2="130" y2="128" stroke="#444" stroke-width="1"/>
+          <polygon points="125,125 135,125 130,132" fill="#444"/>
+          <rect x="70" y="132" width="120" height="40" rx="3" fill="#1f1a08" stroke="#6e5a0e" stroke-width="1"/>
+          <text x="130" y="156" fill="#aaaa3a" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">LED MATRIX</text>
+          <!-- 5V -->
+          <line x1="20" y1="90" x2="70" y2="90" stroke="#555" stroke-width="1" stroke-dasharray="3 2"/>
+          <text x="18" y="87" fill="#444" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="end">5V</text>
+          <!-- output -->
+          <line x1="190" y1="152" x2="230" y2="152" stroke="#555" stroke-width="1" stroke-dasharray="3 2"/>
+          <text x="234" y="155" fill="#444" font-family="JetBrains Mono,monospace" font-size="7">visual</text>
+          <!-- no network -->
+          <text x="130" y="196" fill="#333" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">— no network required —</text>
+        </svg>
+      </div>
+      <div class="split-image-caption" data-i18n="img.system">System diagram · standalone, no external dependencies</div>
+    </div>
+
+  </div><!-- /split-left -->
+
+  <div class="split-right">
+
+    <!-- 02 CONSTRUCTION -->
+    <div class="content-section" id="construction" data-section="construction">
+      <div class="sec-label">02 · <span data-i18n="nav.construction">Construction</span></div>
+      <h2 data-i18n="s3.h2">Aluminum frame,<br><em>LED panel.</em></h2>
+      <p data-i18n="s3.p1">The housing is fabricated from aluminum extrusion — a material chosen for its structural precision and its neutral, industrial character. The frame makes no claim about the work's content; it holds the computation without ornamentation.</p>
+      <p data-i18n="s3.p2">The LED panel is mounted at the top of the frame. The panel and the microcontroller board inside the housing together form a closed system — no external display device, no projector, no computer. The work runs entirely within the object.</p>
+      <div class="spec-row"><span class="spec-key" data-i18n="spec.frame">Frame</span><span data-i18n="spec.frameVal2">Aluminum extrusion profile</span></div>
+      <div class="spec-row"><span class="spec-key" data-i18n="spec.mount">Panel mount</span><span data-i18n="spec.mountVal">Top-surface horizontal mount</span></div>
+      <div class="spec-row"><span class="spec-key" data-i18n="spec.power">Power</span><span data-i18n="spec.powerVal">5V DC via standard power supply (included)</span></div>
+      <div class="spec-row"><span class="spec-key" data-i18n="spec.install">Installation</span><span data-i18n="spec.installVal">Floor-standing, no wall fixings required</span></div>
+      <div class="spec-row"><span class="spec-key" data-i18n="spec.finish">Finish</span><span data-i18n="spec.finishVal">Raw aluminum / matte black</span></div>
+    </div>
+
+    <!-- 03 INTERIOR -->
+    <div class="content-section" id="interior" data-section="interior">
+      <div class="sec-label">03 · <span data-i18n="nav.interior">Interior</span></div>
+      <h2 data-i18n="s4.h2">Code on a <em>circuit.</em></h2>
+      <p data-i18n="s4.p1">Inside the aluminum frame sits a microcontroller board running the Rain Blooms algorithm natively. This is the same algorithm that drives the on-chain digital edition on Art Blocks Studio — but here it runs on dedicated hardware, without a browser, without a network, without any external dependency.</p>
+      <p data-i18n="s4.p2">The board communicates directly with the LED matrix through a ribbon connector. At startup, the algorithm reads its parameter configuration and begins computing. Each frame is rendered in real time — there is no video file, no pre-rendered sequence, no storage medium that the work plays back from.</p>
+      <div class="note-box">
+        <div class="note-box-label" data-i18n="s4.note.label">Code on a circuit vs. code on a chain</div>
+        <p data-i18n="s4.note.body">The digital edition (Art Blocks Studio) is a license to compute: the algorithm runs whenever the token owner opens their browser. Rain Blooms Lattice is a machine: it runs whenever it is powered on. Same code. Different material conditions.</p>
+      </div>
+      <div class="spec-row"><span class="spec-key" data-i18n="spec.compute">Compute</span><span data-i18n="spec.computeVal">Microcontroller (embedded, dedicated)</span></div>
+      <div class="spec-row"><span class="spec-key" data-i18n="spec.runtime">Runtime</span><span data-i18n="spec.runtimeVal">Native JavaScript — no external runtime</span></div>
+      <div class="spec-row"><span class="spec-key" data-i18n="spec.network">Network</span><span data-i18n="spec.networkVal">None required</span></div>
+      <div class="spec-row"><span class="spec-key" data-i18n="spec.storage">Storage</span><span data-i18n="spec.storageVal">Algorithm embedded in firmware</span></div>
+      <div class="spec-row"><span class="spec-key" data-i18n="spec.output">Output</span><span data-i18n="spec.outputVal">Direct LED matrix drive</span></div>
+    </div>
+
+    <!-- 04 SYSTEM -->
+    <div class="content-section" id="system" data-section="system">
+      <div class="sec-label">04 · <span data-i18n="nav.system">System</span></div>
+      <h2 data-i18n="s6.h2">Standalone.<br><em>Self-contained.</em></h2>
+      <p data-i18n="s6.p1">Rain Blooms Lattice is a closed system. Once powered on, the work requires no network connection, no companion device, and no ongoing maintenance. The algorithm runs on the embedded microcontroller and renders directly to the LED matrix.</p>
+      <p data-i18n="s6.p2">Because the work computes its image from local rules at the pixel level, each new startup under the same display configuration will produce the same evolution — identical parameters, identical behavior. The work is not random; it is deterministic from a fixed initial condition.</p>
+      <div class="spec-row"><span class="spec-key" data-i18n="spec.startup">Startup</span><span data-i18n="spec.startupVal">Powers on automatically · begins computing immediately</span></div>
+      <div class="spec-row"><span class="spec-key" data-i18n="spec.deps">Dependencies</span><span data-i18n="spec.depsVal">None — fully self-contained</span></div>
+      <div class="spec-row"><span class="spec-key" data-i18n="spec.display">Display</span><span>LED matrix (HUB75)</span></div>
+      <div class="spec-row"><span class="spec-key" data-i18n="spec.refresh">Refresh</span><span data-i18n="spec.refreshVal">Real-time computation, frame-by-frame</span></div>
+      <div class="spec-row"><span class="spec-key" data-i18n="spec.determinism">Determinism</span><span data-i18n="spec.determinismVal">Identical startup → identical evolution</span></div>
+      <div class="spec-row"><span class="spec-key" data-i18n="spec.payment">Payment</span><span data-i18n="spec.paymentVal">Bank transfer · ETH · USDC</span></div>
+      <div class="spec-row"><span class="spec-key" data-i18n="spec.shipping">Shipping</span><span data-i18n="spec.shippingVal">Free within Japan · international at collector's expense</span></div>
+      <div class="spec-row"><span class="spec-key">License</span><span>CC BY-NC 4.0</span></div>
+    </div>
+
+  </div><!-- /split-right -->
+</div>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="pricing-left">
+    <div class="sec-label">05 · <span data-i18n="nav.pricing">Pricing</span></div>
+    <h2 data-i18n="p.h2">Three sizes,<br><em>five works.</em></h2>
+    <p style="font-size:16px;" data-i18n="p.desc">Each work is individually numbered (#1–#5) and unique in its parameter configuration. The three LED panel dimensions correspond to three different scales of presence in the room.</p>
+    <div class="size-diagram">
+      <div class="size-item">
+        <div class="size-box" style="width:48px;height:48px;"></div>
+        <div class="size-label-mm">192 mm</div>
+        <div class="size-label-price">¥220,000</div>
+      </div>
+      <div class="size-item">
+        <div class="size-box" style="width:80px;height:80px;"></div>
+        <div class="size-label-mm">384 mm</div>
+        <div class="size-label-price">¥330,000</div>
+      </div>
+      <div class="size-item">
+        <div class="size-box" style="width:120px;height:120px;"></div>
+        <div class="size-label-mm">576 mm</div>
+        <div class="size-label-price">¥440,000</div>
+      </div>
+    </div>
+    <p style="font-family:var(--mono);font-size:10px;color:var(--muted);" data-i18n="p.rate">USD/JPY ≈ 156.7 at time of writing</p>
+  </div>
+  <div class="pricing-right">
+    <table class="price-table">
+      <thead>
+        <tr>
+          <th data-i18n="th.size">Size</th>
+          <th>JPY</th>
+          <th data-i18n="th.usd">USD (approx.)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>192 mm</td>
+          <td><div class="price-big">¥220,000</div><div class="price-small">approx. US$1,400</div></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>384 mm</td>
+          <td><div class="price-big">¥330,000</div><div class="price-small">approx. US$2,100</div></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>576 mm</td>
+          <td><div class="price-big">¥440,000</div><div class="price-small">approx. US$2,800</div></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="note-box" style="margin-top:40px;">
+      <div class="note-box-label" data-i18n="p.note.label">Digital Edition — Sold Out</div>
+      <p data-i18n="p.note.body">The on-chain digital edition of 128 unique works on Art Blocks Studio is fully minted. Rain Blooms Lattice, the physical edition of 5 works, remains available for private acquisition.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ENQUIRY -->
+<section class="enquiry-section" id="enquiry">
+  <div class="enquiry-left">
+    <div class="sec-label">06 · <span data-i18n="nav.enquiry">Enquiry</span></div>
+    <h2 data-i18n="e.h2">Available<br><em>to collectors.</em></h2>
+    <p style="font-size:16px;" data-i18n="e.desc">Rain Blooms Lattice is a private-sale edition of five physical works. Enquiries are handled individually through NEORT++.</p>
+    <a href="mailto:info@neort.io" class="cta" data-i18n="e.cta">Send enquiry</a>
+  </div>
+  <div class="enquiry-right">
+    <div class="field">
+      <div class="field-label" data-i18n="e.via">Enquiries via</div>
+      <div class="field-val">NEORT++ · <a href="https://two.neort.io/en/exhibitions/rain_blooms">two.neort.io</a></div>
+    </div>
+    <div class="field">
+      <div class="field-label" data-i18n="e.venue">Venue</div>
+      <div class="field-val" data-i18n="e.venueVal">NEORT++ · maruka 3F, 2-2-14 Nihonbashi-Bakurocho, Chuo-ku, Tokyo</div>
+    </div>
+    <div class="field">
+      <div class="field-label" data-i18n="e.dates">Dates</div>
+      <div class="field-val" data-i18n="e.datesVal">15 May (Fri) – 31 May (Sun) 2026</div>
+    </div>
+    <div class="field">
+      <div class="field-label" data-i18n="e.hours">Hours</div>
+      <div class="field-val">14:00 – 19:00 JST<br><span style="font-family:var(--mono);font-size:11px;color:var(--muted);" data-i18n="e.closed">Closed Mon, Tue & national holidays · Free admission</span></div>
+    </div>
+    <div class="field">
+      <div class="field-label" data-i18n="e.artist">Artist</div>
+      <div class="field-val">Kazuhiro Tanimoto · <a href="https://kazuhirotanimoto.com">kazuhirotanimoto.com</a></div>
+    </div>
+    <div class="field">
+      <div class="field-label" data-i18n="e.platform">Platform</div>
+      <div class="field-val">Art Blocks Studio · <a href="https://artblocks.io">artblocks.io</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-copy">© 2026 · Kazuhiro Tanimoto · CC BY-NC 4.0</span>
+  <ul class="footer-links">
+    <li><a href="https://two.neort.io/en/exhibitions/rain_blooms">NEORT++</a></li>
+    <li><a href="https://artblocks.io">Art Blocks</a></li>
+    <li><a href="https://kazuhirotanimoto.com" data-i18n="footer.artist">Artist</a></li>
+  </ul>
+</footer>
+
+<script>
+// ── Translations ──────────────────────────────────────
+const T = {
+  en: {
+    'nav.appearance': 'Appearance',
+    'nav.construction': 'Construction',
+    'nav.algorithm': 'Algorithm',
+    'nav.system': 'System',
+    'nav.pricing': 'Pricing',
+    'nav.enquiry': 'Enquiry',
+    'nav.viewing': 'Viewing',
+    'nav.interior': 'Interior',
+    'hero.caption': 'Live simulation · cellular automaton',
+    'hero.eyebrow': 'Art Blocks Studio · 2026 · Physical Edition · 5 works',
+    'hero.sub': 'A small machine that quietly computes on its own — code on a circuit, not on a chain.',
+    'hero.stat.artist': 'Artist',
+    'hero.stat.edition': 'Edition',
+    'hero.stat.editionVal': '5 unique works',
+    'hero.stat.medium': 'Medium',
+    'hero.stat.mediumVal': 'LED · Aluminum · Microcontroller',
+    'img.appearance': 'Rain Blooms Lattice · LED panel surface · live computation',
+    'img.topdown': 'Top-down view · viewed like a basin from above',
+    'img.construction': 'Aluminum frame · floor-standing · three heights',
+    'img.interior': 'Interior · microcontroller & LED driver board',
+    'img.algorithm': 'Cellular automaton · multi-species · real-time',
+    'img.system': 'System diagram · standalone, no external dependencies',
+    's1.h2': 'The work on its <em>surface.</em>',
+    's1.p1': 'Rain Blooms Lattice is a floor-standing sculpture — an aluminum frame mounting an LED matrix panel at its top. The frame stands directly on the floor and is intended to be viewed from above, like a small basin in which the system is computing itself.',
+    's1.p2': 'The LED surface is the work. It is not a screen playing a video — it is a computational process running live. Each moment of the image is computed directly by the microcontroller inside the frame, frame after frame, in real time.',
+    's1.p3': 'The panel glows with dense, shifting color — patterns of cells interacting, proliferating, collapsing. The image is never repeated and never recorded. It exists only as the system runs.',
+    's2.h2': 'Viewed from <em>above.</em>',
+    's2.p1': 'Unlike a wall-hung screen, Rain Blooms Lattice sits on the floor with its panel facing upward. The viewer stands over the work and looks down into a field of computation — a posture that recalls looking into a tide pool or a petri dish in which something is growing.',
+    's2.p2': 'Three heights are offered across the edition — Rain Blooms Lattice #1 through #5 — corresponding to three different LED panel sizes. Height and panel size scale together, so the proportions of the piece remain consistent across the edition.',
+    's2.note.label': 'On the viewing posture',
+    's2.note.body': 'The artist designed the upward-facing orientation deliberately: to position the viewer as an observer of a process, not a reader of a surface. The work does not face you — you look into it.',
+    's3.h2': 'Aluminum frame,<br><em>LED panel.</em>',
+    's3.p1': 'The housing is fabricated from aluminum extrusion — a material chosen for its structural precision and its neutral, industrial character. The frame makes no claim about the work\'s content; it holds the computation without ornamentation.',
+    's3.p2': 'The LED panel is mounted at the top of the frame. The panel and the microcontroller board inside the housing together form a closed system — no external display device, no projector, no computer. The work runs entirely within the object.',
+    's4.h2': 'Code on a <em>circuit.</em>',
+    's4.p1': 'Inside the aluminum frame sits a microcontroller board running the Rain Blooms algorithm natively. This is the same algorithm that drives the on-chain digital edition on Art Blocks Studio — but here it runs on dedicated hardware, without a browser, without a network, without any external dependency.',
+    's4.p2': 'The board communicates directly with the LED matrix through a ribbon connector. At startup, the algorithm reads its parameter configuration and begins computing. Each frame is rendered in real time — there is no video file, no pre-rendered sequence, no storage medium that the work plays back from.',
+    's4.note.label': 'Code on a circuit vs. code on a chain',
+    's4.note.body': 'The digital edition (Art Blocks Studio) is a license to compute: the algorithm runs whenever the token owner opens their browser. Rain Blooms Lattice is a machine: it runs whenever it is powered on. Same code. Different material conditions.',
+    's5.h2': 'A system that <em>computes its own image.</em>',
+    's5.quote': '"What I designed is not a final image, but a small system of local rules. Sound and image change together, in real time, from the interactions of those rules — not from a result decided in advance."',
+    's5.p1': 'Rain Blooms is built on an original cellular automaton — a computational system in which cells arranged on a grid are updated in parallel according to the states of neighboring cells. There is no central controller. Complex phenomena arise from the repeated application of one local rule set.',
+    's5.p2': 'The cellular automaton in Rain Blooms extends the classical model in several ways:',
+    's5.note.label': 'Determinism',
+    's5.note.body': 'Within each configuration the process is fully <strong>deterministic</strong>: identical conditions produce identical evolutions. Variation across the edition comes from differences in the underlying parameter sets, not from runtime randomness.',
+    's6.h2': 'Standalone.<br><em>Self-contained.</em>',
+    's6.p1': 'Rain Blooms Lattice is a closed system. Once powered on, the work requires no network connection, no companion device, and no ongoing maintenance. The algorithm runs on the embedded microcontroller and renders directly to the LED matrix.',
+    's6.p2': 'Because the work computes its image from local rules at the pixel level, each new startup under the same display configuration will produce the same evolution — identical parameters, identical behavior. The work is not random; it is deterministic from a fixed initial condition.',
+    'spec.surface': 'Surface', 'spec.surfaceVal': 'LED matrix panel',
+    'spec.sizes': 'Sizes', 'spec.frame': 'Frame',
+    'spec.frameVal': 'Aluminum extrusion, floor-standing', 'spec.frameVal2': 'Aluminum extrusion profile',
+    'spec.lifespan': 'Lifespan', 'spec.lifespanVal': '100,000+ hour LED rated lifespan',
+    'spec.orientation': 'Orientation', 'spec.orientationVal': 'Horizontal, top surface, viewed from above',
+    'spec.size1': '192 mm panel · lowest height', 'spec.size2': '384 mm panel · mid height', 'spec.size3': '576 mm panel · tallest height',
+    'spec.mount': 'Panel mount', 'spec.mountVal': 'Top-surface horizontal mount',
+    'spec.power': 'Power', 'spec.powerVal': '5V DC via standard power supply (included)',
+    'spec.install': 'Installation', 'spec.installVal': 'Floor-standing, no wall fixings required',
+    'spec.finish': 'Finish', 'spec.finishVal': 'Raw aluminum / matte black',
+    'spec.compute': 'Compute', 'spec.computeVal': 'Microcontroller (embedded, dedicated)',
+    'spec.runtime': 'Runtime', 'spec.runtimeVal': 'Native JavaScript — no external runtime',
+    'spec.network': 'Network', 'spec.networkVal': 'None required',
+    'spec.storage': 'Storage', 'spec.storageVal': 'Algorithm embedded in firmware',
+    'spec.output': 'Output', 'spec.outputVal': 'Direct LED matrix drive',
+    'spec.neighbors': 'Neighbors', 'spec.neighborsVal': 'Not limited to immediate surroundings — randomly chosen or patterned extended neighborhoods',
+    'spec.species': 'Species', 'spec.speciesVal': 'Multiple species with relations including attack, assimilation, and indifference',
+    'spec.vitality': 'Vitality', 'spec.vitalityVal': 'Each cell carries a vitality parameter affecting outcomes of conflict',
+    'spec.injection': 'Injection', 'spec.injectionVal': 'Geometric shapes periodically introduced — immediately absorbed into the automaton',
+    'spec.startup': 'Startup', 'spec.startupVal': 'Powers on automatically · begins computing immediately',
+    'spec.deps': 'Dependencies', 'spec.depsVal': 'None — fully self-contained',
+    'spec.display': 'Display', 'spec.refresh': 'Refresh', 'spec.refreshVal': 'Real-time computation, frame-by-frame',
+    'spec.determinism': 'Determinism', 'spec.determinismVal': 'Identical startup → identical evolution',
+    'spec.payment': 'Payment', 'spec.paymentVal': 'Bank transfer · ETH · USDC',
+    'spec.shipping': 'Shipping', 'spec.shippingVal': 'Free within Japan · international at collector\'s expense',
+    'p.h2': 'Three sizes,<br><em>five works.</em>',
+    'p.desc': 'Each work is individually numbered (#1–#5) and unique in its parameter configuration. The three LED panel dimensions correspond to three different scales of presence in the room.',
+    'p.rate': 'USD/JPY ≈ 156.7 at time of writing',
+    'th.size': 'Size', 'th.usd': 'USD (approx.)',
+    'p.note.label': 'Digital Edition — Sold Out',
+    'p.note.body': 'The on-chain digital edition of 128 unique works on Art Blocks Studio is fully minted. Rain Blooms Lattice, the physical edition of 5 works, remains available for private acquisition.',
+    'e.h2': 'Available<br><em>to collectors.</em>',
+    'e.desc': 'Rain Blooms Lattice is a private-sale edition of five physical works. Enquiries are handled individually through NEORT++.',
+    'e.cta': 'Send enquiry',
+    'e.via': 'Enquiries via', 'e.venue': 'Venue',
+    'e.venueVal': 'NEORT++ · maruka 3F, 2-2-14 Nihonbashi-Bakurocho, Chuo-ku, Tokyo',
+    'e.dates': 'Dates', 'e.datesVal': '15 May (Fri) – 31 May (Sun) 2026',
+    'e.hours': 'Hours', 'e.closed': 'Closed Mon, Tue & national holidays · Free admission',
+    'e.artist': 'Artist', 'e.platform': 'Platform',
+    'footer.artist': 'Artist',
+    'algo.size.sm': '192 mm',
+    'algo.size.md': '384 mm',
+    'algo.size.lg': '576 mm',
+    'algo.hint': 'scroll to view all 5 works',
+    'hero.caption': 'Rain Blooms Lattice · aluminum frame & LED panel',
+    'hero.desc.1': 'Rain Blooms Lattice is a physical edition of five works accompanying the on-chain release of Rain Blooms on Art Blocks Studio. Each piece runs the same algorithm that drives the digital edition — a cellular automaton designed by Kazuhiro Tanimoto to produce complex visual and audio behavior in real time — but executes it locally on a microcontroller embedded within an aluminum frame.',
+    'hero.desc.2': 'The LED matrix panel, mounted horizontally at the top of the frame, is intended to be viewed from above. The work does not display a recording. It computes its image continuously, frame after frame, for as long as it is powered on.',
+    'algo.overview.1': 'Rain Blooms is built on an original cellular automaton — a computational system in which cells arranged on a grid are updated in parallel according to the states of neighboring cells. There is no central controller. What appears on screen is generated from below, not shaped from above.',
+    'algo.overview.2': 'The automaton extends the classical model in three directions: neighbor cells are not limited to immediate surroundings but can be chosen randomly or according to a pattern; multiple species are defined with relations of attack, assimilation, and indifference; and each cell carries a vitality parameter that affects the outcome of conflict. Each of the five works runs the same rule structure against a distinct parameter configuration, producing a behaviorally distinct system.',
+    'algo.desc.1': 'Organic upwelling. Extended neighborhoods and low vitality thresholds produce slow, geological formations — mass-like shapes that accumulate and drift without resolving.',
+    'algo.desc.2': 'Linear inorganic. Tight species boundaries and regular neighborhood patterns generate sharp edges and crystalline geometries — structured fields that resist dissolution.',
+    'algo.desc.3': 'Collapse and reformation. A vitality-weighted configuration drives rapid species turnover — structures dissolve at their edges and rebuild continuously from the center outward.',
+    'algo.desc.4': 'Proliferation. One species with an assimilation advantage expands outward in waves, absorbing adjacent cells and leaving dense, irregular traces across the field.',
+    'algo.desc.5': 'Stable cycle. The system finds and maintains a persistent equilibrium — patterns that oscillate between states without reaching fixation, the grammar improvising the same sentence indefinitely.',
+  },
+  ja: {
+    'nav.appearance': '外観',
+    'nav.construction': '構造',
+    'nav.algorithm': 'アルゴリズム',
+    'nav.system': 'システム',
+    'nav.pricing': '価格',
+    'nav.enquiry': 'お問い合わせ',
+    'nav.viewing': '鑑賞',
+    'nav.interior': '内部',
+    'hero.caption': 'ライブシミュレーション · セルオートマトン',
+    'hero.eyebrow': 'Art Blocks Studio · 2026 · フィジカルエディション · 5作品',
+    'hero.sub': 'ひっそりと自律計算するマシン——チェーン上のコードではなく、回路上のコード。',
+    'hero.stat.artist': 'アーティスト',
+    'hero.stat.edition': 'エディション',
+    'hero.stat.editionVal': '5点（固有）',
+    'hero.stat.medium': 'メディウム',
+    'hero.stat.mediumVal': 'LED · アルミ · マイコン',
+    'img.appearance': 'Rain Blooms Lattice · LEDパネル表面 · リアルタイム計算',
+    'img.topdown': '上面視点 · 水盤のように上から覗き込む',
+    'img.construction': 'アルミフレーム · 自立型 · 3サイズ',
+    'img.interior': '内部 · マイコン基板とLEDドライバ',
+    'img.algorithm': 'セルオートマトン · 多種 · リアルタイム',
+    'img.system': 'システム構成図 · スタンドアロン、外部依存なし',
+    's1.h2': '<em>表面</em>における作品。',
+    's1.p1': 'Rain Blooms Latticeは床置き型の彫刻作品です——アルミフレームの上面にLEDマトリクスパネルを搭載しています。フレームは直接床に置かれ、上から覗き込むように鑑賞します。まるでシステムが自律計算している小さな水盤のように。',
+    's1.p2': 'LED表面そのものが作品です。映像を再生しているスクリーンではありません——コンピューテーションがリアルタイムで走り続けているプロセスです。画像の各フレームは、フレーム内部のマイコンがリアルタイムで直接計算します。',
+    's1.p3': 'パネルは密で変化し続ける色彩で輝きます——セルが相互作用し、増殖し、崩壊するパターン。その画像は繰り返されることなく、記録されることもなく、システムが動き続ける間だけ存在します。',
+    's2.h2': '<em>上から</em>鑑賞する。',
+    's2.p1': '壁掛けスクリーンとは異なり、Rain Blooms Latticeは床に置かれ、パネルを上向きにしています。鑑賞者は作品の上に立ち、コンピューテーションの広がりを俯瞰します——潮だまりやペトリ皿を覗き込むような姿勢です。',
+    's2.p2': 'エディション全体で3つの高さが提供されます——Rain Blooms Lattice #1から#5——それぞれ異なるサイズのLEDパネルに対応しています。高さとパネルサイズは比例して変化するため、作品全体のプロポーションはエディション全体で統一されています。',
+    's2.note.label': '鑑賞姿勢について',
+    's2.note.body': 'アーティストは上向きの配置を意図的に設計しました。鑑賞者を表面の「読み手」ではなく、プロセスの「観察者」として位置づけるために。作品はあなたに向き合いません——あなたが中を覗き込むのです。',
+    's3.h2': 'アルミフレーム、<br><em>LEDパネル。</em>',
+    's3.p1': 'ハウジングはアルミ押出材で製作されています——構造的精度とニュートラルな工業的性格のために選ばれた素材です。フレームは作品の内容について何も主張しません。装飾なしに計算を保持するだけです。',
+    's3.p2': 'LEDパネルはフレーム上部に取り付けられています。パネルとハウジング内部のマイコン基板が合わさって閉じたシステムを形成します——外部ディスプレイデバイス、プロジェクター、コンピューターは不要です。作品はオブジェクトの中で完全に動作します。',
+    's4.h2': '回路上の<em>コード。</em>',
+    's4.p1': 'アルミフレームの内部には、Rain Bloomsのアルゴリズムをネイティブで実行するマイコン基板が収められています。これはArt Blocks StudioのオンチェインデジタルエディションをDriveするのと同じアルゴリズムです——しかしここでは専用ハードウェア上で動作し、ブラウザも、ネットワークも、外部依存も一切必要ありません。',
+    's4.p2': '基板はリボンコネクターを通じてLEDマトリクスと直接通信します。起動時に、アルゴリズムはパラメーター設定を読み込み、計算を開始します。各フレームはリアルタイムでレンダリングされます——映像ファイルも、事前レンダリングされたシーケンスも、再生用ストレージも存在しません。',
+    's4.note.label': '回路上のコード vs. チェーン上のコード',
+    's4.note.body': 'デジタルエディション（Art Blocks Studio）は計算するためのライセンスです：トークン保有者がブラウザを開くたびにアルゴリズムが実行されます。Rain Blooms Latticeはマシンです：電源が入るたびに動作します。同じコード。異なる物質的条件。',
+    's5.h2': '<em>自らのイメージを計算する</em>システム。',
+    's5.quote': '「私がデザインしたのは完成した画像ではなく、ローカルルールの小さなシステムです。サウンドとイメージはリアルタイムで、それらのルールの相互作用から変化します——事前に決定された結果からではなく。」',
+    's5.p1': 'Rain Bloomsはオリジナルのセルオートマトンを基盤としています——グリッド上に配置されたセルが、隣接セルの状態に従って並列に更新される計算システムです。中央コントローラーは存在しません。複雑な現象は一つのローカルルールセットの繰り返し適用から生じます。',
+    's5.p2': 'Rain Bloomsのセルオートマトンは古典的なモデルをいくつかの点で拡張しています：',
+    's5.note.label': '決定論',
+    's5.note.body': '各コンフィギュレーション内では、プロセスは完全に<strong>決定論的</strong>です：同一の条件は同一の進化を生み出します。エディション全体での変化は、ランタイムのランダム性からではなく、基礎となるパラメーターセットの差異から生じます。',
+    's6.h2': 'スタンドアロン。<br><em>完全自己完結。</em>',
+    's6.p1': 'Rain Blooms Latticeは閉じたシステムです。電源を入れれば、ネットワーク接続も、コンパニオンデバイスも、継続的なメンテナンスも不要です。アルゴリズムは内蔵マイコン上で実行され、LEDマトリクスへ直接レンダリングします。',
+    's6.p2': '作品はピクセルレベルのローカルルールからイメージを計算するため、同じ表示設定での新しい起動ごとに同一の進化を生み出します——同一のパラメーター、同一の動作。作品はランダムではありません；固定された初期条件からの決定論的プロセスです。',
+    'spec.surface': '表面', 'spec.surfaceVal': 'LEDマトリクスパネル',
+    'spec.sizes': 'サイズ', 'spec.frame': 'フレーム',
+    'spec.frameVal': 'アルミ押出材、床置き自立型', 'spec.frameVal2': 'アルミ押出材プロファイル',
+    'spec.lifespan': '寿命', 'spec.lifespanVal': 'LED定格寿命 100,000時間以上',
+    'spec.orientation': '配置', 'spec.orientationVal': '水平（上面、上から鑑賞）',
+    'spec.size1': '192mmパネル · 最低高', 'spec.size2': '384mmパネル · 中高', 'spec.size3': '576mmパネル · 最高',
+    'spec.mount': 'パネル取付', 'spec.mountVal': '上面水平マウント',
+    'spec.power': '電源', 'spec.powerVal': '5V DC（電源アダプター付属）',
+    'spec.install': '設置', 'spec.installVal': '床置き自立型、壁固定不要',
+    'spec.finish': '仕上げ', 'spec.finishVal': 'ロウアルミニウム / マットブラック',
+    'spec.compute': '演算', 'spec.computeVal': 'マイコン（組み込み、専用）',
+    'spec.runtime': 'ランタイム', 'spec.runtimeVal': 'ネイティブJavaScript — 外部ランタイム不要',
+    'spec.network': 'ネットワーク', 'spec.networkVal': '不要',
+    'spec.storage': 'ストレージ', 'spec.storageVal': 'アルゴリズムはファームウェアに組み込み済み',
+    'spec.output': '出力', 'spec.outputVal': 'LEDマトリクス直接ドライブ',
+    'spec.neighbors': '近傍', 'spec.neighborsVal': '直近セルに限定されない——ランダムまたはパターン化された拡張近傍を選択',
+    'spec.species': '種', 'spec.speciesVal': '複数の種が定義され、攻撃・同化・無関心などの関係を持つ',
+    'spec.vitality': 'バイタリティ', 'spec.vitalityVal': '各セルが種間の競合結果に影響するバイタリティパラメーターを持つ',
+    'spec.injection': '注入', 'spec.injectionVal': '幾何形状が定期的に導入——即座にオートマトンに吸収される',
+    'spec.startup': '起動', 'spec.startupVal': '自動起動 · 即座に計算開始',
+    'spec.deps': '依存関係', 'spec.depsVal': 'なし——完全自己完結',
+    'spec.display': 'ディスプレイ', 'spec.refresh': 'リフレッシュ', 'spec.refreshVal': 'リアルタイム計算、フレームバイフレーム',
+    'spec.determinism': '決定論', 'spec.determinismVal': '同一起動 → 同一進化',
+    'spec.payment': '支払い', 'spec.paymentVal': '銀行振込 · ETH · USDC',
+    'spec.shipping': '配送', 'spec.shippingVal': '国内送料無料 · 海外はコレクター負担',
+    'p.h2': '3サイズ、<br><em>5点の作品。</em>',
+    'p.desc': '各作品は個別に番号付け（#1–#5）され、パラメーター構成がユニークです。3つのLEDパネルサイズは、空間における3つの異なる存在感のスケールに対応します。',
+    'p.rate': '参考レート：USD/JPY ≈ 156.7（執筆時点）',
+    'th.size': 'サイズ', 'th.usd': 'USD（概算）',
+    'p.note.label': 'デジタルエディション — 完売',
+    'p.note.body': 'Art Blocks Studioでのオンチェインデジタルエディション（128点）は完全にミント済みです。フィジカルエディション Rain Blooms Lattice（5点）は引き続きプライベートセールにてご購入いただけます。',
+    'e.h2': 'コレクター向けに<br><em>販売中。</em>',
+    'e.desc': 'Rain Blooms Latticeは5点のフィジカルエディションのプライベートセールです。お問い合わせはNEORT++を通じて個別に承ります。',
+    'e.cta': 'お問い合わせ',
+    'e.via': 'お問い合わせ先', 'e.venue': '会場',
+    'e.venueVal': 'NEORT++ · まるか3F、東京都中央区日本橋馬喰町2-2-14',
+    'e.dates': '会期', 'e.datesVal': '2026年5月15日（金）– 5月31日（日）',
+    'e.hours': '開館時間', 'e.closed': '月・火・祝日休館 · 入場無料',
+    'e.artist': 'アーティスト', 'e.platform': 'プラットフォーム',
+    'footer.artist': 'アーティスト',
+    'algo.size.sm': '192 mm',
+    'algo.size.md': '384 mm',
+    'algo.size.lg': '576 mm',
+    'algo.hint': '← → スクロールして5点の作品を見る',
+    'hero.caption': 'Rain Blooms Lattice · アルミフレーム & LEDパネル',
+    'hero.desc.1': 'Rain Blooms LatticeはArt Blocks StudioでのRain Bloomsのオンチェーンリリースに伴うフィジカルエディション、5点の作品です。各作品はデジタルエディションと同じアルゴリズムを実行します——谷本和弘がリアルタイムで複雑な映像と音響の挙動を生み出すために設計したセルオートマトン——ただしアルミフレームに内蔵されたマイコン上でローカルに実行されます。',
+    'hero.desc.2': 'フレーム上部に水平に取り付けられたLEDマトリクスパネルは、上から覗き込むように鑑賞されることを想定しています。この作品は映像を再生しません。電源が入っている限り、フレームごとに継続的にイメージを計算し続けます。',
+    'algo.overview.1': 'Rain Bloomsはオリジナルのセルオートマトンを基盤としている。グリッド上に配置されたセルが、隣接セルの状態に従って並列に更新される計算システムだ。中央コントローラーは存在しない。画面に現れるものは上から形作られるのではなく、下から生成される。',
+    'algo.overview.2': 'オートマトンは古典的なモデルを3つの方向に拡張している。近傍セルは直近に限定されず、ランダムにまたはパターンに従って選択できる。攻撃・同化・無関心の関係を持つ複数の種が定義される。そして各セルは、種間の競合結果に影響するバイタリティパラメーターを持つ。5つの作品はそれぞれ同じルール構造を異なるパラメーター設定に対して実行し、挙動的に異なるシステムを生み出す。',
+    'algo.desc.1': '有機的な湧き上がり。拡張近傍と低バイタリティ閾値により、ゆっくりとした地質学的な形成——塊状の形が蓄積し、解消されることなく漂流する。',
+    'algo.desc.2': '直線的・無機的。タイトな種の境界と規則的な近傍パターンが鋭いエッジと結晶状の幾何学的形状を生成する——溶解に抵抗する構造化されたフィールド。',
+    'algo.desc.3': '崩壊と再形成。バイタリティ重み付き設定が急速な種の交代を促進する——構造はエッジで溶解し、中心から外側へ向けて継続的に再構築される。',
+    'algo.desc.4': '増殖。同化優位を持つ一つの種が波状に外側へ拡大し、隣接するセルを吸収しながら不規則な密な痕跡をフィールド全体に残す。',
+    'algo.desc.5': '安定サイクル。システムは持続的な平衡を見つけ維持する——固定に到達せず状態間を振動するパターン。文法が同じ文を無期限に即興し続ける。',
+  }
+};
+
+// ── Language switcher ─────────────────────────────────
+let currentLang = localStorage.getItem('rbl-lang') || 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('rbl-lang', lang);
+  document.documentElement.lang = lang;
+
+  // Update buttons
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.toLowerCase() === lang ||
+      (lang === 'ja' && btn.textContent === 'JP') ||
+      (lang === 'en' && btn.textContent === 'EN'));
+  });
+
+  // Translate all i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    const val = T[lang][key];
+    if (val !== undefined) el.innerHTML = val;
+  });
+}
+
+// Apply on load
+setLang(currentLang);
+
+// ── Cellular Automaton ────────────────────────────────
+class CA {
+  constructor(canvas, opts = {}) {
+    this.canvas = canvas;
+    this.ctx = canvas.getContext('2d');
+    this.palette = opts.palette || [[60,140,220],[200,50,100],[30,170,120],[210,150,25],[130,60,200]];
+    this.cellSize = opts.cellSize || 4;
+    this.running = true;
+    this.frame = 0;
+    this._resize();
+    this._seed();
+    this._loop();
+  }
+
+  _resize() {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    const rect = this.canvas.getBoundingClientRect();
+    const cssW = Math.round(rect.width  || this.canvas.offsetWidth  || 400);
+    const cssH = Math.round(rect.height || this.canvas.offsetHeight || 400);
+    // Canvas buffer = device pixels
+    const pw = cssW * dpr;
+    const ph = cssH * dpr;
+    this.canvas.width  = pw;
+    this.canvas.height = ph;
+    // Work entirely in device pixels — no ctx.scale needed for putImageData
+    this.PW = pw; this.PH = ph;
+    this.cs = Math.round(this.cellSize * dpr); // cell size in device px
+    this.cols = Math.max(1, Math.floor(pw / this.cs));
+    this.rows = Math.max(1, Math.floor(ph / this.cs));
+    this.W = this.cols; this.H = this.rows; // alias used by _step
+    this.grid = new Uint8Array(this.cols * this.rows);
+    this.vit  = new Float32Array(this.cols * this.rows);
+    this.next = new Uint8Array(this.cols * this.rows);
+    this.nvit = new Float32Array(this.cols * this.rows);
+    this.img  = this.ctx.createImageData(pw, ph);
+    // Fill imageData with black initially
+    this.img.data.fill(0);
+  }
+
+  _seed() {
+    for (let i = 0; i < this.grid.length; i++) {
+      if (Math.random() < 0.42) {
+        this.grid[i] = (Math.random() * this.palette.length | 0) + 1;
+        this.vit[i]  = Math.random();
+      }
+    }
+  }
+
+  _step() {
+    const { cols, rows, grid, vit, next, nvit, palette } = this;
+    const N = palette.length;
+    if (this.frame % 55 === 0) {
+      const cx = Math.random() * cols | 0, cy = Math.random() * rows | 0;
+      const s = (Math.random() * N | 0) + 1, r = 2 + (Math.random() * 4 | 0);
+      for (let dy = -r; dy <= r; dy++) for (let dx = -r; dx <= r; dx++) {
+        const nx = ((cx+dx)%cols+cols)%cols, ny = ((cy+dy)%rows+rows)%rows;
+        grid[ny*cols+nx] = s; vit[ny*cols+nx] = 0.5 + Math.random()*0.5;
+      }
+    }
+    for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
+      const i = y*cols+x, cur = grid[i], curV = vit[i];
+      const cnt = new Int32Array(N+1), vs = new Float32Array(N+1);
+      for (let dy=-1;dy<=1;dy++) for (let dx=-1;dx<=1;dx++) {
+        if (!dx&&!dy) continue;
+        const ni=((y+dy+rows)%rows)*cols+((x+dx+cols)%cols);
+        const ns=grid[ni]; if(ns){cnt[ns]++;vs[ns]+=vit[ni];}
+      }
+      let dom=0,dc=0,dv=0;
+      for(let s=1;s<=N;s++) if(cnt[s]>dc||(cnt[s]===dc&&vs[s]>dv)){dom=s;dc=cnt[s];dv=vs[s];}
+      let ns=cur,nv=curV;
+      if(!cur){if(dc>=3){ns=dom;nv=0.3+Math.random()*0.4;}}
+      else{const mc=cnt[cur];
+        if(mc<2||mc>5){ns=0;nv=0;}
+        else if(dom!==cur&&dc>mc&&dv>curV*0.7){ns=dom;nv=0.2+Math.random()*0.3;}
+        else{nv=Math.min(1,curV+(mc>=3?0.01:-0.005));}
+      }
+      next[i]=ns; nvit[i]=nv;
+    }
+    grid.set(next); vit.set(nvit); this.frame++;
+  }
+
+  _draw() {
+    const { cols, rows, grid, vit, palette, cs, PW, img } = this;
+    const d = img.data;
+    for (let y=0;y<rows;y++) for (let x=0;x<cols;x++) {
+      const s=grid[y*cols+x], v=vit[y*cols+x];
+      let r,g,b;
+      if(!s){r=g=b=10;}
+      else{const[pr,pg,pb]=palette[s-1];const br=0.35+v*0.65;r=pr*br|0;g=pg*br|0;b=pb*br|0;}
+      for(let py=0;py<cs;py++) for(let px=0;px<cs;px++){
+        const p=((y*cs+py)*PW+(x*cs+px))*4;
+        d[p]=r;d[p+1]=g;d[p+2]=b;d[p+3]=255;
+      }
+    }
+    this.ctx.putImageData(img,0,0);
+  }
+
+  _loop() {
+    if(!this.running) return;
+    this._step(); this._draw();
+    this.raf = requestAnimationFrame(()=>this._loop());
+  }
+
+  destroy() { this.running=false; if(this.raf) cancelAnimationFrame(this.raf); }
+}
+
+// ── Neighborhood diagrams ─────────────────────────────
+function drawNeighborhood(canvas, type) {
+  const ctx = canvas.getContext('2d');
+  const S=8, cols=7, rows=7;
+  const ox=(canvas.width-cols*S-(cols-1))/2;
+  const oy=(canvas.height-rows*S-(rows-1))/2;
+  const cx=3, cy=3;
+  function isN(x,y){
+    const dx=x-cx,dy=y-cy;
+    if(!dx&&!dy)return false;
+    if(type==='moore')return Math.abs(dx)<=1&&Math.abs(dy)<=1;
+    if(type==='neumann')return(Math.abs(dx)+Math.abs(dy))===1;
+    if(type==='random')return[[-1,-2],[2,-1],[1,2],[-2,1],[2,2],[-1,1]].some(([a,b])=>a===dx&&b===dy);
+    if(type==='extended'){if(Math.abs(dx)<=1&&Math.abs(dy)<=1)return true;return[[-2,0],[2,0],[0,-2],[0,2]].some(([a,b])=>a===dx&&b===dy);}
+    return false;
+  }
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for(let y=0;y<rows;y++) for(let x=0;x<cols;x++){
+    const px=ox+x*9,py=oy+y*9;
+    ctx.fillStyle=x===cx&&y===cy?'#0a0a0a':isN(x,y)?'#555':'#e0e0e0';
+    ctx.fillRect(px,py,S,S);
+  }
+}
+
+// ── Sticky switching via IntersectionObserver ─────────
+const SECTION_IMAGE = {
+  construction:'construction',
+  interior:'interior',
+  system:'system'
+};
+
+function activateImage(key) {
+  document.querySelectorAll('.split-image').forEach(el => {
+    el.classList.toggle('active', el.dataset.img===key);
+  });
+}
+
+const observer = new IntersectionObserver(entries => {
+  let best = null;
+  entries.forEach(e => {
+    if(e.isIntersecting && (!best || e.intersectionRatio > best.intersectionRatio)) best = e;
+  });
+  if(best){ const k=SECTION_IMAGE[best.target.dataset.section]; if(k) activateImage(k); }
+}, { threshold:[0.15, 0.4], rootMargin:'-5% 0px -45% 0px' });
+
+// ── Drag-to-scroll horizontal ─────────────────────────
+function initDragScroll(el) {
+  if (!el) return;
+  let startX, scrollLeft, dragging = false;
+  el.addEventListener('mousedown', e => {
+    dragging = true; startX = e.pageX - el.offsetLeft; scrollLeft = el.scrollLeft;
+  });
+  el.addEventListener('mouseleave', () => dragging = false);
+  el.addEventListener('mouseup',   () => dragging = false);
+  el.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    e.preventDefault();
+    el.scrollLeft = scrollLeft - (e.pageX - el.offsetLeft - startX);
+  });
+}
+
+// ── Init ──────────────────────────────────────────────
+let automata = [];
+
+// 5 distinct palettes for the 5 works
+const WORK_PALETTES = [
+  [[30,100,200],[20,170,160],[80,50,180]],              // #1 — cool blue/teal
+  [[210,60,60],[220,140,20],[180,40,120]],              // #2 — warm red/amber
+  [[40,180,100],[20,200,160],[60,160,40]],              // #3 — organic green
+  [[160,40,200],[100,60,220],[200,40,160]],             // #4 — purple/magenta
+  [[220,120,20],[200,180,30],[180,80,20]],              // #5 — golden/warm
+];
+
+function initAll() {
+  automata.forEach(a=>a.destroy()); automata=[];
+
+  // Hero LED canvas (small, in SVG foreignObject)
+  const hled = document.getElementById('heroLedCanvas');
+  if(hled) automata.push(new CA(hled, {palette:WORK_PALETTES[0], cellSize:2}));
+
+  // 5 algorithm works (horizontal scroll)
+  for(let i=1;i<=5;i++){
+    const c = document.getElementById(`work${i}Canvas`);
+    if(c) automata.push(new CA(c, {palette:WORK_PALETTES[i-1], cellSize:3}));
+  }
+
+  document.querySelectorAll('[data-section]').forEach(el=>observer.observe(el));
+  initDragScroll(document.getElementById('algoScrollWrap'));
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(initAll, 100);
+});
+window.addEventListener('resize', ()=>{ clearTimeout(window._rt); window._rt=setTimeout(initAll,300); });
+
+// ResizeObserver — reinit when hero or algo track resizes
+const resizeObs = new ResizeObserver(() => {
+  clearTimeout(window._ro);
+  window._ro = setTimeout(initAll, 150);
+});
+['.hero-visual', '.algo-track'].forEach(sel => {
+  const el = document.querySelector(sel);
+  if (el) resizeObs.observe(el);
+});
+</script>
+</body>
+</html>
