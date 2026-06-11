@@ -959,7 +959,7 @@
             <span class="algo-work-num">#1</span>
             <span class="algo-work-label" data-i18n="algo.size.sm">192 mm</span>
           </div>
-          <p class="algo-work-desc" data-i18n="algo.desc.1">Organic upwelling. Extended neighborhoods and low vitality thresholds produce slow, geological formations — mass-like shapes that accumulate and drift without resolving.</p>
+          <p class="algo-work-desc" data-i18n="algo.desc.1">Single origin. Ten seed cells carry one base hue; 4 random-offset neighbors determine spread. The dominant tone grows outward slowly, displacing weaker cells across a near-dark field.</p>
         </div>
       </div>
 
@@ -970,7 +970,7 @@
             <span class="algo-work-num">#2</span>
             <span class="algo-work-label" data-i18n="algo.size.md">384 mm</span>
           </div>
-          <p class="algo-work-desc" data-i18n="algo.desc.2">Linear inorganic. Tight species boundaries and regular neighborhood patterns generate sharp edges and crystalline geometries — structured fields that resist dissolution.</p>
+          <p class="algo-work-desc" data-i18n="algo.desc.2">Two-species oscillation. Two palette hues seed 100 points; 16 neighbors selected by hue-dependent direction. Competing color currents circulate across the grid, each following the other's phase.</p>
         </div>
       </div>
 
@@ -981,7 +981,7 @@
             <span class="algo-work-num">#3</span>
             <span class="algo-work-label" data-i18n="algo.size.md">384 mm</span>
           </div>
-          <p class="algo-work-desc" data-i18n="algo.desc.3">Collapse and reformation. A vitality-weighted configuration drives rapid species turnover — structures dissolve at their edges and rebuild continuously from the center outward.</p>
+          <p class="algo-work-desc" data-i18n="algo.desc.3">Multi-species fragmentation. Three to six palette groups seeded in rectangular patches. Strict hue threshold (D &gt; 0.3) limits interaction — only sufficiently distant colors compete, forming sharp territorial boundaries.</p>
         </div>
       </div>
 
@@ -992,7 +992,7 @@
             <span class="algo-work-num">#4</span>
             <span class="algo-work-label" data-i18n="algo.size.lg">576 mm</span>
           </div>
-          <p class="algo-work-desc" data-i18n="algo.desc.4">Proliferation. One species with an assimilation advantage expands outward in waves, absorbing adjacent cells and leaving dense, irregular traces across the field.</p>
+          <p class="algo-work-desc" data-i18n="algo.desc.4">Time-modulated conflict. A sinusoidal energy function P varies each frame — the outcome of every encounter shifts with an internal phase accumulator, running at 7 fps. The same configuration produces different winners at different moments.</p>
         </div>
       </div>
 
@@ -1003,7 +1003,7 @@
             <span class="algo-work-num">#5</span>
             <span class="algo-work-label" data-i18n="algo.size.lg">576 mm</span>
           </div>
-          <p class="algo-work-desc" data-i18n="algo.desc.5">Stable cycle. The system finds and maintains a persistent equilibrium — patterns that oscillate between states without reaching fixation, the grammar improvising the same sentence indefinitely.</p>
+          <p class="algo-work-desc" data-i18n="algo.desc.5">Color assimilation. 32 neighbors, dual phase accumulators, proximity-sensitive blending — similar saturation and brightness merge gradually via lerp; hue-distant cells compete. Boundaries dissolve into layered gradients over time.</p>
         </div>
       </div>
 
@@ -1384,11 +1384,11 @@ const T = {
     'fig2.caption': 'Iterated evolution of a simple cellular rule from a single seeded cell. Even at this small scale, structure that was not specified in the initial condition emerges through repetition of one local rule.',
     'algo.overview.1': 'Rain Blooms is built on an original cellular automaton — a computational system in which cells arranged on a grid are updated in parallel according to the states of neighboring cells. There is no central controller. What appears on screen is generated from below, not shaped from above.',
     'algo.overview.2': 'The automaton extends the classical model in three directions: neighbor cells are not limited to immediate surroundings but can be chosen randomly or according to a pattern; multiple species are defined with relations of attack, assimilation, and indifference; and each cell carries a vitality parameter that affects the outcome of conflict. Each of the five works runs the same rule structure against a distinct parameter configuration, producing a behaviorally distinct system.',
-    'algo.desc.1': 'Organic upwelling. Extended neighborhoods and low vitality thresholds produce slow, geological formations — mass-like shapes that accumulate and drift without resolving.',
-    'algo.desc.2': 'Linear inorganic. Tight species boundaries and regular neighborhood patterns generate sharp edges and crystalline geometries — structured fields that resist dissolution.',
-    'algo.desc.3': 'Collapse and reformation. A vitality-weighted configuration drives rapid species turnover — structures dissolve at their edges and rebuild continuously from the center outward.',
-    'algo.desc.4': 'Proliferation. One species with an assimilation advantage expands outward in waves, absorbing adjacent cells and leaving dense, irregular traces across the field.',
-    'algo.desc.5': 'Stable cycle. The system finds and maintains a persistent equilibrium — patterns that oscillate between states without reaching fixation, the grammar improvising the same sentence indefinitely.',
+    'algo.desc.1': 'Single origin. Ten seed cells carry one base hue; 4 random-offset neighbors determine spread. The dominant tone grows outward slowly, displacing weaker cells across a near-dark field.',
+    'algo.desc.2': 'Two-species oscillation. Two palette hues seed 100 points; 16 neighbors selected by hue-dependent direction. Competing color currents circulate across the grid, each following the other\'s phase.',
+    'algo.desc.3': 'Multi-species fragmentation. Three to six palette groups seeded in rectangular patches. Strict hue threshold (D > 0.3) limits interaction — only sufficiently distant colors compete, forming sharp territorial boundaries.',
+    'algo.desc.4': 'Time-modulated conflict. A sinusoidal energy function P varies each frame — the outcome of every encounter shifts with an internal phase accumulator, running at 7 fps. The same configuration produces different winners at different moments.',
+    'algo.desc.5': 'Color assimilation. 32 neighbors, dual phase accumulators, proximity-sensitive blending — similar saturation and brightness merge gradually via lerp; hue-distant cells compete. Boundaries dissolve into layered gradients over time.',
   },
   ja: {
     'nav.appearance': '外観',
@@ -1497,11 +1497,11 @@ const T = {
     'fig2.caption': '単一のシードセルからの単純なセルルールの反復進化。この小さなスケールでも、初期条件で指定されていなかった構造が一つのローカルルールの繰り返しによって出現する。',
     'algo.overview.1': 'Rain Bloomsはオリジナルのセルオートマトンを基盤としている。グリッド上に配置されたセルが、隣接セルの状態に従って並列に更新される計算システムだ。中央コントローラーは存在しない。画面に現れるものは上から形作られるのではなく、下から生成される。',
     'algo.overview.2': 'オートマトンは古典的なモデルを3つの方向に拡張している。近傍セルは直近に限定されず、ランダムにまたはパターンに従って選択できる。攻撃・同化・無関心の関係を持つ複数の種が定義される。そして各セルは、種間の競合結果に影響するバイタリティパラメーターを持つ。5つの作品はそれぞれ同じルール構造を異なるパラメーター設定に対して実行し、挙動的に異なるシステムを生み出す。',
-    'algo.desc.1': '有機的な湧き上がり。拡張近傍と低バイタリティ閾値により、ゆっくりとした地質学的な形成——塊状の形が蓄積し、解消されることなく漂流する。',
-    'algo.desc.2': '直線的・無機的。タイトな種の境界と規則的な近傍パターンが鋭いエッジと結晶状の幾何学的形状を生成する——溶解に抵抗する構造化されたフィールド。',
-    'algo.desc.3': '崩壊と再形成。バイタリティ重み付き設定が急速な種の交代を促進する——構造はエッジで溶解し、中心から外側へ向けて継続的に再構築される。',
-    'algo.desc.4': '増殖。同化優位を持つ一つの種が波状に外側へ拡大し、隣接するセルを吸収しながら不規則な密な痕跡をフィールド全体に残す。',
-    'algo.desc.5': '安定サイクル。システムは持続的な平衡を見つけ維持する——固定に到達せず状態間を振動するパターン。文法が同じ文を無期限に即興し続ける。',
+    'algo.desc.1': '単一起点。10のシードセルが一つの基本色相を持ち、4つのランダムオフセット近傍が拡散を決定する。支配的な色調がゆっくりと外側へ広がり、ほぼ暗黒のフィールド上で弱いセルを置き換えていく。',
+    'algo.desc.2': '2色振動。2つのパレット色相が100点をシードし、16近傍を色相依存の方向で選択する。競合する色の流れがグリッドを循環し、互いの位相を追いかける。',
+    'algo.desc.3': '多種断片化。3〜6のパレットグループを矩形パッチでシード。厳格な色相閾値（D &gt; 0.3）が相互作用を制限し、十分に離れた色同士のみが競合して鮮明な領域境界を形成する。',
+    'algo.desc.4': '時間変調競合。正弦波エネルギー関数Pがフレームごとに変化——各衝突の結果が内部位相アキュムレータとともに変動し、7fpsで動作する。同じ設定でも異なる瞬間に異なる勝者を生む。',
+    'algo.desc.5': '色同化。32近傍、2つの位相アキュムレータ、近接感応ブレンド——似た彩度・明度のセルはlerpで徐々に融合し、色相の離れたセルは競合する。境界は時間とともに重層グラデーションへと溶けていく。',
   }
 };
 
@@ -1531,111 +1531,305 @@ function setLang(lang) {
 // Apply on load
 setLang(currentLang);
 
-// ── Cellular Automaton ────────────────────────────────
-class CA {
-  constructor(canvas, opts = {}) {
-    this.canvas = canvas;
-    this.ctx = canvas.getContext('2d');
-    this.palette = opts.palette || [[60,140,220],[200,50,100],[30,170,120],[210,150,25],[130,60,200]];
-    this.cellSize = opts.cellSize || 4;
-    this.running = true;
-    this.frame = 0;
-    this._resize();
-    this._seed();
-    this._loop();
+// ── Work Cellular Automata (actual algorithms per work) ──
+(function(){
+  // Shared utilities
+  function mkRand(seed){
+    return ()=>{
+      seed|=0;seed=(seed+0x6d2b79f5)|0;
+      let t=Math.imul(seed^(seed>>>15),1|seed);
+      t^=t+Math.imul(t^(t>>>7),61|t);
+      return((t^(t>>>14))>>>0)/4294967296;
+    };
   }
-
-  _resize() {
-    const dpr = Math.min(devicePixelRatio || 1, 2);
-    const rect = this.canvas.getBoundingClientRect();
-    const cssW = Math.round(rect.width  || this.canvas.offsetWidth  || 400);
-    const cssH = Math.round(rect.height || this.canvas.offsetHeight || 400);
-    // Canvas buffer = device pixels
-    const pw = cssW * dpr;
-    const ph = cssH * dpr;
-    this.canvas.width  = pw;
-    this.canvas.height = ph;
-    // Work entirely in device pixels — no ctx.scale needed for putImageData
-    this.PW = pw; this.PH = ph;
-    this.cs = Math.round(this.cellSize * dpr); // cell size in device px
-    this.cols = Math.max(1, Math.floor(pw / this.cs));
-    this.rows = Math.max(1, Math.floor(ph / this.cs));
-    this.W = this.cols; this.H = this.rows; // alias used by _step
-    this.grid = new Uint8Array(this.cols * this.rows);
-    this.vit  = new Float32Array(this.cols * this.rows);
-    this.next = new Uint8Array(this.cols * this.rows);
-    this.nvit = new Float32Array(this.cols * this.rows);
-    this.img  = this.ctx.createImageData(pw, ph);
-    // Fill imageData with black initially
-    this.img.data.fill(0);
+  function rng(lo,hi,R){return lo+(hi-lo)*R();}
+  function toHSV({r,g,b}){
+    const mx=Math.max(r,g,b),mn=Math.min(r,g,b),q=mx-mn;
+    let h=0,s=mx===0?0:q/mx;
+    if(q>0){h=mx===r?(g-b)/q+(g<b?6:0):mx===g?(b-r)/q+2:(r-g)/q+4;h/=6;}
+    return{h,s,v:mx};
   }
-
-  _seed() {
-    for (let i = 0; i < this.grid.length; i++) {
-      if (Math.random() < 0.42) {
-        this.grid[i] = (Math.random() * this.palette.length | 0) + 1;
-        this.vit[i]  = Math.random();
-      }
+  function toRGB(h,s,v){
+    const i=Math.floor(h*6),f=h*6-i,p=v*(1-s),q=v*(1-f*s),t=v*(1-(1-f)*s);
+    return[{r:v,g:t,b:p},{r:q,g:v,b:p},{r:p,g:v,b:t},{r:p,g:q,b:v},{r:t,g:p,b:v},{r:v,g:p,b:q}][i%6];
+  }
+  function hdiff(a,b){const c=Math.abs(a-b);return Math.min(c,1-c);}
+  function clamp(v,lo,hi){return Math.max(lo,Math.min(hi,v));}
+  function quant6(v,bits){const m=(1<<bits)-1;return Math.round(Math.floor(clamp(v,0,1)*m)/m*255);}
+  function quant7(v){return Math.round(Math.round(v/255*7)/7*255);}
+  function dispCh(v,bits,mult){return Math.min(255,Math.round(quant7(quant6(v,bits))*mult));}
+  function modRange(v,range){const r=Math.floor(range),d=r*2+1;return((((v+r)%d)+d)%d)-r;}
+  const SIN=new Array(1024);for(let i=0;i<1024;i++)SIN[i]=Math.sin(i/1024*Math.PI*2);
+  function sinLerp(a){
+    const w=(a/(Math.PI*2)-Math.floor(a/(Math.PI*2)))*1024;
+    const c=Math.floor(w),d=w-c,e=(c+1)&1023;
+    return SIN[c&1023]+(SIN[e]-SIN[c&1023])*d;
+  }
+  function sin6(a){const s=sinLerp(a),s2=s*s;return s2*s2*s2;}
+  function setupCv(canvas){
+    const dpr=Math.min(devicePixelRatio||1,2);
+    const rect=canvas.getBoundingClientRect();
+    const css=Math.round(rect.width||canvas.offsetWidth||320);
+    canvas.width=css*dpr;canvas.height=css*dpr;
+    return{ctx:canvas.getContext('2d'),sz:css*dpr};
+  }
+  function dot(ctx,x,y,k,r,g,b){
+    const rad=(k*Math.sqrt(1.2/Math.PI))/2;
+    ctx.fillStyle=(r===0&&g===0&&b===0)?'rgb(16,16,16)':`rgb(${r},${g},${b})`;
+    ctx.beginPath();ctx.arc(x*k+k/2,y*k+k/2,rad,0,Math.PI*2);ctx.fill();
+  }
+  function seedPatches(n,R,palettes,w,alpha0){
+    const cv=document.createElement('canvas');cv.width=n;cv.height=n;
+    const ctx=cv.getContext('2d');
+    ctx.fillStyle=`rgba(0,0,0,${alpha0})`;ctx.fillRect(0,0,n,n);
+    for(let i=0;i<w;i++){
+      const W=Math.floor(rng(1,10,R)*3),H=Math.floor(rng(1,10,R)*3);
+      const X=Math.floor(rng(0,n-W,R)),Y=Math.floor(rng(0,n-H,R));
+      const P=palettes[Math.floor(rng(0,palettes.length,R))];
+      const C=toRGB((P.h+rng(-P.rh,P.rh,R)+1)%1,clamp(P.s+rng(-P.rs,P.rs,R),0,1),clamp(P.v+rng(-P.rv,P.rv,R),0,1));
+      ctx.fillStyle=`rgba(${Math.floor(C.r*255)},${Math.floor(C.g*255)},${Math.floor(C.b*255)},${rng(0,1,R)})`;
+      ctx.clearRect(X,Y,W,H);ctx.fillRect(X,Y,W,H);
     }
+    const I=cv.getContext('2d').getImageData(0,0,n,n).data;
+    const g=new Array(n*n);
+    for(let i=0;i<n*n;i++){const q=i*4;g[i]={r:I[q]/255,g:I[q+1]/255,b:I[q+2]/255,a:I[q+3]/255};}
+    return g;
   }
 
-  _step() {
-    const { cols, rows, grid, vit, next, nvit, palette } = this;
-    const N = palette.length;
-    if (this.frame % 55 === 0) {
-      const cx = Math.random() * cols | 0, cy = Math.random() * rows | 0;
-      const s = (Math.random() * N | 0) + 1, r = 2 + (Math.random() * 4 | 0);
-      for (let dy = -r; dy <= r; dy++) for (let dx = -r; dx <= r; dx++) {
-        const nx = ((cx+dx)%cols+cols)%cols, ny = ((cy+dy)%rows+rows)%rows;
-        grid[ny*cols+nx] = s; vit[ny*cols+nx] = 0.5 + Math.random()*0.5;
-      }
+  // ── Work 1 ──────────────────────────────────────────
+  class Work1{
+    constructor(cv){this.cv=cv;this._on=true;this._r();this._t=performance.now();requestAnimationFrame(this._f=this._f.bind(this));}
+    _r(){
+      const{ctx,sz}=setupCv(this.cv);this.ctx=ctx;this.sz=sz;
+      const R=mkRand(Math.floor(Math.random()*1e9));
+      const n=this.n=64,k=this.k=sz/n;
+      const m=Math.floor(Math.pow(rng(1,2,R),2));
+      this.o=Array.from({length:4},()=>[Math.floor(rng(0,m*2+1,R))-m,Math.floor(rng(0,m*2+1,R))-m]);
+      const base=toRGB(0.5,0.01,1);
+      this.g=new Array(n*n);
+      for(let i=0;i<n*n;i++)this.g[i]={r:0,g:0,b:0,a:0.99};
+      for(let i=0;i<10;i++){const x=Math.floor(rng(0,n,R)),y=Math.floor(rng(0,n,R));this.g[y*n+x]={r:base.r,g:base.g,b:base.b,a:1};}
+      this.f=0;
     }
-    for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
-      const i = y*cols+x, cur = grid[i], curV = vit[i];
-      const cnt = new Int32Array(N+1), vs = new Float32Array(N+1);
-      for (let dy=-1;dy<=1;dy++) for (let dx=-1;dx<=1;dx++) {
-        if (!dx&&!dy) continue;
-        const ni=((y+dy+rows)%rows)*cols+((x+dx+cols)%cols);
-        const ns=grid[ni]; if(ns){cnt[ns]++;vs[ns]+=vit[ni];}
-      }
-      let dom=0,dc=0,dv=0;
-      for(let s=1;s<=N;s++) if(cnt[s]>dc||(cnt[s]===dc&&vs[s]>dv)){dom=s;dc=cnt[s];dv=vs[s];}
-      let ns=cur,nv=curV;
-      if(!cur){if(dc>=3){ns=dom;nv=0.3+Math.random()*0.4;}}
-      else{const mc=cnt[cur];
-        if(mc<2||mc>5){ns=0;nv=0;}
-        else if(dom!==cur&&dc>mc&&dv>curV*0.7){ns=dom;nv=0.2+Math.random()*0.3;}
-        else{nv=Math.min(1,curV+(mc>=3?0.01:-0.005));}
-      }
-      next[i]=ns; nvit[i]=nv;
+    _s(){
+      const{n,g,o}=this;const a=new Array(n*n),hsv=new Array(n*n);
+      for(let i=0;i<n*n;i++)hsv[i]=g[i].a>0?toHSV(g[i]):null;
+      for(let y=n-1;y>=0;y--)for(let x=n-1;x>=0;x--){
+        const e=y*n+x;let z={...g[e]};
+        if(g[e].a>0){let h=hsv[e].h;
+          for(let i=0;i<4;i++){const A=clamp(z.a,0,1),j=((y+o[i][1]+n)%n)*n+((x+o[i][0]+n)%n),N=g[j];
+            if(N.a>0){const H=hsv[j],D=hdiff(h,H.h);if(D>0){if(A<clamp(N.a,0,1)){z.r=N.r;z.g=N.g;z.b=N.b;h=H.h;}else z.a+=N.a;}}
+          }
+        }a[e]=z;
+      }this.g=a;
     }
-    grid.set(next); vit.set(nvit); this.frame++;
-  }
-
-  _draw() {
-    const { cols, rows, grid, vit, palette, cs, PW, img } = this;
-    const d = img.data;
-    for (let y=0;y<rows;y++) for (let x=0;x<cols;x++) {
-      const s=grid[y*cols+x], v=vit[y*cols+x];
-      let r,g,b;
-      if(!s){r=g=b=10;}
-      else{const[pr,pg,pb]=palette[s-1];const br=0.35+v*0.65;r=pr*br|0;g=pg*br|0;b=pb*br|0;}
-      for(let py=0;py<cs;py++) for(let px=0;px<cs;px++){
-        const p=((y*cs+py)*PW+(x*cs+px))*4;
-        d[p]=r;d[p+1]=g;d[p+2]=b;d[p+3]=255;
-      }
+    _d(){
+      const{ctx,n,k,g,sz}=this;ctx.fillStyle='rgb(4,4,4)';ctx.fillRect(0,0,sz,sz);
+      for(let i=0;i<n*n;i++){const c=g[i],b=clamp(c.a,0,1)*0.2;
+        dot(ctx,i%n,Math.floor(i/n),k,dispCh(c.r*b,5,15),dispCh(c.g*b,6,15),dispCh(c.b*b,5,15));}
     }
-    this.ctx.putImageData(img,0,0);
+    _f(now){if(!this._on)return;if(now-this._t>=100){this._s();this._d();if(++this.f>=60)this._r();this._t=now;}requestAnimationFrame(this._f);}
+    destroy(){this._on=false;}
   }
 
-  _loop() {
-    if(!this.running) return;
-    this._step(); this._draw();
-    this.raf = requestAnimationFrame(()=>this._loop());
+  // ── Work 2 ──────────────────────────────────────────
+  class Work2{
+    constructor(cv){this.cv=cv;this._on=true;this._r();this._t=performance.now();requestAnimationFrame(this._f=this._f.bind(this));}
+    _r(){
+      const{ctx,sz}=setupCv(this.cv);this.ctx=ctx;this.sz=sz;
+      const R=mkRand(Math.floor(Math.random()*1e9));
+      const n=this.n=64,k=this.k=sz/n;
+      const m=Math.floor(Math.pow(rng(1,2,R),2));
+      this.o=Array.from({length:16},()=>[Math.floor(rng(0,m*2+1,R))-m,Math.floor(rng(0,m*2+1,R))-m]);
+      const p=[{h:rng(0,1,R)},{h:rng(0,1,R)}];
+      const cv2=document.createElement('canvas');cv2.width=n;cv2.height=n;
+      const w=cv2.getContext('2d');w.fillStyle='rgba(0,0,0,0.5)';w.fillRect(0,0,n,n);
+      for(let i=0;i<100;i++){
+        const P=p[Math.floor(rng(0,2,R))],C=toRGB(P.h,1,1);
+        const x=Math.floor(rng(0,n-1,R)),y=Math.floor(rng(0,n-1,R));
+        w.clearRect(x,y,1,1);
+        w.fillStyle=`rgba(${Math.floor(C.r*255)},${Math.floor(C.g*255)},${Math.floor(C.b*255)},1)`;
+        w.fillRect(x,y,1,1);
+      }
+      const I=w.getImageData(0,0,n,n).data;
+      this.g=new Array(n*n);
+      for(let i=0;i<n*n;i++){const q=i*4;this.g[i]={r:I[q]/255,g:I[q+1]/255,b:I[q+2]/255,a:I[q+3]/255};}
+      this.f=0;
+    }
+    _s(){
+      const{n,g,o}=this;const a=new Array(n*n),b=new Array(n*n);
+      for(let i=0;i<n*n;i++)b[i]=g[i].a>0?toHSV(g[i]):null;
+      for(let y=n-1;y>=0;y--)for(let x=n-1;x>=0;x--){
+        const e=y*n+x;let z={...g[e]};
+        if(g[e].a>0){let h=b[e],H=h.h,S=h.s;
+          for(let i=0;i<4;i++){
+            const A=clamp(z.a,0,1),O=o[i+Math.floor((H*4)%4)*4];
+            const M=sin6(H*58.7*i)+0.5+H*2,L=1+Math.floor((1-S)*4);
+            const j=((y+modRange(Math.round(O[1]*M),L)+n)%n)*n+((x+modRange(Math.round(O[0]*M),L)+n)%n),N=g[j];
+            if(N.a>0){const B=b[j],D=hdiff(H,B.h);
+              if(D>0){if(A<clamp(N.a,0,1)){z.r=N.r;z.g=N.g;z.b=N.b;z.a-=0.004;h=B;H=h.h;S=h.s;}else z.a+=N.a;z.a+=D*0.1*N.a;}
+            }
+          }
+          z.a=Math.min(1,Math.max(0.5,z.a-0.004));
+        }a[e]=z;
+      }this.g=a;
+    }
+    _d(){
+      const{ctx,n,k,g,sz}=this;ctx.fillStyle='rgb(4,4,4)';ctx.fillRect(0,0,sz,sz);
+      for(let i=0;i<n*n;i++){const c=g[i],b=clamp(c.a,0,1)*0.15;
+        dot(ctx,i%n,Math.floor(i/n),k,dispCh(c.r*b,5,20),dispCh(c.g*b,6,20),dispCh(c.b*b,5,20));}
+    }
+    _f(now){if(!this._on)return;if(now-this._t>=100){this._s();this._d();if(++this.f>=60)this._r();this._t=now;}requestAnimationFrame(this._f);}
+    destroy(){this._on=false;}
   }
 
-  destroy() { this.running=false; if(this.raf) cancelAnimationFrame(this.raf); }
-}
+  // ── Work 3 ──────────────────────────────────────────
+  class Work3{
+    constructor(cv){this.cv=cv;this._on=true;this._r();this._t=performance.now();requestAnimationFrame(this._f=this._f.bind(this));}
+    _r(){
+      const{ctx,sz}=setupCv(this.cv);this.ctx=ctx;this.sz=sz;
+      const R=mkRand(Math.floor(Math.random()*1e9));
+      const n=this.n=64,k=this.k=sz/n;
+      const m=Math.floor(Math.pow(rng(1,2,R),2));
+      this.o=Array.from({length:16},()=>[Math.floor(rng(0,m*2+1,R))-m,Math.floor(rng(0,m*2+1,R))-m]);
+      const p=Array.from({length:Math.floor(rng(3,6,R))},()=>({h:rng(0,1,R),s:rng(0.7,1,R),v:rng(0.5,0.5,R),rh:rng(0.02,0.12,R),rs:rng(0.02,0.18,R),rv:rng(0.3,0.5,R)}));
+      this.g=seedPatches(n,R,p,30,0.5);this.f=0;
+    }
+    _s(){
+      const{n,g,o}=this;const a=new Array(n*n),b=new Array(n*n);
+      for(let i=0;i<n*n;i++)b[i]=g[i].a>0?toHSV(g[i]):null;
+      for(let y=n-1;y>=0;y--)for(let x=n-1;x>=0;x--){
+        const e=y*n+x;let z={...g[e]};
+        if(g[e].a>0){let h=b[e],H=h.h,S=h.s;
+          for(let i=0;i<4;i++){
+            const A=clamp(z.a,0,1),O=o[i+Math.floor((H*4)%4)*4];
+            const M=sin6(H*58.7*i)+0.5+H*2,L=1+Math.floor((1-S)*4);
+            const j=((y+modRange(Math.round(O[1]*M),L)+n)%n)*n+((x+modRange(Math.round(O[0]*M),L)+n)%n),N=g[j];
+            if(N.a>0){const B=b[j],D=hdiff(H,B.h);
+              if(D>0.3){if(A<clamp(N.a,0,1)){z.r=N.r;z.g=N.g;z.b=N.b;z.a-=0.004;h=B;H=h.h;S=h.s;}else z.a+=N.a;z.a+=D*0.1*N.a;}
+            }
+          }
+          z.a=Math.min(1,Math.max(0.5,z.a-0.004));
+        }a[e]=z;
+      }this.g=a;
+    }
+    _d(){
+      const{ctx,n,k,g,sz}=this;ctx.fillStyle='rgb(4,4,4)';ctx.fillRect(0,0,sz,sz);
+      for(let i=0;i<n*n;i++){const c=g[i],b=clamp(c.a,0,1)*0.3;
+        if(Math.max(c.r,c.g,c.b)*b<=0.1){dot(ctx,i%n,Math.floor(i/n),k,0,0,0);continue;}
+        dot(ctx,i%n,Math.floor(i/n),k,dispCh(c.r*b,5,10),dispCh(c.g*b,6,10),dispCh(c.b*b,5,10));}
+    }
+    _f(now){if(!this._on)return;if(now-this._t>=100){this._s();this._d();if(++this.f>=100)this._r();this._t=now;}requestAnimationFrame(this._f);}
+    destroy(){this._on=false;}
+  }
+
+  // ── Work 4 ──────────────────────────────────────────
+  class Work4{
+    constructor(cv){this.cv=cv;this._on=true;this._r();this._t=performance.now();requestAnimationFrame(this._f=this._f.bind(this));}
+    _r(){
+      const{ctx,sz}=setupCv(this.cv);this.ctx=ctx;this.sz=sz;
+      const R=mkRand(Math.floor(Math.random()*1e9));
+      const n=this.n=64,k=this.k=sz/n;
+      const m=Math.floor(Math.pow(rng(1,1.3,R),2));
+      this.o=Array.from({length:16},()=>[Math.floor(rng(0,m*2+1,R))-m,Math.floor(rng(0,m*2+1,R))-m]);
+      this.u=Math.pow(10,rng(2,2,R));this.v=Math.pow(10,rng(2,2,R));
+      const p=Array.from({length:Math.floor(rng(3,6,R))},()=>({h:rng(0,1,R),s:rng(0.7,1,R),v:rng(0.5,0.5,R),rh:rng(0.02,0.12,R),rs:rng(0.02,0.18,R),rv:rng(0.3,0.5,R)}));
+      this.g=seedPatches(n,R,p,30,1.0);this.f=0;
+    }
+    _s(){
+      const{n,g,o,u,v,f}=this;const T=f*0.00264+153.3694;
+      const a=new Array(n*n),b=new Array(n*n);
+      for(let i=0;i<n*n;i++)b[i]=g[i].a>0?toHSV(g[i]):null;
+      for(let y=n-1;y>=0;y--)for(let x=n-1;x>=0;x--){
+        const e=y*n+x;let z={...g[e]};
+        if(g[e].a>0){let h=b[e],H=h.h,S=h.s,V=h.v;
+          for(let i=0;i<4;i++){
+            const A=clamp(z.a,0,1),O=o[i];
+            const M=sin6(H*58.7*i+S*60.7+V*18.7)+0.5+H*2;
+            const j=((y+Math.round(O[1]*M)+n)%n)*n+((x+Math.round(O[0]*M)+n)%n),N=g[j];
+            if(N.a>0){const Bh=b[j],D=hdiff(H,Bh.h);
+              if(D>0.05&&D<0.4){
+                const L=sin6(Bh.h*5.87*(i*2)+Bh.s*6.07+Bh.v*1.87+T)+Math.floor((Bh.s+Bh.v)*1.5+1);
+                const W2=H<0.5?v:u;
+                const hd=Bh.h-H,hdw=hd-Math.floor(hd+0.5);
+                const P=L*Math.pow(clamp(N.a,0,1),3)-M*A*A*A+sinLerp(hdw*Math.PI*6)*W2;
+                if(P>0){z.r=N.r;z.g=N.g;z.b=N.b;z.a-=0.004;h=Bh;H=h.h;S=h.s;V=h.v;}else z.a+=N.a;
+                z.a+=D*0.1*N.a;
+              }
+            }
+          }
+          z.a=Math.min(1,Math.max(0.5,z.a-0.004));
+        }a[e]=z;
+      }this.g=a;
+    }
+    _d(){
+      const{ctx,n,k,g,sz}=this;ctx.fillStyle='rgb(4,4,4)';ctx.fillRect(0,0,sz,sz);
+      for(let i=0;i<n*n;i++){const c=g[i],b=clamp(c.a,0,1)*0.3;
+        if(Math.max(c.r,c.g,c.b)*b<=0.15){dot(ctx,i%n,Math.floor(i/n),k,0,0,0);continue;}
+        dot(ctx,i%n,Math.floor(i/n),k,dispCh(c.r*b,5,10),dispCh(c.g*b,6,10),dispCh(c.b*b,5,10));}
+    }
+    _f(now){if(!this._on)return;if(now-this._t>=1000/7){this._s();this._d();if(++this.f>=100)this._r();this._t=now;}requestAnimationFrame(this._f);}
+    destroy(){this._on=false;}
+  }
+
+  // ── Work 5 ──────────────────────────────────────────
+  class Work5{
+    constructor(cv){this.cv=cv;this._on=true;this._r();this._t=performance.now();requestAnimationFrame(this._f=this._f.bind(this));}
+    _r(){
+      const{ctx,sz}=setupCv(this.cv);this.ctx=ctx;this.sz=sz;
+      const R=mkRand(Math.floor(Math.random()*1e9));
+      const n=this.n=64,k=this.k=sz/n;
+      const range=Math.pow(rng(1,2,R),2),mo=Math.floor(range);
+      this.o=Array.from({length:32},()=>[Math.floor(rng(0,mo*2+1,R))-mo,Math.floor(rng(0,mo*2+1,R))-mo]);
+      this.u=Math.pow(10,rng(2,2,R));this.v=Math.pow(10,rng(2,2,R));
+      const p=Array.from({length:Math.floor(rng(3,6,R))},()=>({h:rng(0,1,R),s:rng(0.7,1,R),v:rng(0.5,0.5,R),rh:rng(0.02,0.12,R),rs:rng(0.02,0.18,R),rv:rng(0.3,0.5,R)}));
+      this.g=seedPatches(n,R,p,30,1.0);this.f=0;
+    }
+    _s(){
+      const{n,g,o,u,v,f}=this;const c0=f*0.00164+454.1654,d0=f*0.00264+153.3694;
+      const a=new Array(n*n),bh=new Array(n*n);
+      for(let i=0;i<n*n;i++)bh[i]=g[i].a>0?toHSV(g[i]):null;
+      for(let y=n-1;y>=0;y--)for(let x=n-1;x>=0;x--){
+        const e=y*n+x;let z={...g[e]};
+        if(g[e].a>0){let h=bh[e],H=h.h,S=h.s,V=h.v;
+          for(let i=0;i<4;i++){
+            const A=clamp(z.a,0,1),[X2,Y2]=o[i+Math.floor((H*4)%4)*8]||o[i];
+            const m=sin6(H*58.7*i+S*60.7+V*18.7+c0)+0.5,RL=1+Math.floor((1-S)*2);
+            const j=((y+modRange(Math.round(Y2*m),RL)+n)%n)*n+((x+modRange(Math.round(X2*m),RL)+n)%n),N=g[j];
+            if(N.a>0){const nb=bh[j],D=hdiff(H,nb.h),E=Math.abs(S-nb.s),F=Math.abs(V-nb.v);
+              if(D>0.05&&D<0.4){
+                const B2=clamp(N.a,0,1);
+                const L=sin6(nb.h*5.87*(i*2)+nb.s*6.07+nb.v*1.87+d0)+Math.floor((nb.s+nb.v)*1.5+1);
+                const W2=H<0.5?v:u,hd=nb.h-H,hdw=hd-Math.floor(hd+0.5);
+                const P=L*B2*B2*B2-m*A*A*A+sinLerp(hdw*Math.PI*6)*W2;
+                if(P>0){z.r=N.r;z.g=N.g;z.b=N.b;z.a-=0.004;h=nb;H=h.h;S=h.s;V=h.v;}
+                else{
+                  z.a+=N.a;
+                  if(E<0.2||F<0.2||D>0.3){z.a+=N.a;z.r+=(N.r-z.r)*0.2;z.g+=(N.g-z.g)*0.2;z.b+=(N.b-z.b)*0.2;}
+                  else{z.a+=N.a*0.1;z.r+=(N.r-z.r)*0.004;z.g+=(N.g-z.g)*0.004;z.b+=(N.b-z.b)*0.004;}
+                  const nh=toHSV(z);H=nh.h;S=nh.s;V=nh.v;h=nh;
+                }
+                z.a+=D*0.1*N.a;
+              }
+            }
+          }
+          z.a=Math.min(1,Math.max(0.5,z.a-0.004));
+        }a[e]=z;
+      }this.g=a;
+    }
+    _d(){
+      const{ctx,n,k,g,sz}=this;ctx.fillStyle='rgb(4,4,4)';ctx.fillRect(0,0,sz,sz);
+      for(let i=0;i<n*n;i++){const c=g[i],b=clamp(c.a,0,1)*0.3;
+        if(Math.max(c.r,c.g,c.b)*b<=0.1){dot(ctx,i%n,Math.floor(i/n),k,0,0,0);continue;}
+        dot(ctx,i%n,Math.floor(i/n),k,dispCh(c.r*b,5,10),dispCh(c.g*b,6,10),dispCh(c.b*b,5,10));}
+    }
+    _f(now){if(!this._on)return;if(now-this._t>=100){this._s();this._d();if(++this.f>=100)this._r();this._t=now;}requestAnimationFrame(this._f);}
+    destroy(){this._on=false;}
+  }
+
+  window._WorkClasses=[Work1,Work2,Work3,Work4,Work5];
+  window._Work1=Work1;
+})();
 
 // ── Neighborhood diagrams ─────────────────────────────
 function drawNeighborhood(canvas, type) {
@@ -1701,26 +1895,18 @@ function initDragScroll(el) {
 // ── Init ──────────────────────────────────────────────
 let automata = [];
 
-// 5 distinct palettes for the 5 works
-const WORK_PALETTES = [
-  [[30,100,200],[20,170,160],[80,50,180]],              // #1 — cool blue/teal
-  [[210,60,60],[220,140,20],[180,40,120]],              // #2 — warm red/amber
-  [[40,180,100],[20,200,160],[60,160,40]],              // #3 — organic green
-  [[160,40,200],[100,60,220],[200,40,160]],             // #4 — purple/magenta
-  [[220,120,20],[200,180,30],[180,80,20]],              // #5 — golden/warm
-];
-
 function initAll() {
   automata.forEach(a=>a.destroy()); automata=[];
 
-  // Hero LED canvas (small, in SVG foreignObject)
+  // Hero LED canvas — uses Work1 algorithm
   const hled = document.getElementById('heroLedCanvas');
-  if(hled) automata.push(new CA(hled, {palette:WORK_PALETTES[0], cellSize:2}));
+  if(hled) automata.push(new window._Work1(hled));
 
-  // 5 algorithm works (horizontal scroll)
+  // 5 algorithm works — each with its own algorithm
+  const WC = window._WorkClasses;
   for(let i=1;i<=5;i++){
     const c = document.getElementById(`work${i}Canvas`);
-    if(c) automata.push(new CA(c, {palette:WORK_PALETTES[i-1], cellSize:3}));
+    if(c) automata.push(new WC[i-1](c));
   }
 
   document.querySelectorAll('[data-section]').forEach(el=>observer.observe(el));
