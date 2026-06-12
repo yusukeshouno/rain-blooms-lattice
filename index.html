@@ -112,21 +112,17 @@
       align-items: center;
       justify-content: center;
     }
-    /* Sculpture illustration wrapper */
-    .hero-sculpture {
+    /* Hero video */
+    .hero-video {
       position: absolute;
       inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0.92;
     }
-    .hero-sculpture svg { max-width: 72%; max-height: 90%; }
-    /* Floating canvas in hero sculpture LED area */
-    #heroLedCanvas {
-      position: absolute;
-      display: block;
-      /* Will be positioned by JS over the LED area */
-    }
+    #heroLedCanvas { display: none; }
     .hero-visual-label {
       position: absolute;
       bottom: 16px;
@@ -760,42 +756,10 @@
 <!-- HERO: Physical appearance of the sculpture -->
 <section class="hero">
   <div class="hero-visual">
-    <!-- Sculpture illustration: aluminum frame with floating LED panel showing live CA -->
-    <div class="hero-sculpture">
-      <svg id="sculptureSvg" viewBox="0 0 320 480" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- LED Panel top (192×192 area, centered at x=64) -->
-        <rect x="64" y="16" width="192" height="192" fill="#0e0e0e" stroke="#3a3a3a" stroke-width="1.5"/>
-        <!-- inner LED surface (will host canvas via foreignObject) -->
-        <rect x="72" y="24" width="176" height="176" fill="#080808"/>
-        <foreignObject x="72" y="24" width="176" height="176">
-          <canvas id="heroLedCanvas" xmlns="http://www.w3.org/1999/xhtml"
-            width="352" height="352"
-            style="width:176px;height:176px;display:block;"></canvas>
-        </foreignObject>
-        <!-- Frame corners on panel -->
-        <rect x="64" y="16" width="8" height="8" fill="#2a2a2a"/>
-        <rect x="248" y="16" width="8" height="8" fill="#2a2a2a"/>
-        <rect x="64" y="200" width="8" height="8" fill="#2a2a2a"/>
-        <rect x="248" y="200" width="8" height="8" fill="#2a2a2a"/>
-        <!-- Left leg -->
-        <rect x="84" y="208" width="16" height="252" fill="#2c2c2c" stroke="#3a3a3a" stroke-width="0.5"/>
-        <!-- Right leg -->
-        <rect x="220" y="208" width="16" height="252" fill="#2c2c2c" stroke="#3a3a3a" stroke-width="0.5"/>
-        <!-- Cross brace 1 -->
-        <rect x="84" y="288" width="152" height="10" fill="#242424" stroke="#3a3a3a" stroke-width="0.5"/>
-        <!-- Cross brace 2 -->
-        <rect x="84" y="368" width="152" height="10" fill="#242424" stroke="#3a3a3a" stroke-width="0.5"/>
-        <!-- Feet -->
-        <rect x="76" y="458" width="32" height="6" rx="1" fill="#333"/>
-        <rect x="212" y="458" width="32" height="6" rx="1" fill="#333"/>
-        <!-- Subtle dimension line -->
-        <line x1="52" y1="24" x2="52" y2="208" stroke="#444" stroke-width="0.5" stroke-dasharray="2 3"/>
-        <line x1="47" y1="24" x2="57" y2="24" stroke="#444" stroke-width="0.5"/>
-        <line x1="47" y1="208" x2="57" y2="208" stroke="#444" stroke-width="0.5"/>
-        <text x="44" y="120" fill="#555" font-family="DM Mono,monospace" font-size="7"
-          text-anchor="middle" transform="rotate(-90,44,120)" letter-spacing="1">LED</text>
-      </svg>
-    </div>
+    <video class="hero-video" autoplay muted loop playsinline preload="auto">
+      <source src="hero.mp4" type="video/mp4">
+    </video>
+    <canvas id="heroLedCanvas" style="display:none;"></canvas>
     <div class="hero-visual-label" data-i18n="hero.caption">Rain Blooms Lattice · aluminum frame & LED panel</div>
   </div>
   <div class="hero-content">
