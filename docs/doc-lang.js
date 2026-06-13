@@ -105,8 +105,18 @@
       if (span.classList.contains('doc-ja') || span.classList.contains('doc-en')) return;
       if (!isJP(span.textContent)) return;
       span.classList.add('doc-ja');
-      const prev = span.previousSibling;
-      if (prev && prev.nodeName === 'BR') prev.remove();
+      // Wrap preceding text nodes (the English part) in doc-en
+      const parent = span.parentNode;
+      [...parent.childNodes].forEach(n => {
+        if (n === span) return;
+        if (n.nodeName === 'BR') { n.remove(); return; }
+        if (n.nodeType === 3 && n.textContent.trim()) {
+          const s = document.createElement('span');
+          s.className = 'doc-en';
+          s.textContent = n.textContent;
+          n.replaceWith(s);
+        }
+      });
     });
 
     // ── Step-item outer spans: wrap EN text node in doc-en ───────────
