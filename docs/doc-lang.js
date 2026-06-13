@@ -167,12 +167,15 @@
       if (!span.querySelector('.doc-en')) splitEl(span, ' / ');
     });
 
-    // ── ol lists that are pure Japanese (follow a .doc-lang-divider) ─
-    document.querySelectorAll('ol').forEach(ol => {
-      if (ol.querySelector('.doc-ja, .doc-en')) return;
-      const text = ol.textContent.trim();
-      if (isJP(text) && !text.match(/[a-zA-Z]{4,}/)) {
-        ol.classList.add('doc-ja');
+    // ── ol/blockquote: classify as doc-en or doc-ja by content language ─
+    document.querySelectorAll('ol, blockquote').forEach(el => {
+      if (el.classList.contains('doc-en') || el.classList.contains('doc-ja')) return;
+      if (el.querySelector('.doc-ja, .doc-en')) return;
+      const text = el.textContent.trim();
+      if (isJP(text)) {
+        el.classList.add('doc-ja');
+      } else {
+        el.classList.add('doc-en');
       }
     });
   }

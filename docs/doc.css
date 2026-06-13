@@ -23,9 +23,12 @@ body {
 /* ── Language toggle ── */
 html[lang="en"] .doc-body.ja      { display: none; }
 html[lang="en"] .doc-lang-divider { display: none; }
-html[lang="en"] .doc-ja           { display: none !important; }
-html[lang="en"] ol.doc-ja         { display: none !important; }
-html[lang="ja"] .doc-body:not(.ja){ display: none; }
+html[lang="en"] .doc-ja              { display: none !important; }
+html[lang="en"] ol.doc-ja            { display: none !important; }
+html[lang="en"] blockquote.doc-ja   { display: none !important; }
+html[lang="ja"] .doc-body:not(.ja)  { display: none; }
+html[lang="ja"] ol.doc-en            { display: none !important; }
+html[lang="ja"] blockquote.doc-en   { display: none !important; }
 html[lang="ja"] .doc-lang-divider { display: none; }
 html[lang="ja"] .doc-en           { display: none !important; }
 html[lang="ja"] body { font-family: 'Noto Sans JP', 'DM Sans', sans-serif; }
