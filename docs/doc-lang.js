@@ -60,9 +60,35 @@
     // ── Meta values with bilingual content ───────────────────────────
     document.querySelectorAll('.doc-meta-val').forEach(el => splitAny(el));
 
-    // ── Table cells (all columns) ─────────────────────────────────────
+    // ── Table cells: plain text (no children) ────────────────────────
     document.querySelectorAll('td').forEach(el => {
       if (el.childElementCount === 0) splitAny(el);
+    });
+
+    // ── Table cells: bilingual text node within mixed-content td ─────
+    // Pattern: <td><span>LABEL</span><br>EN text · JP text</td>
+    document.querySelectorAll('td').forEach(td => {
+      [...td.childNodes].forEach(n => {
+        if (n.nodeType !== 3) return;
+        const text = n.textContent;
+        for (const sep of [' / ', ' · ']) {
+          const idx = text.indexOf(sep);
+          if (idx === -1) continue;
+          const en = text.slice(0, idx).trim();
+          const ja = text.slice(idx + sep.length).trim();
+          if (!en || !isJP(ja)) continue;
+          const enSpan = document.createElement('span');
+          enSpan.className = 'doc-en';
+          enSpan.textContent = en;
+          const jaSpan = document.createElement('span');
+          jaSpan.className = 'doc-ja';
+          jaSpan.textContent = ja;
+          const prev = n.previousSibling;
+          if (prev && prev.nodeName === 'BR') prev.remove();
+          n.replaceWith(enSpan, jaSpan);
+          break;
+        }
+      });
     });
 
     // ── .doc-body paragraphs that mix EN · JP in one element ─────────
