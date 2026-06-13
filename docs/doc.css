@@ -1,0 +1,324 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:     #ffffff;
+  --fg:     #0a0a0a;
+  --muted:  #939393;
+  --border: #e6e6e6;
+  --serif:  'Cormorant Garamond', 'Noto Serif JP', Georgia, serif;
+  --sans:   'DM Sans', 'Noto Sans JP', system-ui, sans-serif;
+  --mono:   'DM Mono', 'Courier New', monospace;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Top bar ── */
+.doc-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 52px;
+}
+.doc-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.doc-back {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.15s;
+}
+.doc-back:hover { color: var(--fg); }
+.doc-bar-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+.doc-bar-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--fg);
+  letter-spacing: 0.04em;
+}
+
+/* ── Layout ── */
+.doc-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 72px 40px 120px;
+}
+
+/* ── Header ── */
+.doc-header {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 40px;
+  margin-bottom: 56px;
+}
+.doc-header-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.doc-header h1 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 38px;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+.doc-header h1 span {
+  display: block;
+  font-size: 22px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.doc-meta {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.doc-meta-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 16px;
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.doc-meta-key {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  padding-top: 2px;
+}
+.doc-meta-val { font-weight: 400; }
+.doc-meta-placeholder { color: var(--muted); }
+
+/* ── Sections ── */
+.doc-section {
+  margin-bottom: 52px;
+}
+.doc-section-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+}
+.doc-section h2 {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.doc-section h3 {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 12.5px;
+  margin-top: 24px;
+  margin-bottom: 10px;
+  color: var(--fg);
+}
+
+/* ── Body text ── */
+.doc-body {
+  font-size: 13.5px;
+  line-height: 1.75;
+  font-weight: 300;
+  color: var(--fg);
+}
+.doc-body + .doc-body {
+  margin-top: 16px;
+}
+.doc-body.ja {
+  color: var(--muted);
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+/* ── Divider ── */
+.doc-lang-divider {
+  border: none;
+  border-top: 1px dashed var(--border);
+  margin: 12px 0 16px;
+}
+
+/* ── Table ── */
+.doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  margin-top: 16px;
+}
+.doc-table th {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 8px 12px 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+.doc-table td {
+  padding: 12px 12px 12px 0;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.6;
+  font-weight: 300;
+}
+.doc-table td:first-child {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+  padding-right: 24px;
+}
+.doc-table tr:last-child td { border-bottom: none; }
+
+/* ── List ── */
+.doc-list {
+  list-style: none;
+  margin-top: 12px;
+}
+.doc-list li {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  line-height: 1.6;
+  font-weight: 300;
+}
+.doc-list li:first-child { border-top: 1px solid var(--border); }
+.doc-list li::before {
+  content: '—';
+  font-family: var(--mono);
+  color: var(--muted);
+  flex-shrink: 0;
+  font-size: 11px;
+  padding-top: 2px;
+}
+
+/* ── Checklist ── */
+.doc-checklist {
+  list-style: none;
+  margin-top: 12px;
+}
+.doc-checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 300;
+}
+.doc-checklist li:first-child { border-top: 1px solid var(--border); }
+.doc-check-box {
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ── Blockquote ── */
+.doc-quote {
+  border-left: 2px solid var(--fg);
+  padding: 16px 24px;
+  margin: 20px 0;
+  font-family: var(--serif);
+  font-size: 17px;
+  font-style: italic;
+  line-height: 1.65;
+  font-weight: 300;
+}
+.doc-quote-attr {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 10px;
+  font-style: normal;
+}
+
+/* ── Code block ── */
+.doc-code {
+  font-family: var(--mono);
+  font-size: 11px;
+  background: #f5f5f5;
+  border: 1px solid var(--border);
+  padding: 16px 20px;
+  margin-top: 12px;
+  line-height: 1.7;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* ── Signature block ── */
+.doc-signature {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.doc-signature-line {
+  width: 240px;
+  border-bottom: 1px solid var(--fg);
+  margin: 48px 0 8px;
+}
+.doc-signature-name {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--fg);
+}
+
+/* ── Footer ── */
+.doc-footer {
+  margin-top: 80px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .doc-bar { padding: 0 20px; }
+  .doc-wrap { padding: 48px 20px 80px; }
+  .doc-header h1 { font-size: 28px; }
+  .doc-meta-row { grid-template-columns: 1fr; gap: 2px; }
+  .doc-footer { flex-direction: column; gap: 8px; }
+}

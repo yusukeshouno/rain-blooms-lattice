@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Source Code Archive — Rain Blooms Lattice</title>
+<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+
+<div class="doc-bar">
+  <div class="doc-bar-left">
+    <a href="../index.html#collector" class="doc-back">← Rain Blooms Lattice</a>
+    <span class="doc-bar-num">05</span>
+    <span class="doc-bar-title">Source Code Archive · ソースコードアーカイブ</span>
+  </div>
+</div>
+
+<div class="doc-wrap">
+
+  <div class="doc-header">
+    <div class="doc-header-label">Rain Blooms Lattice · Collector Documentation</div>
+    <h1>Source Code Archive<span>ソースコードアーカイブ</span></h1>
+    <div class="doc-meta">
+      <div class="doc-meta-row">
+        <div class="doc-meta-key">Artist / アーティスト</div>
+        <div class="doc-meta-val">Kazuhiro Tanimoto</div>
+      </div>
+      <div class="doc-meta-row">
+        <div class="doc-meta-key">Firmware version / ファームウェア</div>
+        <div class="doc-meta-val doc-meta-placeholder">v__.__.__</div>
+      </div>
+      <div class="doc-meta-row">
+        <div class="doc-meta-key">Archive date / アーカイブ日</div>
+        <div class="doc-meta-val doc-meta-placeholder">______ / ______ / ______</div>
+      </div>
+      <div class="doc-meta-row">
+        <div class="doc-meta-key">Edition / エディション</div>
+        <div class="doc-meta-val doc-meta-placeholder">No. __ of 5</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <div class="doc-section-num">01</div>
+    <h2>Purpose / 目的</h2>
+    <p class="doc-body">This archive contains the complete source code of the firmware running on the microcontroller embedded within Rain Blooms Lattice. It is provided as a conservation artifact — a definitive reference for future conservation, migration, or re-implementation of the work should the original hardware become obsolete or fail beyond repair.</p>
+    <p class="doc-body" style="margin-top:12px;">The source code is not intended for modification. It defines the work's algorithm, which is work-defining per Document 03 (Identity Document).</p>
+    <hr class="doc-lang-divider">
+    <p class="doc-body ja">このアーカイブは、Rain Blooms Latticeの組み込みマイコン上で動作するファームウェアの完全なソースコードを収録しています。将来的にオリジナルのハードウェアが陳腐化または修復不能となった際の保存・マイグレーション・再実装のための一次資料として提供されます。</p>
+    <p class="doc-body ja" style="margin-top:10px;">ソースコードは改変を意図していません。文書03（作品同一性文書）において作品定義的特性とされているアルゴリズムを定義します。</p>
+  </div>
+
+  <div class="doc-section">
+    <div class="doc-section-num">02</div>
+    <h2>Contents / 収録内容</h2>
+    <p class="doc-body" style="font-size:12px;color:var(--muted);margin-bottom:12px;">USB media / USBメディア</p>
+    <div class="doc-code">rain-blooms-lattice/
+├── README.md                   — Overview and build instructions / 概要とビルド手順
+├── LICENSE.md                  — License terms / ライセンス条件
+├── src/
+│   ├── main.c                  — Entry point / エントリーポイント
+│   ├── ca.c / ca.h             — Cellular automaton engine / セルオートマトンエンジン
+│   ├── ca_params_edition_N.h   — Edition-specific parameters / エディション固有パラメータ
+│   ├── display.c / display.h   — LED matrix driver / LEDマトリクスドライバ
+│   ├── audio.c / audio.h       — Audio synthesis / 音声合成
+│   └── rng.c / rng.h           — Deterministic PRNG / 決定論的疑似乱数生成
+├── build/
+│   └── firmware_vX.X.X.hex     — Pre-compiled binary / コンパイル済みバイナリ
+└── docs/
+    └── hardware_spec.md        — Target hardware specification / 対象ハードウェア仕様</div>
+  </div>
+
+  <div class="doc-section">
+    <div class="doc-section-num">03</div>
+    <h2>Edition-Specific Parameters / エディション固有パラメータ</h2>
+    <p class="doc-body">The file <code style="font-family:var(--mono);font-size:12px;background:#f5f5f5;padding:2px 5px;">ca_params_edition_N.h</code> contains the parameter configuration unique to this edition. These values define the work's specific behavior and are part of the work-defining properties per Document 03.</p>
+    <hr class="doc-lang-divider">
+    <p class="doc-body ja"><code style="font-family:var(--mono);font-size:12px;background:#f5f5f5;padding:2px 5px;">ca_params_edition_N.h</code>ファイルは、このエディションに固有のパラメータ設定を含みます。これらの値が作品固有の動作を定義し、文書03の作品定義的特性の一部を構成します。</p>
+    <table class="doc-table" style="margin-top:20px;">
+      <thead><tr><th>Parameter</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>EDITION_ID</td><td>Edition number (1–5) / エディション番号</td></tr>
+        <tr><td>ALGO_VARIANT</td><td>Algorithm variant (1–5 corresponding to the 5 works)</td></tr>
+        <tr><td>INITIAL_SEED</td><td>Seed for the deterministic PRNG used in initialization</td></tr>
+        <tr><td>PALETTE_CONFIG</td><td>Color palette definition / カラーパレット定義</td></tr>
+        <tr><td>NEIGHBORHOOD_OFFSETS</td><td>Initial neighbor offset configuration</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="doc-section">
+    <div class="doc-section-num">04</div>
+    <h2>Conservation Use / 保存目的での使用</h2>
+    <p class="doc-body">This archive may be used for the following purposes:</p>
+    <table class="doc-table" style="margin-top:16px;">
+      <tbody>
+        <tr>
+          <td style="font-family:var(--mono);font-size:10px;color:var(--muted);white-space:nowrap;padding-top:14px;">01</td>
+          <td><strong style="font-weight:500;">Verification</strong> — Confirm the firmware running on the hardware matches the archived source.<br><span style="color:var(--muted);font-size:12px;">検証 — ハードウェア上で動作するファームウェアがアーカイブされたソースと一致することを確認する。</span></td>
+        </tr>
+        <tr>
+          <td style="font-family:var(--mono);font-size:10px;color:var(--muted);white-space:nowrap;padding-top:14px;">02</td>
+          <td><strong style="font-weight:500;">Re-flashing</strong> — Restore the firmware to the original microcontroller after accidental erasure.<br><span style="color:var(--muted);font-size:12px;">再書き込み — 誤消去後にオリジナルのマイコンへファームウェアを復元する。</span></td>
+        </tr>
+        <tr>
+          <td style="font-family:var(--mono);font-size:10px;color:var(--muted);white-space:nowrap;padding-top:14px;">03</td>
+          <td><strong style="font-weight:500;">Migration</strong> — Compile and flash the firmware onto a replacement microcontroller of equivalent specification (see Document 03 for acceptable substitutions).<br><span style="color:var(--muted);font-size:12px;">マイグレーション — 同等仕様の代替マイコンにファームウェアをコンパイル・書き込む（許容される代替については文書03参照）。</span></td>
+        </tr>
+        <tr>
+          <td style="font-family:var(--mono);font-size:10px;color:var(--muted);white-space:nowrap;padding-top:14px;">04</td>
+          <td><strong style="font-weight:500;">Re-implementation</strong> — In the event of hardware obsolescence, re-implement the algorithm on new hardware, guided by the source code as the authoritative specification.<br><span style="color:var(--muted);font-size:12px;">再実装 — ハードウェアの陳腐化に際し、ソースコードを権威ある仕様書として用いて新しいハードウェア上にアルゴリズムを再実装する。</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="doc-body" style="margin-top:20px;font-size:12.5px;">For conservation actions (3) and (4), contact NEORT++ or the artist's studio prior to proceeding (see Document 07). · 保存行為（3）および（4）については、実施前にNEORT++またはアーティストのスタジオに連絡すること（文書07参照）。</p>
+  </div>
+
+  <div class="doc-section">
+    <div class="doc-section-num">05</div>
+    <h2>License / ライセンス</h2>
+    <p class="doc-body">The source code is provided to the collector under a restricted license for conservation purposes only. Redistribution, publication, or use outside conservation scope is not permitted without written consent from the artist.</p>
+    <hr class="doc-lang-divider">
+    <p class="doc-body ja">ソースコードは、保存目的のみに限定した制限付きライセンスのもとでコレクターに提供されます。アーティストの書面による同意なしに、保存範囲外での再配布、公開、または使用は許可されません。</p>
+  </div>
+
+  <div class="doc-footer">
+    <span>Document 05 · Source Code Archive · v1.0</span>
+    <span>Issued 2026 · NEORT++</span>
+  </div>
+
+</div>
+</body>
+</html>

@@ -678,10 +678,14 @@
       padding: 22px 0;
       border-bottom: 1px solid var(--border);
       display: grid;
-      grid-template-columns: 36px 1fr;
+      grid-template-columns: 36px 1fr 16px;
       gap: 0 20px;
     }
     .collector-item:last-child { border-bottom: none; }
+    .collector-item-link { text-decoration: none; color: inherit; cursor: pointer; transition: background 0.15s; }
+    .collector-item-link:hover { background: #fafafa; }
+    .collector-item-link:hover .collector-item-arrow { opacity: 1; }
+    .collector-item-arrow { font-size: 13px; color: var(--muted); align-self: start; padding-top: 2px; opacity: 0; transition: opacity 0.15s; flex-shrink: 0; }
     .collector-item-num {
       font-family: var(--mono);
       font-size: 9px;
@@ -1056,7 +1060,7 @@
           <line x1="5" y1="8" x2="5" y2="172" stroke="#555" stroke-width="0.5" stroke-dasharray="2 2"/>
           <line x1="1" y1="8" x2="9" y2="8" stroke="#555" stroke-width="0.5"/>
           <line x1="1" y1="172" x2="9" y2="172" stroke="#555" stroke-width="0.5"/>
-          <text x="3" y="95" fill="#555" font-family="JetBrains Mono,monospace" font-size="6" text-anchor="middle" transform="rotate(-90,3,95)">192–576 mm</text>
+          <text x="3" y="95" fill="#555" font-family="JetBrains Mono,monospace" font-size="6" text-anchor="middle" transform="rotate(-90,3,95)">1×–3× panel</text>
           <!-- label -->
           <text x="100" y="358" fill="#444" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle" letter-spacing="1">ALUMINUM FRAME</text>
         </svg>
@@ -1154,22 +1158,22 @@
 <section class="pricing-section" id="pricing">
   <div class="pricing-left">
     <div class="sec-label">05 · <span data-i18n="nav.pricing">Pricing</span></div>
-    <h2 data-i18n="p.h2">Three sizes,<br><em>five works.</em></h2>
-    <p style="font-size:16px;" data-i18n="p.desc">Each work is individually numbered (#1–#5) and unique in its parameter configuration. The three LED panel dimensions correspond to three different scales of presence in the room.</p>
+    <h2 data-i18n="p.h2">Three heights,<br><em>five works.</em></h2>
+    <p style="font-size:16px;" data-i18n="p.desc">Each work is individually numbered (#1–#5) and unique in its parameter configuration. The panel size is fixed; the frame height comes in three options — 1×, 2×, or 3× the panel dimension.</p>
     <div class="size-diagram">
       <div class="size-item">
         <div class="size-box" style="width:48px;height:48px;"></div>
-        <div class="size-label-mm">192 mm</div>
+        <div class="size-label-mm">1× <span data-i18n="p.height">height</span></div>
         <div class="size-label-price">¥220,000</div>
       </div>
       <div class="size-item">
-        <div class="size-box" style="width:80px;height:80px;"></div>
-        <div class="size-label-mm">384 mm</div>
+        <div class="size-box" style="width:48px;height:80px;"></div>
+        <div class="size-label-mm">2× <span data-i18n="p.height">height</span></div>
         <div class="size-label-price">¥330,000</div>
       </div>
       <div class="size-item">
-        <div class="size-box" style="width:120px;height:120px;"></div>
-        <div class="size-label-mm">576 mm</div>
+        <div class="size-box" style="width:48px;height:120px;"></div>
+        <div class="size-label-mm">3× <span data-i18n="p.height">height</span></div>
         <div class="size-label-price">¥440,000</div>
       </div>
     </div>
@@ -1186,17 +1190,17 @@
       </thead>
       <tbody>
         <tr>
-          <td>192 mm</td>
+          <td data-i18n="spec.size1">1× height</td>
           <td><div class="price-big">¥220,000</div><div class="price-small">approx. US$1,400</div></td>
           <td></td>
         </tr>
         <tr>
-          <td>384 mm</td>
+          <td data-i18n="spec.size2">2× height</td>
           <td><div class="price-big">¥330,000</div><div class="price-small">approx. US$2,100</div></td>
           <td></td>
         </tr>
         <tr>
-          <td>576 mm</td>
+          <td data-i18n="spec.size3">3× height</td>
           <td><div class="price-big">¥440,000</div><div class="price-small">approx. US$2,800</div></td>
           <td></td>
         </tr>
@@ -1228,53 +1232,59 @@
         </div>
       </div>
 
-      <div class="collector-item">
+      <a class="collector-item collector-item-link" href="docs/02_certificate_of_authenticity.html">
         <div class="collector-item-num">02</div>
         <div class="collector-item-body">
           <div class="collector-item-title" data-i18n="col.i2.title">Certificate of Authenticity</div>
           <div class="collector-item-desc" data-i18n="col.i2.desc">Signed by Kazuhiro Tanimoto. Records edition number (#1–#5), panel dimensions, firmware version, Art Blocks Studio token reference, and date of production.</div>
         </div>
-      </div>
+        <div class="collector-item-arrow">↗</div>
+      </a>
 
-      <div class="collector-item">
+      <a class="collector-item collector-item-link" href="docs/03_identity_document.html">
         <div class="collector-item-num">03</div>
         <div class="collector-item-body">
           <div class="collector-item-title" data-i18n="col.i3.title">Identity Document</div>
           <div class="collector-item-desc" data-i18n="col.i3.desc">An artist-authored statement defining the work's essential properties. Specifies what constitutes the work's identity — the algorithm and its parameter configuration — and clarifies which aspects (hardware, display technology) may be substituted in future conservation without compromising authenticity, following MIMA Identity Report conventions.</div>
         </div>
-      </div>
+        <div class="collector-item-arrow">↗</div>
+      </a>
 
-      <div class="collector-item">
+      <a class="collector-item collector-item-link" href="docs/04_installation_instructions.html">
         <div class="collector-item-num">04</div>
         <div class="collector-item-body">
           <div class="collector-item-title" data-i18n="col.i4.title">Installation Instructions</div>
           <div class="collector-item-desc" data-i18n="col.i4.desc">Complete setup guide: orientation (horizontal panel, viewed from above), power specification (5 V DC), cabling, recommended ambient conditions, and safe handling notes.</div>
         </div>
-      </div>
+        <div class="collector-item-arrow">↗</div>
+      </a>
 
-      <div class="collector-item">
+      <a class="collector-item collector-item-link" href="docs/05_source_code_archive.html">
         <div class="collector-item-num">05</div>
         <div class="collector-item-body">
           <div class="collector-item-title" data-i18n="col.i5.title">Source Code Archive</div>
           <div class="collector-item-desc" data-i18n="col.i5.desc">The complete firmware source code stored on archival media. Serves as the definitive reference artifact for future conservation, migration, or re-implementation should the original hardware become obsolete.</div>
         </div>
-      </div>
+        <div class="collector-item-arrow">↗</div>
+      </a>
 
-      <div class="collector-item">
+      <a class="collector-item collector-item-link" href="docs/06_copyright_license.html">
         <div class="collector-item-num">06</div>
         <div class="collector-item-body">
           <div class="collector-item-title" data-i18n="col.i6.title">Copyright License</div>
           <div class="collector-item-desc" data-i18n="col.i6.desc">Grants the collector rights to display, loan, and make preservation copies of the work. Consistent with MIMA acquisition standards for time-based media art, including rights for hardware migration and equivalent-specification replacement.</div>
         </div>
-      </div>
+        <div class="collector-item-arrow">↗</div>
+      </a>
 
-      <div class="collector-item">
+      <a class="collector-item collector-item-link" href="docs/07_conservation_notes.html">
         <div class="collector-item-num">07</div>
         <div class="collector-item-body">
           <div class="collector-item-title" data-i18n="col.i7.title">Conservation Notes</div>
           <div class="collector-item-desc" data-i18n="col.i7.desc">Guidance on hardware longevity, component replacement policy, recommended inspection intervals, and technical support contact. Includes the artist's explicit position on future substitution of LED panel and microcontroller with equivalent-specification components.</div>
         </div>
-      </div>
+        <div class="collector-item-arrow">↗</div>
+      </a>
 
     </div>
   </div>
@@ -1340,7 +1350,7 @@ const T = {
     'col.desc': 'Each physical edition is accompanied by a documentation package developed in accordance with the Matters in Media Art (MIMA) protocol — the conservation standard jointly authored by MoMA, SFMOMA, and Tate for time-based media art. The package addresses acquisition, documentation, loan, and long-term preservation.',
     'col.note': 'Rain Blooms Lattice is a software-based work. Its identity resides in the algorithm, not the hardware. The documentation establishes which properties are work-defining and which may be adapted in future conservation without loss of authenticity.',
     'col.i1.title': 'The Work',
-    'col.i1.desc': 'Aluminum frame, LED matrix panel, and embedded microcontroller. All components are tested and verified prior to delivery. Available in three panel dimensions: 192 mm, 384 mm, 576 mm.',
+    'col.i1.desc': 'Aluminum frame, LED matrix panel, and embedded microcontroller. All components are tested and verified prior to delivery. One panel size; frame height available in three options: 1×, 2×, or 3× the panel dimension.',
     'col.i2.title': 'Certificate of Authenticity',
     'col.i2.desc': 'Signed by Kazuhiro Tanimoto. Records edition number (#1–#5), panel dimensions, firmware version, Art Blocks Studio token reference, and date of production.',
     'col.i3.title': 'Identity Document',
@@ -1400,7 +1410,7 @@ const T = {
     'spec.frameVal': 'Aluminum extrusion, floor-standing', 'spec.frameVal2': 'Aluminum extrusion profile',
     'spec.lifespan': 'Lifespan', 'spec.lifespanVal': '100,000+ hour LED rated lifespan',
     'spec.orientation': 'Orientation', 'spec.orientationVal': 'Horizontal, top surface, viewed from above',
-    'spec.size1': '192 mm panel · lowest height', 'spec.size2': '384 mm panel · mid height', 'spec.size3': '576 mm panel · tallest height',
+    'spec.size1': '1× height', 'spec.size2': '2× height', 'spec.size3': '3× height',
     'spec.mount': 'Panel mount', 'spec.mountVal': 'Top-surface horizontal mount',
     'spec.power': 'Power', 'spec.powerVal': '5V DC via standard power supply (included)',
     'spec.install': 'Installation', 'spec.installVal': 'Floor-standing, no wall fixings required',
@@ -1420,8 +1430,9 @@ const T = {
     'spec.determinism': 'Determinism', 'spec.determinismVal': 'Identical startup → identical evolution',
     'spec.payment': 'Payment', 'spec.paymentVal': 'Bank transfer · ETH · USDC',
     'spec.shipping': 'Shipping', 'spec.shippingVal': 'Free within Japan · international at collector\'s expense',
-    'p.h2': 'Three sizes,<br><em>five works.</em>',
-    'p.desc': 'Each work is individually numbered (#1–#5) and unique in its parameter configuration. The three LED panel dimensions correspond to three different scales of presence in the room.',
+    'p.h2': 'Three heights,<br><em>five works.</em>',
+    'p.desc': 'Each work is individually numbered (#1–#5) and unique in its parameter configuration. The panel size is fixed; the frame height comes in three options — 1×, 2×, or 3× the panel dimension.',
+    'p.height': 'height',
     'p.rate': 'USD/JPY ≈ 156.7 at time of writing',
     'th.size': 'Size', 'th.usd': 'USD (approx.)',
     'p.note.label': 'Digital Edition — Sold Out',
@@ -1435,9 +1446,9 @@ const T = {
     'e.hours': 'Hours', 'e.closed': 'Closed Mon, Tue & national holidays · Free admission',
     'e.artist': 'Artist', 'e.platform': 'Platform',
     'footer.artist': 'Artist',
-    'algo.size.sm': '192 mm',
-    'algo.size.md': '384 mm',
-    'algo.size.lg': '576 mm',
+    'algo.size.sm': '1× height',
+    'algo.size.md': '2× height',
+    'algo.size.lg': '3× height',
     'algo.hint': 'scroll to view all 5 works',
     'hero.caption': 'Rain Blooms Lattice · aluminum frame & LED panel',
     'hero.desc.1': 'Rain Blooms Lattice is a physical edition of five works accompanying the on-chain release of Rain Blooms on Art Blocks Studio. Each piece runs the same algorithm that drives the digital edition — a cellular automaton designed by Kazuhiro Tanimoto to produce complex visual and audio behavior in real time — but executes it locally on a microcontroller embedded within an aluminum frame.',
@@ -1471,9 +1482,9 @@ const T = {
     'col.desc': 'Rain Blooms Latticeの各フィジカルエディションには、MoMA・SFMOMA・テートが共同策定したタイムベース・メディアアートの保存標準「Matters in Media Art（MIMA）」プロトコルに準拠したドキュメンテーション・パッケージが付属します。取得・ドキュメンテーション・貸借・長期保存の4段階に対応しています。',
     'col.note': 'Rain Blooms Latticeはソフトウェアベースの作品です。作品の同一性はハードウェアではなくアルゴリズムに宿ります。付属文書は、作品を定義する本質的特性と、将来の保存・修復において真正性を損なわずに変更可能な範囲を明示します。',
     'col.i1.title': '作品本体',
-    'col.i1.desc': 'アルミフレーム、LEDマトリクスパネル、組み込みマイコン一式。納品前に全コンポーネントの動作確認済み。パネルサイズは192 mm・384 mm・576 mmの3種。',
+    'col.i1.desc': 'アルミフレーム、LEDマトリクスパネル、組み込みマイコン一式。納品前に全コンポーネントの動作確認済み。パネルサイズは1種類、フレームの高さはパネル寸法の1倍・2倍・3倍の3種。',
     'col.i2.title': '真正性証明書',
-    'col.i2.desc': '谷本和寛による直筆署名入り。エディション番号（#1〜#5）、パネル寸法、ファームウェアバージョン、Art Blocks Studioトークン参照番号、製作年月日を記載。',
+    'col.i2.desc': 'Kazuhiro Tanimotoによる直筆署名入り。エディション番号（#1〜#5）、パネル寸法、ファームウェアバージョン、Art Blocks Studioトークン参照番号、製作年月日を記載。',
     'col.i3.title': '作品同一性文書（Identity Document）',
     'col.i3.desc': 'アーティストが著作した作品の本質的特性を定義する文書。作品の同一性を構成するもの——アルゴリズムとそのパラメータ設定——を明示し、将来の保存において真正性を損なわずに代替・変更可能な要素（ハードウェア、表示技術等）の範囲をMIMAのIdentity Report規約に基づき記述。',
     'col.i4.title': '展示インストラクション',
@@ -1506,7 +1517,7 @@ const T = {
     's1.p3': 'パネルは密で変化し続ける色彩で輝きます——セルが相互作用し、増殖し、崩壊するパターン。その画像は繰り返されることなく、記録されることもなく、システムが動き続ける間だけ存在します。',
     's2.h2': '<em>上から</em>鑑賞する。',
     's2.p1': '壁掛けスクリーンとは異なり、Rain Blooms Latticeは床に置かれ、パネルを上向きにしています。鑑賞者は作品の上に立ち、コンピューテーションの広がりを俯瞰します——潮だまりやペトリ皿を覗き込むような姿勢です。',
-    's2.p2': 'エディション全体で3つの高さが提供されます——Rain Blooms Lattice #1から#5——それぞれ異なるサイズのLEDパネルに対応しています。高さとパネルサイズは比例して変化するため、作品全体のプロポーションはエディション全体で統一されています。',
+    's2.p2': 'パネルサイズは1種類。フレームの高さはパネル寸法の1倍・2倍・3倍から選択します。高さが変わっても、パネルと空間の関係性——真上から覗き込む構造——は変わりません。',
     's2.note.label': '鑑賞姿勢について',
     's2.note.body': 'アーティストは上向きの配置を意図的に設計しました。鑑賞者を表面の「読み手」ではなく、プロセスの「観察者」として位置づけるために。作品はあなたに向き合いません——あなたが中を覗き込むのです。',
     's3.h2': 'アルミフレーム、<br><em>LEDパネル。</em>',
@@ -1531,7 +1542,7 @@ const T = {
     'spec.frameVal': 'アルミ押出材、床置き自立型', 'spec.frameVal2': 'アルミ押出材プロファイル',
     'spec.lifespan': '寿命', 'spec.lifespanVal': 'LED定格寿命 100,000時間以上',
     'spec.orientation': '配置', 'spec.orientationVal': '水平（上面、上から鑑賞）',
-    'spec.size1': '192mmパネル · 最低高', 'spec.size2': '384mmパネル · 中高', 'spec.size3': '576mmパネル · 最高',
+    'spec.size1': '高さ 1×', 'spec.size2': '高さ 2×', 'spec.size3': '高さ 3×',
     'spec.mount': 'パネル取付', 'spec.mountVal': '上面水平マウント',
     'spec.power': '電源', 'spec.powerVal': '5V DC（電源アダプター付属）',
     'spec.install': '設置', 'spec.installVal': '床置き自立型、壁固定不要',
@@ -1551,8 +1562,9 @@ const T = {
     'spec.determinism': '決定論', 'spec.determinismVal': '同一起動 → 同一進化',
     'spec.payment': '支払い', 'spec.paymentVal': '銀行振込 · ETH · USDC',
     'spec.shipping': '配送', 'spec.shippingVal': '国内送料無料 · 海外はコレクター負担',
-    'p.h2': '3サイズ、<br><em>5点の作品。</em>',
-    'p.desc': '各作品は個別に番号付け（#1–#5）され、パラメーター構成がユニークです。3つのLEDパネルサイズは、空間における3つの異なる存在感のスケールに対応します。',
+    'p.h2': '3つの高さ、<br><em>5点の作品。</em>',
+    'p.desc': '各作品は個別に番号付け（#1–#5）され、パラメーター構成がユニークです。パネルサイズは1種類。フレームの高さはパネル寸法の1倍・2倍・3倍の3種から選択します。',
+    'p.height': '倍',
     'p.rate': '参考レート：USD/JPY ≈ 156.7（執筆時点）',
     'th.size': 'サイズ', 'th.usd': 'USD（概算）',
     'p.note.label': 'デジタルエディション — 完売',
@@ -1566,9 +1578,9 @@ const T = {
     'e.hours': '開館時間', 'e.closed': '月・火・祝日休館 · 入場無料',
     'e.artist': 'アーティスト', 'e.platform': 'プラットフォーム',
     'footer.artist': 'アーティスト',
-    'algo.size.sm': '192 mm',
-    'algo.size.md': '384 mm',
-    'algo.size.lg': '576 mm',
+    'algo.size.sm': '1× height',
+    'algo.size.md': '2× height',
+    'algo.size.lg': '3× height',
     'algo.hint': '← → スクロールして5点の作品を見る',
     'hero.caption': 'Rain Blooms Lattice · アルミフレーム & LEDパネル',
     'hero.desc.1': 'Rain Blooms LatticeはArt Blocks StudioでのRain Bloomsのオンチェーンリリースに伴うフィジカルエディション、5点の作品です。各作品はデジタルエディションと同じアルゴリズムを実行します——谷本和弘がリアルタイムで複雑な映像と音響の挙動を生み出すために設計したセルオートマトン——ただしアルミフレームに内蔵されたマイコン上でローカルに実行されます。',
