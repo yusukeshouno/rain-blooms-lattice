@@ -20,6 +20,32 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* ── Language toggle ── */
+html[lang="en"] .doc-body.ja   { display: none; }
+html[lang="en"] .doc-lang-divider { display: none; }
+html[lang="ja"] .doc-body:not(.ja) { display: none; }
+html[lang="ja"] .doc-lang-divider { display: none; }
+html[lang="ja"] body { font-family: 'Noto Sans JP', 'DM Sans', sans-serif; }
+
+.doc-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.lang-btn {
+  background: none;
+  border: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  padding: 5px 12px;
+  cursor: pointer;
+}
+.lang-btn + .lang-btn { border-left: none; }
+.lang-btn.active      { background: var(--fg); color: #fff; border-color: var(--fg); }
+.lang-btn:not(.active):hover { color: var(--fg); }
+
 /* ── Top bar ── */
 .doc-bar {
   position: sticky;
