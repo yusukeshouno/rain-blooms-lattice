@@ -21,11 +21,17 @@ body {
 }
 
 /* ── Language toggle ── */
-html[lang="en"] .doc-body.ja   { display: none; }
+html[lang="en"] .doc-body.ja      { display: none; }
 html[lang="en"] .doc-lang-divider { display: none; }
-html[lang="ja"] .doc-body:not(.ja) { display: none; }
+html[lang="en"] .doc-ja           { display: none !important; }
+html[lang="en"] ol.doc-ja         { display: none !important; }
+html[lang="ja"] .doc-body:not(.ja){ display: none; }
 html[lang="ja"] .doc-lang-divider { display: none; }
+html[lang="ja"] .doc-en           { display: none !important; }
 html[lang="ja"] body { font-family: 'Noto Sans JP', 'DM Sans', sans-serif; }
+
+/* Inline .doc-ja spans show as block so no <br> needed */
+.doc-ja:not(.doc-body) { display: block; }
 
 .doc-bar-right {
   display: flex;
