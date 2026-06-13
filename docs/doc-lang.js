@@ -145,18 +145,26 @@
       });
     });
 
-    // ── Step-item outer spans: wrap EN text node in doc-en ───────────
-    document.querySelectorAll('li span:not(.doc-en):not(.doc-ja):not([style])').forEach(outer => {
-      const jaChild = outer.querySelector('.doc-ja');
-      if (!jaChild || outer.querySelector('.doc-en')) return;
-      [...outer.childNodes].forEach(n => {
-        if (n.nodeType === 3 && n.textContent.trim()) {
-          const s = document.createElement('span');
-          s.className = 'doc-en';
-          s.textContent = n.textContent;
-          n.replaceWith(s);
-        }
-      });
+    // ── Step-item content spans: split bilingual "EN · JP" text ──────
+    document.querySelectorAll('li span:not(.doc-en):not(.doc-ja):not([style])').forEach(span => {
+      if (span.querySelector('.doc-en, .doc-ja')) return;
+      // Case 1: span already has a .doc-ja child — wrap remaining text nodes in doc-en
+      const jaChild = span.querySelector('.doc-ja');
+      if (jaChild) {
+        [...span.childNodes].forEach(n => {
+          if (n.nodeType === 3 && n.textContent.trim()) {
+            const s = document.createElement('span');
+            s.className = 'doc-en';
+            s.textContent = n.textContent;
+            n.replaceWith(s);
+          }
+        });
+        return;
+      }
+      // Case 2: plain text span with " · " separator
+      if (span.childElementCount > 0) return;
+      splitEl(span, ' · ');
+      if (!span.querySelector('.doc-en')) splitEl(span, ' / ');
     });
 
     // ── ol lists that are pure Japanese (follow a .doc-lang-divider) ─
