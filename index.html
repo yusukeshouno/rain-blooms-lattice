@@ -665,6 +665,50 @@
     .price-big { font-family: var(--serif); font-size: 26px; font-weight: 300; color: var(--fg); }
     .price-small { font-family: var(--mono); font-size: 10px; font-weight: 400; color: var(--muted); margin-top: 4px; }
 
+    /* ── COLLECTOR ───────────────────────────── */
+    .collector-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--border);
+    }
+    .collector-left { padding: 68px 52px; border-right: 1px solid var(--border); }
+    .collector-right { padding: 68px 52px; }
+    .collector-items { display: flex; flex-direction: column; gap: 0; }
+    .collector-item {
+      padding: 22px 0;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 0 20px;
+    }
+    .collector-item:last-child { border-bottom: none; }
+    .collector-item-num {
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 400;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      padding-top: 3px;
+    }
+    .collector-item-body {}
+    .collector-item-title {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: var(--fg);
+      margin-bottom: 5px;
+    }
+    .collector-item-desc {
+      font-family: var(--sans);
+      font-size: 12.5px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+    html[lang="ja"] .collector-item-title,
+    html[lang="ja"] .collector-item-desc { font-family: 'Noto Sans JP', sans-serif; }
+
     /* ── ENQUIRY ─────────────────────────────── */
     .enquiry-section {
       display: grid;
@@ -721,12 +765,13 @@
     @media (max-width: 900px) {
       nav { padding: 0 20px; }
       .nav-center { display: none; }
-      .hero, .split-wrap, .pricing-section, .enquiry-section { grid-template-columns: 1fr; }
+      .hero, .split-wrap, .pricing-section, .collector-section, .enquiry-section { grid-template-columns: 1fr; }
       .split-left { position: relative; height: 80vw; border-right: none; border-bottom: 1px solid var(--border); }
-      .hero-content, .content-section, .pricing-left, .pricing-right, .enquiry-left, .enquiry-right { padding: 48px 24px; }
+      .hero-content, .content-section, .pricing-left, .pricing-right, .collector-left, .collector-right, .enquiry-left, .enquiry-right { padding: 48px 24px; }
       .hero-visual { min-height: 70vw; }
       .hero-content { border-left: none; border-top: 1px solid var(--border); }
       .pricing-left { border-right: none; border-bottom: 1px solid var(--border); }
+      .collector-left { border-right: none; border-bottom: 1px solid var(--border); }
       .enquiry-left { border-right: none; border-bottom: 1px solid var(--border); }
       .algo-header { grid-template-columns: 1fr; padding: 48px 24px 40px; }
       .algo-header-right { border-left: none; border-top: 1px solid var(--border); padding: 28px 0 0; margin-top: 28px; }
@@ -747,6 +792,7 @@
     <li><a href="#interior" data-i18n="nav.interior">Interior</a></li>
     <li><a href="#system" data-i18n="nav.system">System</a></li>
     <li><a href="#pricing" data-i18n="nav.pricing">Pricing</a></li>
+    <li><a href="#collector" data-i18n="nav.collector">Collector</a></li>
     <li><a href="#enquiry" data-i18n="nav.enquiry">Enquiry</a></li>
   </ul>
   <div class="lang-toggle">
@@ -1163,10 +1209,81 @@
   </div>
 </section>
 
+<!-- COLLECTOR PACKAGE -->
+<section class="collector-section" id="collector">
+  <div class="collector-left">
+    <div class="sec-label">06 · <span data-i18n="nav.collector">Collector</span></div>
+    <h2 data-i18n="col.h2">What comes<br><em>with the work.</em></h2>
+    <p style="font-size:15px;line-height:1.7;margin-top:24px;" data-i18n="col.desc">Each physical edition is accompanied by a documentation package developed in accordance with the Matters in Media Art (MIMA) protocol — the conservation standard jointly authored by MoMA, SFMOMA, and Tate for time-based media art. The package addresses acquisition, documentation, loan, and long-term preservation.</p>
+    <p style="font-size:13px;font-family:var(--mono);color:var(--muted);margin-top:20px;line-height:1.7;" data-i18n="col.note">Rain Blooms Lattice is a software-based work. Its identity resides in the algorithm, not the hardware. The documentation establishes which properties are work-defining and which may be adapted in future conservation without loss of authenticity.</p>
+  </div>
+  <div class="collector-right">
+    <div class="collector-items">
+
+      <div class="collector-item">
+        <div class="collector-item-num">01</div>
+        <div class="collector-item-body">
+          <div class="collector-item-title" data-i18n="col.i1.title">The Work</div>
+          <div class="collector-item-desc" data-i18n="col.i1.desc">Aluminum frame, LED matrix panel, and embedded microcontroller. All components are tested and verified prior to delivery. Available in three panel dimensions: 192 mm, 384 mm, 576 mm.</div>
+        </div>
+      </div>
+
+      <div class="collector-item">
+        <div class="collector-item-num">02</div>
+        <div class="collector-item-body">
+          <div class="collector-item-title" data-i18n="col.i2.title">Certificate of Authenticity</div>
+          <div class="collector-item-desc" data-i18n="col.i2.desc">Signed by Kazuhiro Tanimoto. Records edition number (#1–#5), panel dimensions, firmware version, Art Blocks Studio token reference, and date of production.</div>
+        </div>
+      </div>
+
+      <div class="collector-item">
+        <div class="collector-item-num">03</div>
+        <div class="collector-item-body">
+          <div class="collector-item-title" data-i18n="col.i3.title">Identity Document</div>
+          <div class="collector-item-desc" data-i18n="col.i3.desc">An artist-authored statement defining the work's essential properties. Specifies what constitutes the work's identity — the algorithm and its parameter configuration — and clarifies which aspects (hardware, display technology) may be substituted in future conservation without compromising authenticity, following MIMA Identity Report conventions.</div>
+        </div>
+      </div>
+
+      <div class="collector-item">
+        <div class="collector-item-num">04</div>
+        <div class="collector-item-body">
+          <div class="collector-item-title" data-i18n="col.i4.title">Installation Instructions</div>
+          <div class="collector-item-desc" data-i18n="col.i4.desc">Complete setup guide: orientation (horizontal panel, viewed from above), power specification (5 V DC), cabling, recommended ambient conditions, and safe handling notes.</div>
+        </div>
+      </div>
+
+      <div class="collector-item">
+        <div class="collector-item-num">05</div>
+        <div class="collector-item-body">
+          <div class="collector-item-title" data-i18n="col.i5.title">Source Code Archive</div>
+          <div class="collector-item-desc" data-i18n="col.i5.desc">The complete firmware source code stored on archival media. Serves as the definitive reference artifact for future conservation, migration, or re-implementation should the original hardware become obsolete.</div>
+        </div>
+      </div>
+
+      <div class="collector-item">
+        <div class="collector-item-num">06</div>
+        <div class="collector-item-body">
+          <div class="collector-item-title" data-i18n="col.i6.title">Copyright License</div>
+          <div class="collector-item-desc" data-i18n="col.i6.desc">Grants the collector rights to display, loan, and make preservation copies of the work. Consistent with MIMA acquisition standards for time-based media art, including rights for hardware migration and equivalent-specification replacement.</div>
+        </div>
+      </div>
+
+      <div class="collector-item">
+        <div class="collector-item-num">07</div>
+        <div class="collector-item-body">
+          <div class="collector-item-title" data-i18n="col.i7.title">Conservation Notes</div>
+          <div class="collector-item-desc" data-i18n="col.i7.desc">Guidance on hardware longevity, component replacement policy, recommended inspection intervals, and technical support contact. Includes the artist's explicit position on future substitution of LED panel and microcontroller with equivalent-specification components.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ENQUIRY -->
 <section class="enquiry-section" id="enquiry">
   <div class="enquiry-left">
-    <div class="sec-label">06 · <span data-i18n="nav.enquiry">Enquiry</span></div>
+    <div class="sec-label">07 · <span data-i18n="nav.enquiry">Enquiry</span></div>
     <h2 data-i18n="e.h2">Available<br><em>to collectors.</em></h2>
     <p style="font-size:16px;" data-i18n="e.desc">Rain Blooms Lattice is a private-sale edition of five physical works. Enquiries are handled individually through NEORT++.</p>
     <a href="mailto:info@neort.io" class="cta" data-i18n="e.cta">Send enquiry</a>
@@ -1217,7 +1334,25 @@ const T = {
     'nav.algorithm': 'Algorithm',
     'nav.system': 'System',
     'nav.pricing': 'Pricing',
+    'nav.collector': 'Collector',
     'nav.enquiry': 'Enquiry',
+    'col.h2': 'What comes<br><em>with the work.</em>',
+    'col.desc': 'Each physical edition is accompanied by a documentation package developed in accordance with the Matters in Media Art (MIMA) protocol — the conservation standard jointly authored by MoMA, SFMOMA, and Tate for time-based media art. The package addresses acquisition, documentation, loan, and long-term preservation.',
+    'col.note': 'Rain Blooms Lattice is a software-based work. Its identity resides in the algorithm, not the hardware. The documentation establishes which properties are work-defining and which may be adapted in future conservation without loss of authenticity.',
+    'col.i1.title': 'The Work',
+    'col.i1.desc': 'Aluminum frame, LED matrix panel, and embedded microcontroller. All components are tested and verified prior to delivery. Available in three panel dimensions: 192 mm, 384 mm, 576 mm.',
+    'col.i2.title': 'Certificate of Authenticity',
+    'col.i2.desc': 'Signed by Kazuhiro Tanimoto. Records edition number (#1–#5), panel dimensions, firmware version, Art Blocks Studio token reference, and date of production.',
+    'col.i3.title': 'Identity Document',
+    'col.i3.desc': 'An artist-authored statement defining the work\'s essential properties. Specifies what constitutes the work\'s identity — the algorithm and its parameter configuration — and clarifies which aspects (hardware, display technology) may be substituted in future conservation without compromising authenticity, following MIMA Identity Report conventions.',
+    'col.i4.title': 'Installation Instructions',
+    'col.i4.desc': 'Complete setup guide: orientation (horizontal panel, viewed from above), power specification (5 V DC), cabling, recommended ambient conditions, and safe handling notes.',
+    'col.i5.title': 'Source Code Archive',
+    'col.i5.desc': 'The complete firmware source code stored on archival media. Serves as the definitive reference artifact for future conservation, migration, or re-implementation should the original hardware become obsolete.',
+    'col.i6.title': 'Copyright License',
+    'col.i6.desc': 'Grants the collector rights to display, loan, and make preservation copies of the work. Consistent with MIMA acquisition standards for time-based media art, including rights for hardware migration and equivalent-specification replacement.',
+    'col.i7.title': 'Conservation Notes',
+    'col.i7.desc': 'Guidance on hardware longevity, component replacement policy, recommended inspection intervals, and technical support contact. Includes the artist\'s explicit position on future substitution of LED panel and microcontroller with equivalent-specification components.',
     'nav.viewing': 'Viewing',
     'nav.interior': 'Interior',
     'hero.caption': 'Live simulation · cellular automaton',
@@ -1330,7 +1465,25 @@ const T = {
     'nav.algorithm': 'アルゴリズム',
     'nav.system': 'システム',
     'nav.pricing': '価格',
+    'nav.collector': 'コレクター',
     'nav.enquiry': 'お問い合わせ',
+    'col.h2': '作品とともに<br><em>届くもの。</em>',
+    'col.desc': 'Rain Blooms Latticeの各フィジカルエディションには、MoMA・SFMOMA・テートが共同策定したタイムベース・メディアアートの保存標準「Matters in Media Art（MIMA）」プロトコルに準拠したドキュメンテーション・パッケージが付属します。取得・ドキュメンテーション・貸借・長期保存の4段階に対応しています。',
+    'col.note': 'Rain Blooms Latticeはソフトウェアベースの作品です。作品の同一性はハードウェアではなくアルゴリズムに宿ります。付属文書は、作品を定義する本質的特性と、将来の保存・修復において真正性を損なわずに変更可能な範囲を明示します。',
+    'col.i1.title': '作品本体',
+    'col.i1.desc': 'アルミフレーム、LEDマトリクスパネル、組み込みマイコン一式。納品前に全コンポーネントの動作確認済み。パネルサイズは192 mm・384 mm・576 mmの3種。',
+    'col.i2.title': '真正性証明書',
+    'col.i2.desc': '谷本和寛による直筆署名入り。エディション番号（#1〜#5）、パネル寸法、ファームウェアバージョン、Art Blocks Studioトークン参照番号、製作年月日を記載。',
+    'col.i3.title': '作品同一性文書（Identity Document）',
+    'col.i3.desc': 'アーティストが著作した作品の本質的特性を定義する文書。作品の同一性を構成するもの——アルゴリズムとそのパラメータ設定——を明示し、将来の保存において真正性を損なわずに代替・変更可能な要素（ハードウェア、表示技術等）の範囲をMIMAのIdentity Report規約に基づき記述。',
+    'col.i4.title': '展示インストラクション',
+    'col.i4.desc': '完全な設置ガイド：設置方向（水平設置・上面から鑑賞）、電源仕様（DC 5V）、配線、推奨鑑賞環境、取り扱い注意事項を収録。',
+    'col.i5.title': 'ソースコードアーカイブ',
+    'col.i5.desc': 'ファームウェアの完全なソースコードを保存メディアに収録。オリジナルのハードウェアが将来的に陳腐化した際の保存・マイグレーション・再実装のための一次資料として機能。',
+    'col.i6.title': '著作権ライセンス',
+    'col.i6.desc': '展示・貸出・保存目的の複製に関するコレクターの権利を定める。MIMAのタイムベース・メディアアート取得標準に準拠し、ハードウェアの移行・同等仕様部品への交換権を含む。',
+    'col.i7.title': '保存ノート',
+    'col.i7.desc': 'ハードウェアの耐久性、部品交換方針、推奨点検インターバル、テクニカルサポート連絡先に関するガイダンス。LEDパネルおよびマイコンを将来的に同等仕様のコンポーネントへ交換することについてのアーティストの明示的な見解を含む。',
     'nav.viewing': '鑑賞',
     'nav.interior': '内部',
     'hero.caption': 'ライブシミュレーション · セルオートマトン',
