@@ -61,10 +61,15 @@
       <li style="display:grid;grid-template-columns:24px 1fr;gap:10px;padding:9px 0;font-size:13px;line-height:1.6;font-weight:300;"><span style="font-family:var(--mono);font-size:10px;color:var(--muted);padding-top:2px;">4</span><span>Do not use any liquid cleaner, solvent, or compressed air directly on the panel. · パネルに液体クリーナー、溶剤、または圧縮空気を直接使用しないこと。</span></li>
     </ol>
 
-    <h3>2.2 Storage / 保管</h3>
+    <h3>2.2 Cleaning the Aluminum Case / アルミケースの清掃</h3>
+    <ul class="doc-list">
+      <li>If the aluminum case around the panel is touched with bare hands, gently wipe the affected area with a lint-free microfibre cloth lightly moistened with alcohol to prevent skin oils from adhering permanently. · パネル外周のアルミケースを素手で触れた場合は、皮脂が固着しないように、アルコールを軽く染み込ませた毛羽立ちのないマイクロファイバークロスで該当箇所を優しく拭く。</li>
+    </ul>
+
+    <h3>2.3 Storage / 保管</h3>
     <ul class="doc-list">
       <li>Store in a climate-controlled environment: temperature 10–25 °C, relative humidity 40–60%. · 温度10〜25 °C、相対湿度40〜60%の温湿度管理された環境に保管すること。</li>
-      <li>Cover the LED panel with acid-free tissue paper before packing. · 梱包前にLEDパネルを中性紙で覆うこと。</li>
+      <li>Cover the LED panel with air cushion before packing. · 梱包前にLEDパネルをエアクッションで覆うこと。</li>
       <li>Store upright, not stacked. · 立てて保管し、積み重ねないこと。</li>
       <li>Power on and operate the work for at least 1 hour per month during extended storage to prevent component degradation from disuse. · 長期保管中は月に最低1時間は電源を入れて動作させること。</li>
     </ul>
@@ -83,28 +88,20 @@
       </thead>
       <tbody>
         <tr>
-          <td>Power supply · 電源ユニット</td>
-          <td><span style="font-family:var(--mono);font-size:10px;color:var(--muted);">FREE SUBSTITUTION</span><br>Any supply meeting the electrical spec (5 V DC). No consultation required. · 電気仕様（DC 5V）を満たす任意のユニットへの交換可。相談不要。</td>
+          <td>Power supply / 電源ユニット</td>
+          <td><span style="font-family:var(--mono);font-size:10px;color:var(--muted);">FREE SUBSTITUTION</span><br>Any supply meeting the electrical spec (DC 5–5.1 V, 5 A). No consultation required. · 電気仕様（DC 5–5.1V、5A）を満たす任意のユニットへの交換可。相談不要。</td>
         </tr>
         <tr>
-          <td>Power cable · 電源ケーブル</td>
-          <td><span style="font-family:var(--mono);font-size:10px;color:var(--muted);">FREE SUBSTITUTION</span><br>Equivalent rating; confirm DC connector polarity (centre positive). · 同等の定格。DCコネクタの極性を確認すること（センタープラス）。</td>
+          <td>LED panel / LEDパネル</td>
+          <td><span style="font-family:var(--mono);font-size:10px;color:var(--muted);">CONSULT NEORT++ FIRST</span><br>64×64 LED panel only, with equivalent color and brightness. Larger or smaller resolutions are not permitted. Contact NEORT++ before purchase to confirm driver compatibility. · 64×64 LED固定。同等の色・輝度特性を持つものに限る。より大きい、または小さい解像度への変更は認められない。購入前にドライバ互換性を確認すること。</td>
         </tr>
         <tr>
-          <td>LED panel · LEDパネル</td>
-          <td><span style="font-family:var(--mono);font-size:10px;color:var(--muted);">CONSULT NEORT++ FIRST</span><br>Equivalent or superior spec (≥64×64, equivalent color and brightness). Contact NEORT++ before purchase to confirm driver compatibility. · 実施前にNEORT++に相談。購入前にドライバ互換性を確認すること。</td>
-        </tr>
-        <tr>
-          <td>Microcontroller · マイコン</td>
+          <td>Microcontroller / マイコン</td>
           <td><span style="font-family:var(--mono);font-size:10px;color:var(--muted);">CONSULT NEORT++ FIRST · FIRMWARE REFLASH REQUIRED</span><br>Firmware must be reflashed from Document 05 archive. Contact NEORT++ before sourcing to confirm firmware compatibility. · 文書05アーカイブからファームウェアを再書き込み。調達前にNEORT++に相談。</td>
         </tr>
         <tr>
-          <td>Frame · フレーム</td>
+          <td>Frame / フレーム</td>
           <td><span style="font-family:var(--mono);font-size:10px;color:var(--muted);">REPAIR ACCEPTABLE · FULL REPLACEMENT: CONSULT ARTIST</span><br>Minor damage may be repaired or refinished. Full replacement requires artist consultation to maintain structural proportions. · 軽微な損傷は修理・再仕上げ可。完全交換にはアーティストへの相談が必要。</td>
-        </tr>
-        <tr>
-          <td>Audio device · 音声出力</td>
-          <td><span style="font-family:var(--mono);font-size:10px;color:var(--muted);">FREE SUBSTITUTION</span><br>Equivalent-quality speaker; tonal quality may vary within reasonable range. · 同等品質のスピーカーへの交換可。</td>
         </tr>
       </tbody>
     </table>
@@ -112,6 +109,66 @@
 
   <div class="doc-section">
     <div class="doc-section-num">04</div>
+    <h2>Hardware Specifications and Firmware Installation / ハードウェア仕様とプログラム書き込み</h2>
+    <p class="doc-body" style="font-size:12px;color:var(--muted);margin-bottom:16px;">The following specifications are provided for conservation reference. The work-defining resolution remains fixed at 64×64 pixels; substitutions must follow the policy in Section 03. · 以下の仕様は保存管理のための参照情報である。作品を定義する解像度は64×64ピクセル固定であり、交換時はセクション03の方針に従うこと。</p>
+
+    <h3>4.1 LED Panel Specification / LEDパネル仕様</h3>
+    <table class="doc-table">
+      <thead><tr><th>Item / 項目</th><th>Specification / 仕様</th></tr></thead>
+      <tbody>
+        <tr><td>Product type / 製品種別</td><td>P3 indoor RGB LED module / P3屋内用RGB LEDモジュール</td></tr>
+        <tr><td>LED package / LEDパッケージ</td><td>SMD2121, 1R1G1B</td></tr>
+        <tr><td>Pixel pitch / ピクセルピッチ</td><td>3 mm</td></tr>
+        <tr><td>Resolution / 解像度</td><td>64×64 pixels, 4096 dots / 64×64ピクセル、4096ドット</td></tr>
+        <tr><td>Module size / モジュール寸法</td><td>192×192 mm</td></tr>
+        <tr><td>Interface / インターフェース</td><td>HUB75</td></tr>
+        <tr><td>Brightness / 輝度</td><td>&gt;700 cd/m²</td></tr>
+        <tr><td>Viewing angle / 視野角</td><td>120° horizontal, 120° vertical / 水平120°、垂直120°</td></tr>
+        <tr><td>Color depth / 色深度</td><td>16 bit</td></tr>
+        <tr><td>Frame frequency / フレーム周波数</td><td>&gt;60 Hz</td></tr>
+        <tr><td>Panel voltage / パネル電圧</td><td>5 V DC</td></tr>
+        <tr><td>Power / 消費電力</td><td>Max. 14 W per panel; average 5.6 W / 最大14 W、平均5.6 W</td></tr>
+        <tr><td>Module weight / モジュール重量</td><td>0.3 kg</td></tr>
+        <tr><td>Operating temperature / 動作温度</td><td>-10 to 65 °C</td></tr>
+        <tr><td>Humidity / 湿度</td><td>10% to 95%</td></tr>
+      </tbody>
+    </table>
+
+    <h3>4.2 Microcontroller Specification / マイコン仕様</h3>
+    <table class="doc-table">
+      <thead><tr><th>Item / 項目</th><th>Specification / 仕様</th></tr></thead>
+      <tbody>
+        <tr><td>Board / ボード</td><td>Adafruit MatrixPortal S3</td></tr>
+        <tr><td>Processor / プロセッサ</td><td>Espressif ESP32-S3</td></tr>
+        <tr><td>Memory / メモリ</td><td>8 MB Flash, 2 MB RAM</td></tr>
+        <tr><td>Display interface / 表示インターフェース</td><td>HUB75 RGB matrix connector / HUB75 RGBマトリクスコネクタ</td></tr>
+        <tr><td>Programming interface / 書き込みインターフェース</td><td>USB Type-C data connection / USB Type-Cデータ接続</td></tr>
+        <tr><td>Development environment / 開発環境</td><td>Arduino IDE with ESP32 board support / ESP32ボードサポートを追加したArduino IDE</td></tr>
+        <tr><td>Required libraries / 必要ライブラリ</td><td>Adafruit Protomatter, Adafruit GFX Library</td></tr>
+        <tr><td>Firmware source / ファームウェア</td><td>Document 05 Source Code Archive / 文書05 ソースコードアーカイブ</td></tr>
+      </tbody>
+    </table>
+
+    <h3>4.3 Firmware Installation Procedure / プログラム書き込み方法</h3>
+    <p class="doc-body" style="font-size:12px;color:var(--muted);margin-bottom:12px;">Use this procedure only for conservation, restoration, or authorized microcontroller replacement. Do not modify the firmware logic or edition-specific parameters. · この手順は、保存・修復、または承認されたマイコン交換時のみ使用すること。ファームウェアのロジックやエディション固有パラメータは改変しないこと。</p>
+    <ol style="margin-top:8px;padding-left:0;list-style:none;display:flex;flex-direction:column;">
+      <li style="display:grid;grid-template-columns:24px 1fr;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px;line-height:1.6;font-weight:300;"><span style="font-family:var(--mono);font-size:10px;color:var(--muted);padding-top:2px;">1</span><span>Install the latest Arduino IDE on the maintenance computer. · メンテナンス用PCに最新のArduino IDEをインストールする。</span></li>
+      <li style="display:grid;grid-template-columns:24px 1fr;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px;line-height:1.6;font-weight:300;"><span style="font-family:var(--mono);font-size:10px;color:var(--muted);padding-top:2px;">2</span><span>In Arduino IDE, install the ESP32 board support package through Boards Manager. · Arduino IDEのBoards ManagerからESP32ボードサポートをインストールする。</span></li>
+      <li style="display:grid;grid-template-columns:24px 1fr;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px;line-height:1.6;font-weight:300;"><span style="font-family:var(--mono);font-size:10px;color:var(--muted);padding-top:2px;">3</span><span>In Library Manager, install <code style="font-family:var(--mono);font-size:11px;">Adafruit Protomatter</code> and <code style="font-family:var(--mono);font-size:11px;">Adafruit GFX Library</code>. · Library Managerから<code style="font-family:var(--mono);font-size:11px;">Adafruit Protomatter</code>と<code style="font-family:var(--mono);font-size:11px;">Adafruit GFX Library</code>をインストールする。</span></li>
+      <li style="display:grid;grid-template-columns:24px 1fr;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px;line-height:1.6;font-weight:300;"><span style="font-family:var(--mono);font-size:10px;color:var(--muted);padding-top:2px;">4</span><span>Connect the MatrixPortal S3 to the computer with a USB data cable. Do not use a charge-only cable. · MatrixPortal S3をUSBデータケーブルでPCに接続する。充電専用ケーブルは使用しない。</span></li>
+      <li style="display:grid;grid-template-columns:24px 1fr;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px;line-height:1.6;font-weight:300;"><span style="font-family:var(--mono);font-size:10px;color:var(--muted);padding-top:2px;">5</span><span>In <code style="font-family:var(--mono);font-size:11px;">Tools → Board</code>, select <code style="font-family:var(--mono);font-size:11px;">Adafruit MatrixPortal ESP32-S3</code>. · <code style="font-family:var(--mono);font-size:11px;">Tools → Board</code>で<code style="font-family:var(--mono);font-size:11px;">Adafruit MatrixPortal ESP32-S3</code>を選択する。</span></li>
+      <li style="display:grid;grid-template-columns:24px 1fr;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px;line-height:1.6;font-weight:300;"><span style="font-family:var(--mono);font-size:10px;color:var(--muted);padding-top:2px;">6</span><span>In <code style="font-family:var(--mono);font-size:11px;">Tools → Port</code>, select the COM port that appears when the board is connected. · <code style="font-family:var(--mono);font-size:11px;">Tools → Port</code>で、ボード接続時に表示されるCOMポートを選択する。</span></li>
+      <li style="display:grid;grid-template-columns:24px 1fr;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px;line-height:1.6;font-weight:300;"><span style="font-family:var(--mono);font-size:10px;color:var(--muted);padding-top:2px;">7</span><span>Set <code style="font-family:var(--mono);font-size:11px;">Upload Mode</code> to <code style="font-family:var(--mono);font-size:11px;">UART0 / Hardware CDC</code> when this option is available. Keep <code style="font-family:var(--mono);font-size:11px;">USB CDC On Boot</code> at the board guide default unless troubleshooting requires a change. · 設定項目がある場合、<code style="font-family:var(--mono);font-size:11px;">Upload Mode</code>は<code style="font-family:var(--mono);font-size:11px;">UART0 / Hardware CDC</code>にする。<code style="font-family:var(--mono);font-size:11px;">USB CDC On Boot</code>は、トラブルシュートが必要な場合を除き、ボードガイドの既定値のままとする。</span></li>
+      <li style="display:grid;grid-template-columns:24px 1fr;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px;line-height:1.6;font-weight:300;"><span style="font-family:var(--mono);font-size:10px;color:var(--muted);padding-top:2px;">8</span><span>Open the archived <code style="font-family:var(--mono);font-size:11px;">.ino</code> firmware for the relevant edition from Document 05 and click <code style="font-family:var(--mono);font-size:11px;">Upload</code>. · 文書05のアーカイブから該当エディションの<code style="font-family:var(--mono);font-size:11px;">.ino</code>ファームウェアを開き、<code style="font-family:var(--mono);font-size:11px;">Upload</code>を実行する。</span></li>
+      <li style="display:grid;grid-template-columns:24px 1fr;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px;line-height:1.6;font-weight:300;"><span style="font-family:var(--mono);font-size:10px;color:var(--muted);padding-top:2px;">9</span><span>After upload completes, press the reset button on the MatrixPortal S3 if the program does not start automatically. · 書き込み完了後にプログラムが自動起動しない場合は、MatrixPortal S3のリセットボタンを押す。</span></li>
+      <li style="display:grid;grid-template-columns:24px 1fr;gap:10px;padding:9px 0;font-size:13px;line-height:1.6;font-weight:300;"><span style="font-family:var(--mono);font-size:10px;color:var(--muted);padding-top:2px;">10</span><span>Verify that the LED panel initializes, displays a 64×64 image, and begins the intended continuous computation. · LEDパネルが初期化され、64×64の映像が表示され、意図された継続計算が開始されることを確認する。</span></li>
+    </ol>
+    <p class="doc-body" style="margin-top:16px;font-size:12.5px;">If upload fails, first confirm that the correct board and port are selected, then try a different USB data cable, a different USB port, or a USB hub. If needed, hold <code style="font-family:var(--mono);font-size:11px;">BOOT</code>, press <code style="font-family:var(--mono);font-size:11px;">Reset</code>, release <code style="font-family:var(--mono);font-size:11px;">BOOT</code>, and retry the upload.</p>
+    <p class="doc-body ja" style="font-size:12px;">書き込みに失敗した場合は、まず正しいボードとポートが選択されていることを確認する。そのうえで、別のUSBデータケーブル、別のUSBポート、またはUSBハブを試す。必要に応じて、<code style="font-family:var(--mono);font-size:11px;">BOOT</code>を押したまま<code style="font-family:var(--mono);font-size:11px;">Reset</code>を押し、<code style="font-family:var(--mono);font-size:11px;">BOOT</code>を離してから再度書き込みを行う。</p>
+  </div>
+
+  <div class="doc-section">
+    <div class="doc-section-num">05</div>
     <h2>Environmental Conditions / 環境条件</h2>
     <table class="doc-table">
       <thead>
@@ -126,7 +183,7 @@
   </div>
 
   <div class="doc-section">
-    <div class="doc-section-num">05</div>
+    <div class="doc-section-num">06</div>
     <h2>Known Limitations and Wear / 既知の限界と消耗</h2>
     <ul class="doc-list">
       <li><strong style="font-weight:500;">LED brightness degradation</strong> — LEDs gradually dim over their service life. Up to 30% reduction from initial output is within normal operation. Beyond 50% reduction, panel replacement should be considered.<br><span style="font-size:12px;color:var(--muted);">LEDの輝度低下 — 初期出力から30%までの低下は通常動作範囲内。50%を超える場合はパネル交換を検討。</span></li>
@@ -136,7 +193,7 @@
   </div>
 
   <div class="doc-section">
-    <div class="doc-section-num">06</div>
+    <div class="doc-section-num">07</div>
     <h2>Iteration Record / イテレーション記録</h2>
     <p class="doc-body" style="font-size:12px;color:var(--muted);margin-bottom:12px;">All component substitutions should be documented here. · すべての部品交換は以下に記録すること。</p>
     <table class="doc-table">
@@ -157,7 +214,7 @@
   </div>
 
   <div class="doc-section">
-    <div class="doc-section-num">07</div>
+    <div class="doc-section-num">08</div>
     <h2>Support Contact / サポート連絡先</h2>
     <p class="doc-body">For technical support, conservation consultation, or component sourcing assistance, please include the edition number, a description of the issue, and photographs where relevant.</p>
     <p class="doc-body ja">技術サポート、保存に関する相談、部品調達支援については、エディション番号、問題の説明、および写真（関連する場合）を含めてご連絡ください。</p>
