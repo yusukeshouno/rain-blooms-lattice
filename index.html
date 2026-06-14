@@ -174,7 +174,7 @@
     }
     .algo-work {
       flex-shrink: 0;
-      width: calc(100vw / 3.5);
+      width: calc(100vw / 2.5);
       background: var(--dark);
       position: relative;
       border-right: 1px solid rgba(255,255,255,0.04);
@@ -209,11 +209,18 @@
       margin-bottom: 12px;
     }
     .algo-work-num {
-      font-family: var(--serif);
-      font-size: 22px;
-      font-weight: 300;
-      font-style: italic;
-      color: rgba(255,255,255,0.85);
+      font-family: var(--sans);
+      font-size: 32px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: -0.01em;
+    }
+    .algo-work-price {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
     }
     .algo-work-label {
       font-family: var(--mono);
@@ -975,6 +982,7 @@
             <span class="algo-work-num">#1</span>
             <span class="algo-work-label" data-i18n="algo.size.sm">192 mm</span>
           </div>
+          <div class="algo-work-price">¥220,000</div>
           <p class="algo-work-desc" data-i18n="algo.desc.1">Single origin. Ten seed cells carry one base hue; 4 random-offset neighbors determine spread. The dominant tone grows outward slowly, displacing weaker cells across a near-dark field.</p>
         </div>
       </div>
@@ -986,6 +994,7 @@
             <span class="algo-work-num">#2</span>
             <span class="algo-work-label" data-i18n="algo.size.md">384 mm</span>
           </div>
+          <div class="algo-work-price">¥330,000</div>
           <p class="algo-work-desc" data-i18n="algo.desc.2">Two-species oscillation. Two palette hues seed 100 points; 16 neighbors selected by hue-dependent direction. Competing color currents circulate across the grid, each following the other's phase.</p>
         </div>
       </div>
@@ -997,6 +1006,7 @@
             <span class="algo-work-num">#3</span>
             <span class="algo-work-label" data-i18n="algo.size.md">384 mm</span>
           </div>
+          <div class="algo-work-price">¥330,000</div>
           <p class="algo-work-desc" data-i18n="algo.desc.3">Multi-species fragmentation. Three to six palette groups seeded in rectangular patches. Strict hue threshold (D &gt; 0.3) limits interaction — only sufficiently distant colors compete, forming sharp territorial boundaries.</p>
         </div>
       </div>
@@ -1008,6 +1018,7 @@
             <span class="algo-work-num">#4</span>
             <span class="algo-work-label" data-i18n="algo.size.lg">576 mm</span>
           </div>
+          <div class="algo-work-price">¥440,000</div>
           <p class="algo-work-desc" data-i18n="algo.desc.4">Time-modulated conflict. A sinusoidal energy function P varies each frame — the outcome of every encounter shifts with an internal phase accumulator, running at 7 fps. The same configuration produces different winners at different moments.</p>
         </div>
       </div>
@@ -1019,6 +1030,7 @@
             <span class="algo-work-num">#5</span>
             <span class="algo-work-label" data-i18n="algo.size.lg">576 mm</span>
           </div>
+          <div class="algo-work-price">¥440,000</div>
           <p class="algo-work-desc" data-i18n="algo.desc.5">Color assimilation. 32 neighbors, dual phase accumulators, proximity-sensitive blending — similar saturation and brightness merge gradually via lerp; hue-distant cells compete. Boundaries dissolve into layered gradients over time.</p>
         </div>
       </div>
